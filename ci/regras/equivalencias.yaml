@@ -1,0 +1,47 @@
+# ci/regras/equivalencia.yaml
+versao: "1.0"
+data: "2026-09-05"
+cvss_versao: "3.1"
+limiar_cvss: 7.0
+
+sca:
+  ferramenta: trivy
+  criterio: literal
+  regra: "score_cvss_v31 >= 7.0"
+  precedencia_fonte: [nvd, ghsa, redhat]
+  fallback_rotulo:          # usado apenas se nenhuma fonte fornecer V3Score
+    CRITICAL: 9.0
+    HIGH:     7.0
+    MEDIUM:   4.0
+    LOW:      0.1
+    UNKNOWN:  0.0
+
+sast:
+  ferramenta: semgrep
+  criterio: equivalencia
+  regra: "severity == 'ERROR' AND confidence in ['HIGH', 'MEDIUM']"
+  campos:
+    severity:   "extra.severity"
+    confidence: "extra.metadata.confidence"
+  confidence_ausente: tratar_como_MEDIUM   # decisão documentada
+  justificativa: >
+    ERROR e a categoria mais alta do Semgrep e indica violacao de seguranca
+    com impacto direto. A exigencia de confianca nao-baixa evita equiparar
+    a CVSS >= 7.0 achados que a propria ferramenta sinaliza como incertos.
+
+dast:
+  ferramenta: owasp_zap
+  criterio: equivalencia
+  regra: "riskcode == 3 AND confidence >= 2"
+  escalas:
+    riskcode:   {0: Informational, 1: Low, 2: Medium, 3: High}
+    confidence: {0: Falso Positivo, 1: Baixa, 2: Media, 3: Alta, 4: Confirmada}
+  justificativa: >
+    riskcode 3 (High) e a maior severidade emitida pelo ZAP.
+    confidence >= 2 (Media ou superior) exclui achados de baixa confianca,
+    que sao a principal fonte de falso positivo em varredura ativa.
+
+escopo_do_gate:
+  sca_only:  [sca]                 # fiel a Figura 5 do TCC 1
+  all_tools: [sast, sca, dast]     # variante ampliada
+  padrao: sca_only

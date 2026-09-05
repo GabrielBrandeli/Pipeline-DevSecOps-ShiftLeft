@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Coleta as versoes do ambiente local para preenchimento do AMBIENTE.md
+echo "coletado_em: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+echo "host_kernel: $(uname -srm)"
+echo "distro: $(lsb_release -ds 2>/dev/null)"
+echo "git: $(git --version | awk '{print $3}')"
+echo "node: $(node -v)"
+echo "npm: $(npm -v)"
+echo "docker: $(docker --version | awk '{print $3}' | tr -d ,)"
+echo "python: $(python3 --version | awk '{print $2}')"
+echo "gh: $(gh --version | head -1 | awk '{print $3}')"
+echo "semgrep: $(semgrep --version)"
+echo "trivy: $(trivy --version | head -1 | awk '{print $2}')"
+echo "jq: $(jq --version)"
+echo "--- submodulos ---"
+git submodule status
+echo "--- datas dos releases ---"
+echo "juice-shop:  $(git -C alvos/juice-shop  log -1 --format=%cI)"
+echo "uptime-kuma: $(git -C alvos/uptime-kuma log -1 --format=%cI)"
+echo "--- digest da imagem do ZAP ---"
+docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/zaproxy/zaproxy:stable 2>/dev/null || echo "imagem do ZAP ainda nao baixada"

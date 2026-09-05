@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+
+# Artefatos temporarios locais
+*.tar
+*.log
+tmp/
+
+# NAO ignorar dados: eles sao parte do resultado do TCC
+!dados/**
