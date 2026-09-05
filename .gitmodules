@@ -1,0 +1,6 @@
+[submodule "alvos/juice-shop"]
+	path = alvos/juice-shop
+	url = https://github.com/juice-shop/juice-shop.git
+[submodule "alvos/uptime-kuma"]
+	path = alvos/uptime-kuma
+	url = https://github.com/louislam/uptime-kuma.git
