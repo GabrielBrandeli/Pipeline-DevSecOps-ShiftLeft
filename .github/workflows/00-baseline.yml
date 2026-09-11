@@ -1,0 +1,79 @@
+name: 00-baseline
+
+on:
+  workflow_dispatch:
+    inputs:
+      rodada:
+        description: 'Identificador da rodada (ex.: E1-01)'
+        required: true
+
+jobs:
+  build-deploy:
+    name: Baseline (${{ matrix.perfil }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout (com submodulos)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          submodules: recursive
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          {
+            echo "ALVO_ID=$ALVO_ID"
+            echo "ALVO_NOME=$ALVO_NOME"
+            echo "ALVO_CAMINHO=$ALVO_CAMINHO"
+            echo "ALVO_PORTA=$ALVO_PORTA"
+            echo "ALVO_HEALTH=$ALVO_HEALTH"
+            echo "ALVO_IMAGEM=$ALVO_IMAGEM"
+            echo "ALVO_DOCKERFILE=$ALVO_DOCKERFILE"
+            echo "ALVO_CONTEXTO=$ALVO_CONTEXTO"
+            echo "ALVO_BUILD_TARGET=$ALVO_BUILD_TARGET"
+            echo "ALVO_PREBUILD=$ALVO_PREBUILD"
+          } >> "$GITHUB_ENV"
+
+      - name: Instalar Node.js (quando exigido pelo alvo)
+        if: env.ALVO_PREBUILD != ''
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      - name: Pre-build da aplicacao (quando exigido pelo alvo)
+        if: env.ALVO_PREBUILD != ''
+        run: |
+          cd "$ALVO_CAMINHO"
+          eval "$ALVO_PREBUILD"
+
+      - name: Build da imagem Docker
+        run: |
+          args=(-t "$ALVO_IMAGEM:${{ github.sha }}" -f "$ALVO_DOCKERFILE")
+          if [ -n "$ALVO_BUILD_TARGET" ]; then
+            args+=(--target "$ALVO_BUILD_TARGET")
+          fi
+          args+=("$ALVO_CONTEXTO")
+          docker build "${args[@]}"
+
+      - name: Staging (subir aplicacao e aguardar health check)
+        run: |
+          docker run -d --name alvo -p "${ALVO_PORTA}:${ALVO_PORTA}" "$ALVO_IMAGEM:${{ github.sha }}"
+          for i in $(seq 1 60); do
+            if curl -sf "http://localhost:${ALVO_PORTA}${ALVO_HEALTH}" >/dev/null; then
+              echo "Aplicacao respondeu na tentativa $i"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Aplicacao nao respondeu apos 120s"
+          docker logs alvo
+          exit 1
+
+      - name: Encerrar container
+        if: always()
+        run: docker rm -f alvo || true

@@ -121,11 +121,16 @@ de cadeia de suprimentos em marco de 2026.
 
 | Action | Versao | SHA de commit |
 |---|---|---|
-| actions/checkout | | |
-| actions/upload-artifact | | |
-| actions/download-artifact | | |
-| aquasecurity/setup-trivy | | |
-| zaproxy/action-full-scan | | |
+| actions/checkout | v4.2.2 | `11bd71901bbe5b1630ceea73d27597364c9af683` |
+| actions/setup-node | v7.0.0 | `820762786026740c76f36085b0efc47a31fe5020` |
+| actions/upload-artifact | v7.0.1 | `043fb46d1a93c77aae656e7c1c64a875d1fc6a0a` |
+| actions/download-artifact | v8.0.1 | `3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c` |
+| aquasecurity/setup-trivy | v0.3.1 | `81e514348e19b6112ce2a7e3ecbafe19c1e1f567` |
+| zaproxy/action-full-scan | v0.13.0 | `3c58388149901b9a03b7718852c5ba889646c27c` |
+
+SHAs resolvidos via `gh api repos/<org>/<repo>/git/refs/tags/<tag>` em 11/09/2026.
+`actions/checkout` e `actions/setup-node` ja em uso no `00-baseline.yml`; os
+demais serao usados a partir do `01-devsecops.yml` (S3/S4).
 
 ## 6. Configuracao das ferramentas de seguranca   [preencher em S3/S4]
 
