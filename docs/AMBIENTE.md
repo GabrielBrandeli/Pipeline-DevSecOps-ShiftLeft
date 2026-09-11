@@ -121,7 +121,7 @@ de cadeia de suprimentos em marco de 2026.
 
 | Action | Versao | SHA de commit |
 |---|---|---|
-| actions/checkout | v4.2.2 | `11bd71901bbe5b1630ceea73d27597364c9af683` |
+| actions/checkout | v7.0.1 | `3d3c42e5aac5ba805825da76410c181273ba90b1` |
 | actions/setup-node | v7.0.0 | `820762786026740c76f36085b0efc47a31fe5020` |
 | actions/upload-artifact | v7.0.1 | `043fb46d1a93c77aae656e7c1c64a875d1fc6a0a` |
 | actions/download-artifact | v8.0.1 | `3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c` |
