@@ -157,10 +157,17 @@ Semgrep como variavel de controle entre execucao local e CI.
   O experimento exige varredura completa e deterministica em todas as execucoes.
 
 ### Trivy (SCA e IaC)
-- Versao no CI:
-- Data da base de vulnerabilidades:
-- Cache habilitado:
-- Varreduras: `fs` (vuln, secret), `image` (vuln), `config`
+- Versao no CI: v0.71.2, via `aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567`
+  (mesma versao do teste de fumaca local)
+- Data da base de vulnerabilidades: nao fixada, atualizada a cada execucao
+  (`mirror.gcr.io/aquasec/trivy-db:2`). Cada rodada registra seu proprio
+  `CreatedAt` no JSON de saida, usado como timestamp de referencia da base.
+- Cache habilitado: sim (`cache: true` no `setup-trivy`), via `actions/cache`.
+  Cacheia o binario do Trivy entre execucoes; a base de vulnerabilidades e
+  sempre baixada do registro OCI a cada execucao. Validado em 14/09/2026: a
+  primeira execucao registrou `Cache not found`, confirmando o comportamento
+  de aquecimento na primeira rodada de cada configuracao (D5).
+- Varreduras: `fs` (somente `secret`, D9), `image` (`vuln`), `config`
 - `--exit-code 0` em todas: a decisao de bloqueio e delegada ao
   `ci/quality_gate.py`, porque a flag `--severity` filtra pelo rotulo de
   severidade e nao pela pontuacao numerica CVSS exigida pelo criterio.

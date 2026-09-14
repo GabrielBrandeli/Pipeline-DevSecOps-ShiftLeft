@@ -1,0 +1,616 @@
+{
+  "modo": "audit",
+  "escopo": "all_tools",
+  "limiar_cvss": 7.0,
+  "decisao": "bloqueado",
+  "quantidade_disparadores": 66,
+  "disparadores": [
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2018-20796",
+      "local": "libc6@2.41-12+deb13u4",
+      "severidade_nativa": "LOW",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2019-1010022",
+      "local": "libc6@2.41-12+deb13u4",
+      "severidade_nativa": "LOW",
+      "score_cvss_v31": 9.8,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2019-1010023",
+      "local": "libc6@2.41-12+deb13u4",
+      "severidade_nativa": "LOW",
+      "score_cvss_v31": 8.8,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2019-9192",
+      "local": "libc6@2.41-12+deb13u4",
+      "severidade_nativa": "LOW",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "NSWG-ECO-428",
+      "local": "base64url@0.0.6",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.0,
+      "fonte_score": "fallback_rotulo",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2023-46233",
+      "local": "crypto-js@3.3.0",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-71851",
+      "local": "crypto-js@3.3.0",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.1,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-45822",
+      "local": "decode-uri-component@0.2.2",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "redhat",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-53486",
+      "local": "decompress@4.2.1",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.1,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-59725",
+      "local": "engine.io@4.1.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2020-15084",
+      "local": "express-jwt@0.1.3",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 9.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-25881",
+      "local": "http-cache-semantics@3.8.1",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2015-9235",
+      "local": "jsonwebtoken@0.1.0",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.8,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-23539",
+      "local": "jsonwebtoken@0.1.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 8.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "NSWG-ECO-17",
+      "local": "jsonwebtoken@0.1.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.0,
+      "fonte_score": "fallback_rotulo",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-23540",
+      "local": "jsonwebtoken@0.1.0",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.6,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2015-9235",
+      "local": "jsonwebtoken@0.4.0",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.8,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-23539",
+      "local": "jsonwebtoken@0.4.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 8.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "NSWG-ECO-17",
+      "local": "jsonwebtoken@0.4.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.0,
+      "fonte_score": "fallback_rotulo",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-23540",
+      "local": "jsonwebtoken@0.4.0",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.6,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2016-1000223",
+      "local": "jws@0.2.6",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 8.7,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2025-65945",
+      "local": "jws@0.2.6",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2019-10744",
+      "local": "lodash@2.4.2",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2021-23337",
+      "local": "lodash@2.4.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.2,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "GHSA-5mrr-rgp6-x4gr",
+      "local": "marsdb@0.6.11",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 9.0,
+      "fonte_score": "fallback_rotulo",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-26996",
+      "local": "minimatch@3.0.5",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-27903",
+      "local": "minimatch@3.0.5",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-27904",
+      "local": "minimatch@3.0.5",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2017-18214",
+      "local": "moment@2.0.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-24785",
+      "local": "moment@2.0.0",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2025-47935",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2025-47944",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2025-7338",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-2359",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-3304",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-3520",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-5079",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-77078",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-82333",
+      "local": "multer@1.4.5-lts.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2022-25887",
+      "local": "sanitize-html@1.4.2",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2024-38355",
+      "local": "socket.io@3.1.2",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.3,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-33151",
+      "local": "socket.io-parser@4.0.5",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-69185",
+      "local": "socket.io-parser@4.0.5",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2023-32695",
+      "local": "socket.io-parser@4.0.5",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-59873",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "CRITICAL",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-24842",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 8.2,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-26960",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.1,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-59874",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-73566",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-59871",
+      "local": "tar@6.2.1",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-41907",
+      "local": "uuid@8.3.2",
+      "severidade_nativa": "MEDIUM",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "nvd",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2024-37890",
+      "local": "ws@7.4.6",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "trivy",
+      "id": "CVE-2026-48779",
+      "local": "ws@7.4.6",
+      "severidade_nativa": "HIGH",
+      "score_cvss_v31": 7.5,
+      "fonte_score": "ghsa",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.gha-curl-pipe-shell.gha-curl-pipe-shell",
+      "local": "alvos/juice-shop/.github/workflows/ci.yml:359",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+      "local": "alvos/juice-shop/.github/workflows/update-challenges-ebook.yml:22",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+      "local": "alvos/juice-shop/.github/workflows/update-challenges-www-legacy.yml:27",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+      "local": "alvos/juice-shop/.github/workflows/update-challenges-www-legacy.yml:36",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+      "local": "alvos/juice-shop/.github/workflows/update-challenges-www.yml:27",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+      "local": "alvos/juice-shop/.github/workflows/update-challenges-www.yml:36",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/data/static/codefixes/dbSchemaChallenge_1.ts:5",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/data/static/codefixes/dbSchemaChallenge_3.ts:11",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/data/static/codefixes/unionSqlInjectionChallenge_1.ts:6",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/data/static/codefixes/unionSqlInjectionChallenge_3.ts:10",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/routes/login.ts:34",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+      "local": "alvos/juice-shop/routes/search.ts:23",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    },
+    {
+      "ferramenta": "semgrep",
+      "id": "javascript.lang.security.audit.code-string-concat.code-string-concat",
+      "local": "alvos/juice-shop/routes/userProfile.ts:65",
+      "severidade_nativa": "ERROR",
+      "confidence": "HIGH",
+      "dispara_gate": true
+    }
+  ],
+  "sca_fallback_count": 9,
+  "sca_severidade_nativa": {
+    "MEDIUM": 40,
+    "LOW": 12,
+    "HIGH": 40,
+    "CRITICAL": 8
+  },
+  "por_ferramenta": {
+    "trivy": {
+      "total": 100,
+      "disparadores": 53
+    },
+    "semgrep": {
+      "total": 48,
+      "disparadores": 13
+    },
+    "zap": {
+      "total": 0,
+      "disparadores": 0
+    }
+  },
+  "trivy_config_misconfiguracoes": 2,
+  "trivy_fs_secrets": 5,
+  "avisos": [
+    "dast: zap.json nao encontrado, estagio ainda nao implementado nesta sprint (S4)"
+  ]
+}
