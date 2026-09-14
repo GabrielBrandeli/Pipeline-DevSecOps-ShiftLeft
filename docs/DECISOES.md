@@ -3,7 +3,7 @@
 Registro das decisoes que definem o desenho experimental. Cada uma foi fechada
 com o orientador e tem contrapartida no Capitulo 3 do TCC.
 
-Data de fechamento de D1 a D8: 04/09/2026.
+Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026.
 
 ---
 
@@ -19,6 +19,9 @@ Data de fechamento de D1 a D8: 04/09/2026.
 | D6 | Unidade de contagem de alertas | Tupla especifica por ferramenta, com reporte bruto e deduplicado |
 | D7 | Protocolo de triagem manual | Adotado, com amostragem estratificada e dupla triagem cega no tempo |
 | D8 | Arquitetura de repositorio | Monorepo com submodulos Git |
+| D9 | Fonte de dados do SCA | `trivy image` como fonte unica; `trivy fs` restrito a `--scanners secret` |
+| D10 | Versionamento de dados brutos | CSV para dados processados; JSON bruto comprimido em gzip para evidencia |
+| D11 | Estado inicial do Alvo 2 para o DAST | Fixture de conta admin pre-provisionada; ZAP autenticado no alvo 2, nao autenticado no alvo 1 |
 
 ---
 
@@ -231,3 +234,64 @@ arquivos, que difere entre eles por causa do pre-build do alvo 2.
 **Consequencia.** A comparacao entre `trivy fs` e `trivy image` prevista no
 plano original (vulnerabilidades no repositorio contra vulnerabilidades no
 artefato) e abandonada. Registrada como trabalho futuro no Capitulo 5.
+
+---
+
+## D10. Estrategia de versionamento dos dados brutos
+
+**Motivacao.** O `trivy image` do alvo 2 sozinho produziu 16 MB de JSON em uma
+unica execucao de validacao (14/09/2026). Com as 40 ou mais execucoes
+experimentais previstas para a S5, versionar o achado bruto sem qualquer
+tratamento inflaria o repositorio rapidamente.
+
+**Adotado:** dois formatos, para dois propositos que nao se substituem.
+
+| Dado | Formato | Proposito |
+|---|---|---|
+| Processado (`achados.csv`, `tempos.csv`, `triagem.csv`) | Texto simples, deduplicado por D6 | Insumo das analises estatisticas do Capitulo 4 |
+| Bruto (JSON original de Trivy, Semgrep, ZAP) | Comprimido em `gzip` (`*.json.gz`) | Evidencia auditavel exigida pela checklist de reprodutibilidade (secao 14 do plano de acao); permite reprocessamento caso o esquema de normalizacao mude |
+
+`gate-decision.json` e `jobs.json` permanecem descomprimidos, por serem
+pequenos e servirem como trilha de auditoria diretamente legivel no
+historico do git.
+
+**Justificativa.** CSV e JSON bruto atendem propositos diferentes. Descartar o
+bruto em favor apenas do CSV quebraria o item da checklist de reprodutibilidade
+que exige os dados brutos disponiveis, alem de impedir reprocessamento caso um
+erro seja encontrado depois na normalizacao. Comprimir o bruto preserva a
+integridade da evidencia a um custo de espaco muito menor, pela alta
+redundancia estrutural do JSON.
+
+**Consequencia.** Os scripts de coleta (`baixar_run.sh`) e de normalizacao
+(`normalizar_achados.py`) precisam descomprimir antes de ler.
+
+---
+
+## D11. Estado inicial do Alvo 2 para o DAST
+
+**Problema.** O Uptime Kuma nao possui estado persistente entre execucoes: a
+cada `docker run`, o SQLite e criado vazio e a aplicacao exibe um assistente de
+configuracao inicial (criacao do usuario administrador). Sem intervencao, esse
+seria o unico conteudo que o ZAP encontraria em **todas** as rodadas de DAST do
+alvo 2, o que inviabilizaria a deteccao (risco R3) e tornaria as ~20 execucoes
+de DAST previstas para o alvo 2 indistinguiveis entre si.
+
+**Adotado:** fixture do banco SQLite (`kuma.db`) com um usuario administrador
+pre-provisionado, versionada em `ci/fixtures/uptime-kuma/`, copiada para dentro
+do container antes da subida em toda execucao (baseline e DevSecOps, para nao
+contaminar a medicao de sobrecarga). O ZAP roda **autenticado** no alvo 2,
+com as credenciais fixas da fixture.
+
+**Assimetria declarada com o alvo 1.** O alvo 1 (Juice Shop) mantem a
+varredura **nao autenticada**, conforme a secao 3.4 do plano original: sua
+superficie publica ja e suficiente para a maior parte dos desafios OWASP
+catalogados. A assimetria entre os alvos nao e inconsistencia metodologica: e
+consequencia direta da natureza de cada aplicacao. Uma aplicacao de e-commerce
+vulneravel expõe catalogo, busca e comentarios sem login; um painel de
+monitoramento privado, por definicao, nao expõe nada de util sem autenticacao.
+Isso sera declarado explicitamente no Capitulo 3, com nota de rodape.
+
+**Consequencia.** A criacao da fixture e a configuracao de autenticacao do ZAP
+(`ZAP_AUTH_HEADER` ou script de login) ficam no escopo da S4 (staging + DAST).
+As credenciais fixas (usuario e senha de teste, sem qualquer relacao com
+segredo real) serao registradas em `docs/AMBIENTE.md`.

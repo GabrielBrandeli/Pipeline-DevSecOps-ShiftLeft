@@ -177,11 +177,15 @@ Semgrep como variavel de controle entre execucao local e CI.
 - Digest (sha256): ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
 - Modo: full scan
 - Limites: `-m 5 -T 20`
-- Autenticado:
+- Autenticado: alvo 1 (Juice Shop) nao autenticado; alvo 2 (Uptime Kuma)
+  autenticado, conforme D11. Assimetria deliberada, nao inconsistencia:
+  justificativa completa em `docs/DECISOES.md`.
 - Escrita de issues: desabilitada (`allow_issue_writing: false`)
-- Estado inicial do alvo 2: PREENCHER (o Uptime Kuma exibe tela de configuracao
-  inicial; decidir entre fixture de banco pre-populado ou varredura nao
-  autenticada, e registrar)
+- Estado inicial do alvo 2 (D11): fixture do SQLite (`kuma.db`) com usuario
+  administrador pre-provisionado, versionada em `ci/fixtures/uptime-kuma/` e
+  copiada para o container antes da subida em toda execucao (baseline e
+  DevSecOps). Credenciais fixas de teste, sem relacao com segredo real:
+  PREENCHER em S4, ao implementar o job de staging + DAST.
 
 ## 7. Criterio de Quality Gate
 
