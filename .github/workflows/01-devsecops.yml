@@ -42,7 +42,6 @@ jobs:
             --config p/secrets \
             --json --output "semgrep-${ALVO_ID}.json" \
             --metrics=off \
-            --error=false \
             --timeout 300 \
             --exclude node_modules \
             --exclude dist \
