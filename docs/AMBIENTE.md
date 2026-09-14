@@ -1,6 +1,6 @@
 # Ambiente Experimental
 
-Ultima atualizacao: 2026-09-05
+Ultima atualizacao: 2026-09-14
 
 Este documento registra todos os parametros fixados do experimento. Ele e a
 fonte de dados para o quadro da secao 3.1.3 do TCC e para a checklist de
@@ -111,7 +111,7 @@ Notas relevantes:
 | Visibilidade | Publico (minutos de Actions ilimitados) |
 | Retencao de artefatos | 90 dias |
 | Dependabot / CodeQL | Desabilitados (evitam varreduras paralelas que contaminam o experimento) |
-| Cache de camadas Docker | PREENCHER (decidir em S2; se habilitado, deve valer para os dois alvos e as duas configuracoes) |
+| Cache de camadas Docker | Nao habilitado. Nenhum passo de cache (`actions/cache`, `buildx` com cache remoto) e usado em `00-baseline.yml` nem em `01-devsecops.yml`. Cada execucao parte de um runner efemero sem estado previo, portanto o build e sempre a frio nas duas configuracoes e nos dois alvos, o que preserva a simetria exigida para a medicao de sobrecarga e maximiza a determinismo entre rodadas. Decisao fechada em 14/09/2026. |
 
 ## 5. Actions fixadas por SHA   [preencher em S2/S3]
 
@@ -132,10 +132,18 @@ SHAs resolvidos via `gh api repos/<org>/<repo>/git/refs/tags/<tag>` em 11/09/202
 `actions/checkout` e `actions/setup-node` ja em uso no `00-baseline.yml`; os
 demais serao usados a partir do `01-devsecops.yml` (S3/S4).
 
+| Imagem (nao-Action) | Versao | Digest |
+|---|---|---|
+| semgrep/semgrep | 1.176.1 | `sha256:34ab619bf1391a24bfda3f05debd0d8a6ce3093c2d5f9d39cfc00f83c1397823` |
+
+Digest resolvido localmente via `docker pull` + `docker inspect` em 14/09/2026,
+mesma versao ja registrada na secao 2 (ambiente local), preservando a versao do
+Semgrep como variavel de controle entre execucao local e CI.
+
 ## 6. Configuracao das ferramentas de seguranca   [preencher em S3/S4]
 
 ### Semgrep (SAST)
-- Versao no CI:
+- Versao no CI: 1.176.1, imagem `semgrep/semgrep@sha256:34ab619bf1391a24bfda3f05debd0d8a6ce3093c2d5f9d39cfc00f83c1397823`, mesma versao do teste de fumaca local
 - Conjuntos de regras: `p/owasp-top-ten`, `p/javascript`, `p/security-audit`, `p/secrets`
 - Comando: `semgrep scan \
   --config p/owasp-top-ten --config p/javascript \

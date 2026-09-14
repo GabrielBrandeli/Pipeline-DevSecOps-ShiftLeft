@@ -1,0 +1,54 @@
+name: 01-devsecops
+
+on:
+  workflow_dispatch:
+    inputs:
+      rodada:
+        description: 'Identificador da rodada (ex.: E2-01)'
+        required: true
+
+jobs:
+  sast:
+    name: SAST - Semgrep (${{ matrix.perfil }})
+    runs-on: ubuntu-24.04
+    container:
+      image: semgrep/semgrep@sha256:34ab619bf1391a24bfda3f05debd0d8a6ce3093c2d5f9d39cfc00f83c1397823 # 1.176.1
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout (com submodulos)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          {
+            echo "ALVO_ID=$ALVO_ID"
+            echo "ALVO_CAMINHO=$ALVO_CAMINHO"
+          } >> "$GITHUB_ENV"
+
+      - name: Semgrep scan
+        run: |
+          semgrep scan \
+            --config p/owasp-top-ten \
+            --config p/javascript \
+            --config p/security-audit \
+            --config p/secrets \
+            --json --output "semgrep-${ALVO_ID}.json" \
+            --metrics=off \
+            --error=false \
+            --timeout 300 \
+            --exclude node_modules \
+            --exclude dist \
+            "$ALVO_CAMINHO"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: semgrep-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: semgrep-*.json
