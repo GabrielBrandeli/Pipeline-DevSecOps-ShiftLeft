@@ -6,6 +6,20 @@ on:
       rodada:
         description: 'Identificador da rodada (ex.: E2-01)'
         required: true
+      gate_mode:
+        description: 'Modo do Quality Gate (D4)'
+        type: choice
+        options: [audit, enforce]
+        default: audit
+      gate_scope:
+        description: 'Escopo do Quality Gate (D3)'
+        type: choice
+        options: [sca_only, all_tools]
+        default: sca_only
+
+env:
+  GATE_MODE: ${{ inputs.gate_mode }}
+  GATE_SCOPE: ${{ inputs.gate_scope }}
 
 jobs:
   sast:
@@ -51,3 +65,189 @@ jobs:
         with:
           name: semgrep-${{ matrix.perfil }}-${{ inputs.rodada }}
           path: semgrep-*.json
+
+  build:
+    name: Build (${{ matrix.perfil }})
+    needs: sast
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout (com submodulos)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          {
+            echo "ALVO_ID=$ALVO_ID"
+            echo "ALVO_CAMINHO=$ALVO_CAMINHO"
+            echo "ALVO_IMAGEM=$ALVO_IMAGEM"
+            echo "ALVO_DOCKERFILE=$ALVO_DOCKERFILE"
+            echo "ALVO_CONTEXTO=$ALVO_CONTEXTO"
+            echo "ALVO_BUILD_TARGET=$ALVO_BUILD_TARGET"
+            echo "ALVO_PREBUILD=$ALVO_PREBUILD"
+          } >> "$GITHUB_ENV"
+
+      - name: Instalar Node.js (quando exigido pelo alvo)
+        if: env.ALVO_PREBUILD != ''
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      - name: Pre-build da aplicacao (quando exigido pelo alvo)
+        if: env.ALVO_PREBUILD != ''
+        run: |
+          cd "$ALVO_CAMINHO"
+          eval "$ALVO_PREBUILD"
+
+      - name: Build da imagem Docker
+        run: |
+          args=(-t "$ALVO_IMAGEM:${{ github.sha }}" -f "$ALVO_DOCKERFILE")
+          if [ -n "$ALVO_BUILD_TARGET" ]; then
+            args+=(--target "$ALVO_BUILD_TARGET")
+          fi
+          args+=("$ALVO_CONTEXTO")
+          docker build "${args[@]}"
+          docker save "$ALVO_IMAGEM:${{ github.sha }}" -o imagem.tar
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: imagem-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: imagem.tar
+
+  sca:
+    name: SCA - Trivy (${{ matrix.perfil }})
+    needs: build
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout (com submodulos)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          {
+            echo "ALVO_ID=$ALVO_ID"
+            echo "ALVO_CAMINHO=$ALVO_CAMINHO"
+            echo "ALVO_IMAGEM=$ALVO_IMAGEM"
+            echo "ALVO_TRIVY_CONFIG_ALVO=$ALVO_TRIVY_CONFIG_ALVO"
+            echo "ALVO_TRIVY_CONFIG_PATTERN=$ALVO_TRIVY_CONFIG_PATTERN"
+          } >> "$GITHUB_ENV"
+
+      - name: Baixar imagem construida
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: imagem-${{ matrix.perfil }}-${{ inputs.rodada }}
+
+      - name: Carregar imagem no Docker
+        run: docker load -i imagem.tar
+
+      - name: Instalar Trivy
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
+        with:
+          version: v0.71.2
+          cache: true
+
+      - name: 'Trivy: vulnerabilidades da imagem (D9, fonte unica de SCA)'
+        run: |
+          trivy image \
+            --scanners vuln \
+            --format json --output "trivy-image-${ALVO_ID}.json" \
+            --exit-code 0 \
+            --timeout 15m \
+            "$ALVO_IMAGEM:${{ github.sha }}"
+
+      - name: 'Trivy: segredos no codigo-fonte'
+        run: |
+          trivy fs \
+            --scanners secret \
+            --skip-dirs node_modules,dist \
+            --format json --output "trivy-fs-secret-${ALVO_ID}.json" \
+            --exit-code 0 \
+            "$ALVO_CAMINHO"
+
+      - name: 'Trivy: IaC (Dockerfile)'
+        run: |
+          if [ -n "$ALVO_TRIVY_CONFIG_PATTERN" ]; then
+            trivy config \
+              --file-patterns "$ALVO_TRIVY_CONFIG_PATTERN" \
+              --format json --output "trivy-config-${ALVO_ID}.json" \
+              --exit-code 0 \
+              "$ALVO_CAMINHO"
+          else
+            trivy config \
+              --format json --output "trivy-config-${ALVO_ID}.json" \
+              --exit-code 0 \
+              "$ALVO_TRIVY_CONFIG_ALVO"
+          fi
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: trivy-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: trivy-*.json
+
+  quality-gate:
+    name: Quality Gate (${{ matrix.perfil }})
+    needs: sca
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          echo "ALVO_ID=$ALVO_ID" >> "$GITHUB_ENV"
+
+      - name: Baixar achados de SAST
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: semgrep-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: achados
+
+      - name: Baixar achados de SCA
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: trivy-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: achados
+
+      - name: Instalar dependencias do script
+        run: python3 -m pip install --quiet --break-system-packages pyyaml
+
+      - name: Avaliar Quality Gate
+        run: |
+          python3 ci/quality_gate.py \
+            --modo "$GATE_MODE" \
+            --escopo "$GATE_SCOPE" \
+            --trivy-image "achados/trivy-image-${ALVO_ID}.json" \
+            --trivy-config "achados/trivy-config-${ALVO_ID}.json" \
+            --trivy-fs-secret "achados/trivy-fs-secret-${ALVO_ID}.json" \
+            --semgrep "achados/semgrep-${ALVO_ID}.json" \
+            --saida "gate-decision-${ALVO_ID}.json"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: gate-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: gate-decision-*.json
