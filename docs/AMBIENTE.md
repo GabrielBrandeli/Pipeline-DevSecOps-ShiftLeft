@@ -187,7 +187,9 @@ Semgrep como variavel de controle entre execucao local e CI.
   scan passivo, e nao a varredura ativa, ao contrario do que o plano de acao
   supunha. O teto da varredura ativa e `scanner.maxScanDurationInMins`, sem o
   qual o full scan do Juice Shop nao tem limite de tempo (risco R1). `-a`
-  inclui regras alfa. Spider AJAX (`-j`) nao habilitado.
+  inclui regras alfa. Spider AJAX (`-j`): parametro `zap_ajax` do workflow,
+  padrao desligado; o valor usado em cada rodada fica em
+  `dast-integridade-<alvo>.json`.
 - Arquivo de regras (`rules_file_name`): nao usado; configuracao padrao do ZAP.
 - Autenticado: nao, nos dois alvos (D11 revisado em 23/09/2026; ver
   `docs/DECISOES.md`).
