@@ -1,6 +1,6 @@
 # Ambiente Experimental
 
-Ultima atualizacao: 2026-09-14
+Ultima atualizacao: 2026-09-23
 
 Este documento registra todos os parametros fixados do experimento. Ele e a
 fonte de dados para o quadro da secao 3.1.3 do TCC e para a checklist de
@@ -90,7 +90,11 @@ Notas relevantes:
    `builder-go.dockerfile`) e ha ainda `test/test-radius.dockerfile`. Varrer
    todos inflaria a contagem de IaC e quebraria a comparabilidade com o alvo 1,
    que possui um unico Dockerfile. A varredura e restrita ao dockerfile de
-   producao por `--file-patterns "dockerfile:docker/dockerfile"`.
+   producao, passado diretamente como alvo do `trivy config`. Correcao de
+   23/09/2026: as execucoes de validacao de 14/09 passavam o diretorio do alvo
+   com `--file-patterns`, que acrescenta padroes em vez de restringir, e
+   varreram cinco dockerfiles (10 misconfiguracoes em vez de 2). Esses dados de
+   IaC do alvo 2 nao entram na analise.
 
 5. **Assimetria de imagem base.** O alvo 1 usa imagem distroless, com
    superficie minima de pacotes de sistema operacional; o alvo 2 usa base
@@ -176,16 +180,42 @@ Semgrep como variavel de controle entre execucao local e CI.
 - Imagem: `ghcr.io/zaproxy/zaproxy:stable`
 - Digest (sha256): ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
 - Modo: full scan
-- Limites: `-m 5 -T 20`
-- Autenticado: alvo 1 (Juice Shop) nao autenticado; alvo 2 (Uptime Kuma)
-  autenticado, conforme D11. Assimetria deliberada, nao inconsistencia:
-  justificativa completa em `docs/DECISOES.md`.
+- Acionamento: `zaproxy/action-full-scan@3c58388149901b9a03b7718852c5ba889646c27c` (v0.13.0),
+  com `docker_name` apontando para o digest acima (a imagem tambem fica fixada)
+- Limites: `-m 5 -T 10 -a -z "-config scanner.maxScanDurationInMins=30"`.
+  `-m` limita o spider tradicional (min); `-T` limita apenas a espera pelo
+  scan passivo, e nao a varredura ativa, ao contrario do que o plano de acao
+  supunha. O teto da varredura ativa e `scanner.maxScanDurationInMins`, sem o
+  qual o full scan do Juice Shop nao tem limite de tempo (risco R1). `-a`
+  inclui regras alfa. Spider AJAX (`-j`) nao habilitado.
+- Arquivo de regras (`rules_file_name`): nao usado; configuracao padrao do ZAP.
+- Autenticado: nao, nos dois alvos (D11 revisado em 23/09/2026; ver
+  `docs/DECISOES.md`).
 - Escrita de issues: desabilitada (`allow_issue_writing: false`)
 - Estado inicial do alvo 2 (D11): fixture do SQLite (`kuma.db`) com usuario
   administrador pre-provisionado, versionada em `ci/fixtures/uptime-kuma/` e
   copiada para o container antes da subida em toda execucao (baseline e
   DevSecOps). Credenciais fixas de teste, sem relacao com segredo real:
-  PREENCHER em S4, ao implementar o job de staging + DAST.
+  usuario `tcc-admin`, senha `TccDevSecOps#2026` (tambem em
+  `ci/perfis/alvo2-uptimekuma.env`).
+- Geracao da fixture: `ci/fixtures/uptime-kuma/gerar_fixture.sh <imagem>`,
+  que sobe a imagem do alvo 2 com `UPTIME_KUMA_DB_TYPE=sqlite`, cria o
+  administrador pelo mesmo evento de socket.io (`setup`) que a interface usa
+  e extrai `data/` (`kuma.db` e `db-config.json`). Gerada em 23/09/2026 a
+  partir de `tcc-uptimekuma` construida do submodulo na tag 2.5.3. Validada:
+  container novo com a fixture sobe sem assistente de configuracao, sem o
+  servidor temporario de migracao (banco ja migrado), e o login responde com
+  token.
+- Aplicacao da fixture: `docker create` + `docker cp` + `docker start`, passo
+  de staging com texto identico em `00-baseline.yml` e `01-devsecops.yml`.
+- Superficie autenticada via HTTP (achado de 23/09/2026): o painel do Uptime
+  Kuma trafega por socket.io; o JWT so e usado nesse canal. A unica rota HTTP
+  que exige autenticacao e `/metrics` (Basic Auth). A autenticacao por header
+  foi testada e descartada (D11 revisado).
+- Conteudo da fixture (desde 23/09/2026): administrador, monitor push
+  `servico-exemplo` (token `tccPushToken2026E7x`), status page publica
+  `servicos` e pagina inicial `statusPage-servicos` (`/` redireciona para
+  `/status/servicos`). Gerada por `gerar_fixture.sh` + `popular.js`.
 
 ## 7. Criterio de Quality Gate
 

@@ -4,6 +4,7 @@ Registro das decisoes que definem o desenho experimental. Cada uma foi fechada
 com o orientador e tem contrapartida no Capitulo 3 do TCC.
 
 Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026.
+Revisao de D11: 23/09/2026.
 
 ---
 
@@ -21,7 +22,7 @@ Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026
 | D8 | Arquitetura de repositorio | Monorepo com submodulos Git |
 | D9 | Fonte de dados do SCA | `trivy image` como fonte unica; `trivy fs` restrito a `--scanners secret` |
 | D10 | Versionamento de dados brutos | CSV para dados processados; JSON bruto comprimido em gzip para evidencia |
-| D11 | Estado inicial do Alvo 2 para o DAST | Fixture de conta admin pre-provisionada; ZAP autenticado no alvo 2, nao autenticado no alvo 1 |
+| D11 | Estado inicial do Alvo 2 para o DAST | Fixture com admin pre-provisionado e status page publica; ZAP sem autenticacao nos dois alvos (revisado em 23/09/2026) |
 
 ---
 
@@ -295,3 +296,54 @@ Isso sera declarado explicitamente no Capitulo 3, com nota de rodape.
 (`ZAP_AUTH_HEADER` ou script de login) ficam no escopo da S4 (staging + DAST).
 As credenciais fixas (usuario e senha de teste, sem qualquer relacao com
 segredo real) serao registradas em `docs/AMBIENTE.md`.
+
+### D11, revisao de 23/09/2026
+
+**Decisao revisada:** a fixture e mantida e ampliada com a superficie publica
+padrao do produto; o ZAP passa a rodar **sem autenticacao nos dois alvos**,
+eliminando a assimetria da versao original.
+
+**Motivo 1: a autenticacao nao amplia a superficie HTTP.** Na implementacao
+verificou-se que o painel do Uptime Kuma trafega inteiramente por socket.io; o
+JWT so e usado nesse canal. A unica rota HTTP que exige autenticacao e
+`/metrics` (Basic Auth). O ZAP realiza apenas analise passiva de mensagens
+WebSocket; varredura ativa desse canal nao existe no modo automatizado.
+
+**Motivo 2: a autenticacao por header contamina a medicao.** Com o header
+`Authorization: Basic` injetado, a regra passiva 10105 do ZAP
+(Authentication Credentials Captured, riskcode 3, confidence 2) disparou em
+todas as requisicoes, inclusive a arquivos estaticos. E um alerta High criado
+pela propria instrumentacao do experimento, e nao pela aplicacao, e que pela
+regra D3 bloquearia o gate no escopo `all_tools` em toda rodada do alvo 2.
+
+**Ampliacao da fixture.** Alem do administrador, a fixture recebe, pelos
+mesmos eventos de socket.io da interface: um monitor do tipo push (so recebe
+requisicoes, sem trafego de saida), uma status page publicada contendo esse
+monitor e a pagina inicial apontando para ela. E a superficie que uma
+instalacao real expoe publicamente. Script: `ci/fixtures/uptime-kuma/popular.js`.
+
+**Evidencia (varreduras locais, mesma configuracao do CI, sem spider AJAX):**
+
+| Configuracao | URLs alcancadas | Tipos de alerta | Instancias | Alertas High | Tempo (s) |
+|---|---|---|---|---|---|
+| Fixture so com admin + Basic Auth | 11 | 18 | 61 | 1 (10105, artefato do header) | 249 |
+| Fixture ampliada + Basic Auth | 16 | 18 | 66 | 1 (10105, artefato do header) | 412 |
+
+Rotas alcancadas apenas com a fixture ampliada: `/status`, `/status/servicos`,
+`/api/status-page/servicos/manifest.json`. As rotas de API carregadas por
+JavaScript (`/api/status-page/servicos`, `/api/status-page/heartbeat/servicos`)
+nao sao alcancadas pelo spider tradicional; sua cobertura depende do spider
+AJAX, avaliado em etapa posterior.
+
+**Alternativas descartadas.** (a) Autenticacao pelo navegador com spider
+AJAX: custo alto e ganho restrito a analise passiva de WebSocket. (b) Remover
+o DAST do alvo 2: enfraqueceria o objetivo especifico de DAST e a analise de
+complementaridade.
+
+**Ameaca a validade.** A superficie publica e configurada pelo pesquisador.
+Mitigacao: apenas funcionalidades padrao do produto, configuracao minima,
+versionada e identica em todas as execucoes (baseline e DevSecOps).
+
+**Resultado para o Capitulo 5.** Um DAST baseado em HTTP nao alcanca a
+logica de aplicacoes construidas sobre WebSocket: limite estrutural da tecnica,
+medido pela superficie alcancada em cada alvo.
