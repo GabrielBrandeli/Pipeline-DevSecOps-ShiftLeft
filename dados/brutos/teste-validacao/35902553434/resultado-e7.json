@@ -1,0 +1,141 @@
+{
+  "versao_cenarios": "1.0",
+  "resultados": [
+    {
+      "id": "E7-01",
+      "nome": "Positivo controlado",
+      "escopo": "sca_only",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "TCC-E7-POS"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-02",
+      "nome": "Negativo controlado",
+      "escopo": "sca_only",
+      "decisao_esperada": "aprovado",
+      "decisao_obtida": "aprovado",
+      "disparadores": [],
+      "rc_audit": 0,
+      "rc_enforce": 0,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-03",
+      "nome": "Limite",
+      "escopo": "sca_only",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "TCC-E7-LIM"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-04",
+      "nome": "Precedencia NVD sobre GHSA",
+      "escopo": "sca_only",
+      "decisao_esperada": "aprovado",
+      "decisao_obtida": "aprovado",
+      "disparadores": [],
+      "rc_audit": 0,
+      "rc_enforce": 0,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-05",
+      "nome": "Precedencia GHSA na ausencia de NVD",
+      "escopo": "sca_only",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "TCC-E7-PREC2"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-06",
+      "nome": "Fallback por rotulo",
+      "escopo": "sca_only",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "TCC-E7-FBH"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-07",
+      "nome": "Deduplicacao (D6)",
+      "escopo": "sca_only",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "TCC-E7-DUP",
+        "TCC-E7-DUP"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-08",
+      "nome": "Escopo sca_only ignora SAST",
+      "escopo": "sca_only",
+      "decisao_esperada": "aprovado",
+      "decisao_obtida": "aprovado",
+      "disparadores": [],
+      "rc_audit": 0,
+      "rc_enforce": 0,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-09",
+      "nome": "Equivalencia SAST (D3)",
+      "escopo": "all_tools",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "tcc.e7.sast-alto",
+        "tcc.e7.sast-sem-conf"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    },
+    {
+      "id": "E7-10",
+      "nome": "Equivalencia DAST (D3)",
+      "escopo": "all_tools",
+      "decisao_esperada": "bloqueado",
+      "decisao_obtida": "bloqueado",
+      "disparadores": [
+        "90001"
+      ],
+      "rc_audit": 0,
+      "rc_enforce": 1,
+      "resultado": "ok",
+      "falhas": []
+    }
+  ]
+}
