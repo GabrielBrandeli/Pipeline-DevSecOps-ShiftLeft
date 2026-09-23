@@ -37,6 +37,8 @@ jobs:
             echo "ALVO_CONTEXTO=$ALVO_CONTEXTO"
             echo "ALVO_BUILD_TARGET=$ALVO_BUILD_TARGET"
             echo "ALVO_PREBUILD=$ALVO_PREBUILD"
+            echo "ALVO_FIXTURE=$ALVO_FIXTURE"
+            echo "ALVO_FIXTURE_DESTINO=$ALVO_FIXTURE_DESTINO"
           } >> "$GITHUB_ENV"
 
       - name: Instalar Node.js (quando exigido pelo alvo)
@@ -62,7 +64,11 @@ jobs:
 
       - name: Staging (subir aplicacao e aguardar health check)
         run: |
-          docker run -d --name alvo -p "${ALVO_PORTA}:${ALVO_PORTA}" "$ALVO_IMAGEM:${{ github.sha }}"
+          docker create --name alvo -p "${ALVO_PORTA}:${ALVO_PORTA}" "$ALVO_IMAGEM:${{ github.sha }}" >/dev/null
+          if [ -n "$ALVO_FIXTURE" ]; then
+            docker cp "$ALVO_FIXTURE/." "alvo:$ALVO_FIXTURE_DESTINO"
+          fi
+          docker start alvo
           for i in $(seq 1 60); do
             if curl -sf "http://localhost:${ALVO_PORTA}${ALVO_HEALTH}" >/dev/null; then
               echo "Aplicacao respondeu na tentativa $i"

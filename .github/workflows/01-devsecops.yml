@@ -183,18 +183,18 @@ jobs:
 
       - name: 'Trivy: IaC (Dockerfile)'
         run: |
+          # Alvo e sempre o dockerfile de producao. --file-patterns acrescenta
+          # padroes de deteccao, nao restringe: com o diretorio do alvo 2 como
+          # alvo, varria cinco dockerfiles (corrigido em 23/09/2026). Aqui ele
+          # so serve para o Trivy reconhecer o nome minusculo "dockerfile".
+          args=()
           if [ -n "$ALVO_TRIVY_CONFIG_PATTERN" ]; then
-            trivy config \
-              --file-patterns "$ALVO_TRIVY_CONFIG_PATTERN" \
-              --format json --output "trivy-config-${ALVO_ID}.json" \
-              --exit-code 0 \
-              "$ALVO_CAMINHO"
-          else
-            trivy config \
-              --format json --output "trivy-config-${ALVO_ID}.json" \
-              --exit-code 0 \
-              "$ALVO_TRIVY_CONFIG_ALVO"
+            args+=(--file-patterns "$ALVO_TRIVY_CONFIG_PATTERN")
           fi
+          trivy config "${args[@]}" \
+            --format json --output "trivy-config-${ALVO_ID}.json" \
+            --exit-code 0 \
+            "$ALVO_TRIVY_CONFIG_ALVO"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -251,3 +251,139 @@ jobs:
         with:
           name: gate-${{ matrix.perfil }}-${{ inputs.rodada }}
           path: gate-decision-*.json
+
+  staging-dast:
+    # Deploy e DAST no mesmo job: jobs rodam em runners distintos e o
+    # container de staging nao sobrevive entre eles (nota do Cap. 3).
+    name: Staging + DAST - OWASP ZAP (${{ matrix.perfil }})
+    needs: quality-gate
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        perfil: [alvo1-juiceshop, alvo2-uptimekuma]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Carregar perfil do alvo
+        run: |
+          set -a
+          source "ci/perfis/${{ matrix.perfil }}.env"
+          set +a
+          {
+            echo "ALVO_ID=$ALVO_ID"
+            echo "ALVO_PORTA=$ALVO_PORTA"
+            echo "ALVO_HEALTH=$ALVO_HEALTH"
+            echo "ALVO_IMAGEM=$ALVO_IMAGEM"
+            echo "ALVO_FIXTURE=$ALVO_FIXTURE"
+            echo "ALVO_FIXTURE_DESTINO=$ALVO_FIXTURE_DESTINO"
+          } >> "$GITHUB_ENV"
+
+      - name: Baixar imagem construida
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: imagem-${{ matrix.perfil }}-${{ inputs.rodada }}
+
+      - name: Carregar imagem no Docker
+        run: docker load -i imagem.tar && rm imagem.tar
+
+      - name: Staging (subir aplicacao e aguardar health check)
+        run: |
+          docker create --name alvo -p "${ALVO_PORTA}:${ALVO_PORTA}" "$ALVO_IMAGEM:${{ github.sha }}" >/dev/null
+          if [ -n "$ALVO_FIXTURE" ]; then
+            docker cp "$ALVO_FIXTURE/." "alvo:$ALVO_FIXTURE_DESTINO"
+          fi
+          docker start alvo
+          for i in $(seq 1 60); do
+            if curl -sf "http://localhost:${ALVO_PORTA}${ALVO_HEALTH}" >/dev/null; then
+              echo "Aplicacao respondeu na tentativa $i"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Aplicacao nao respondeu apos 120s"
+          docker logs alvo
+          exit 1
+
+      # -m: limite do spider (min). -T limita apenas a espera do scan passivo;
+      # o limite da varredura ativa e scanner.maxScanDurationInMins (risco R1).
+      - name: 'OWASP ZAP: full scan'
+        uses: zaproxy/action-full-scan@3c58388149901b9a03b7718852c5ba889646c27c # v0.13.0
+        with:
+          target: http://localhost:${{ env.ALVO_PORTA }}
+          docker_name: ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
+          cmd_options: '-m 5 -T 10 -a -z "-config scanner.maxScanDurationInMins=30"'
+          allow_issue_writing: false
+          fail_action: false
+          artifact_name: zap-relatorios-${{ matrix.perfil }}-${{ inputs.rodada }}
+
+      # O Juice Shop caiu (segfault, exit 139) em uma de duas varreduras locais
+      # (23/09/2026). Alvo fora do ar durante o DAST produz poucos alertas sem
+      # erro algum; a rodada e marcada invalida em vez de entrar nos dados.
+      - name: Verificar que o alvo sobreviveu ao DAST
+        if: always()
+        run: |
+          estado=$(docker inspect alvo --format '{{.State.Status}}' 2>/dev/null || echo ausente)
+          saida=$(docker inspect alvo --format '{{.State.ExitCode}}' 2>/dev/null || echo "")
+          printf '{"alvo": "%s", "estado_pos_dast": "%s", "exit_code": "%s"}\n' \
+            "$ALVO_ID" "$estado" "$saida" > "dast-integridade-${ALVO_ID}.json"
+          cat "dast-integridade-${ALVO_ID}.json"
+          if [ "$estado" != "running" ]; then
+            echo "::error::Alvo nao estava em execucao ao fim do DAST (estado=$estado, exit=$saida). Rodada invalida."
+            exit 1
+          fi
+
+      - name: Verificar que o ZAP produziu relatorio
+        run: |
+          test -s report_json.json || { echo "ZAP nao gerou report_json.json"; exit 1; }
+          cp report_json.json "zap-${ALVO_ID}.json"
+          python3 -c "import json,sys; d=json.load(open('zap-${ALVO_ID}.json')); print('alertas:', sum(len(s.get('alerts') or []) for s in d.get('site') or []))"
+
+      - name: Logs da aplicacao
+        if: always()
+        run: docker logs alvo > "app-log-${ALVO_ID}.txt" 2>&1 || true
+
+      - name: Encerrar container
+        if: always()
+        run: docker rm -f alvo || true
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: zap-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: |
+            zap-*.json
+            app-log-*.txt
+            dast-integridade-*.json
+
+      # Escopo all_tools (D3): o DAST so existe depois do deploy, entao sua
+      # parcela do gate e avaliada aqui, sobre SAST + SCA + DAST, com o mesmo
+      # script e a mesma regra. No escopo sca_only este passo nao executa.
+      - name: Baixar achados de SAST e SCA (gate pos-DAST)
+        if: env.GATE_SCOPE == 'all_tools'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: '{semgrep,trivy}-${{ matrix.perfil }}-${{ inputs.rodada }}'
+          merge-multiple: true
+          path: achados
+
+      - name: Quality Gate pos-DAST (escopo all_tools)
+        if: env.GATE_SCOPE == 'all_tools'
+        run: |
+          python3 -m pip install --quiet --break-system-packages pyyaml
+          python3 ci/quality_gate.py \
+            --modo "$GATE_MODE" \
+            --escopo "$GATE_SCOPE" \
+            --trivy-image "achados/trivy-image-${ALVO_ID}.json" \
+            --trivy-config "achados/trivy-config-${ALVO_ID}.json" \
+            --trivy-fs-secret "achados/trivy-fs-secret-${ALVO_ID}.json" \
+            --semgrep "achados/semgrep-${ALVO_ID}.json" \
+            --zap "zap-${ALVO_ID}.json" \
+            --saida "gate-decision-final-${ALVO_ID}.json"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always() && env.GATE_SCOPE == 'all_tools'
+        with:
+          name: gate-final-${{ matrix.perfil }}-${{ inputs.rodada }}
+          path: gate-decision-final-*.json

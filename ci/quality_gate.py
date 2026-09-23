@@ -182,7 +182,7 @@ def main():
         if semgrep is None:
             avisos.append("sast: semgrep.json nao encontrado, estagio nao considerado nesta execucao")
         if zap is None:
-            avisos.append("dast: zap.json nao encontrado, estagio ainda nao implementado nesta sprint (S4)")
+            avisos.append("dast: zap.json ausente; no gate pre-deploy o DAST ainda nao executou (avaliado no gate pos-DAST)")
 
     disparadores = [
         a for achados in achados_por_ferramenta.values() for a in achados if a["dispara_gate"]
