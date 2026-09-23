@@ -1,0 +1,113 @@
+# E7: validacao funcional do Quality Gate (secao 5.3 do plano de acao).
+#
+# Cada cenario traz entradas sinteticas no formato de saida real de cada
+# ferramenta (Trivy image, Semgrep, ZAP) e a decisao esperada. Os
+# identificadores sao ficticios (prefixo TCC-E7) de proposito: scores de CVE
+# reais mudam com a atualizacao da base do Trivy, o que tornaria o cenario de
+# limite (score exatamente 7,0) irreprodutivel.
+#
+# Todo cenario e executado nos dois modos (D4). Espera-se a mesma decisao nos
+# dois; codigo de saida 1 apenas em enforce + bloqueado.
+versao: "1.0"
+
+cenarios:
+  - id: E7-01
+    nome: Positivo controlado
+    descricao: Um achado com CVSS 9,8 e outro com 5,3; bloqueia apenas pelo primeiro.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-POS, pkg: pacote-a, versao: "1.0.0", severity: CRITICAL, cvss: {nvd: 9.8}}
+      - {id: TCC-E7-MED, pkg: pacote-b, versao: "2.0.0", severity: MEDIUM, cvss: {nvd: 5.3}}
+    esperado: {decisao: bloqueado, disparadores: [TCC-E7-POS]}
+
+  - id: E7-02
+    nome: Negativo controlado
+    descricao: Nenhum achado com CVSS >= 7,0 (maior score 6,9); a esteira segue.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-NEG1, pkg: pacote-a, versao: "1.0.0", severity: MEDIUM, cvss: {nvd: 6.9}}
+      - {id: TCC-E7-NEG2, pkg: pacote-b, versao: "2.0.0", severity: LOW, cvss: {nvd: 3.1}}
+    esperado: {decisao: aprovado, disparadores: []}
+
+  - id: E7-03
+    nome: Limite
+    descricao: Achado com CVSS exatamente 7,0; o criterio e >=, logo bloqueia.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-LIM, pkg: pacote-a, versao: "1.0.0", severity: HIGH, cvss: {nvd: 7.0}}
+    esperado: {decisao: bloqueado, disparadores: [TCC-E7-LIM]}
+
+  - id: E7-04
+    nome: Precedencia NVD sobre GHSA
+    descricao: NVD 6,5 e GHSA 9,1 no mesmo achado; vale o NVD (D2), logo aprova.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-PREC1, pkg: pacote-a, versao: "1.0.0", severity: CRITICAL, cvss: {nvd: 6.5, ghsa: 9.1}}
+    esperado: {decisao: aprovado, disparadores: [], fonte_score: {TCC-E7-PREC1: nvd}}
+
+  - id: E7-05
+    nome: Precedencia GHSA na ausencia de NVD
+    descricao: Sem NVD, GHSA 8,1 e Red Hat 5,0; vale o GHSA, logo bloqueia.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-PREC2, pkg: pacote-a, versao: "1.0.0", severity: HIGH, cvss: {ghsa: 8.1, redhat: 5.0}}
+    esperado: {decisao: bloqueado, disparadores: [TCC-E7-PREC2], fonte_score: {TCC-E7-PREC2: ghsa}}
+
+  - id: E7-06
+    nome: Fallback por rotulo
+    descricao: Sem score V3 em nenhuma fonte. HIGH vira 7,0 (bloqueia); MEDIUM vira 4,0.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-FBH, pkg: pacote-a, versao: "1.0.0", severity: HIGH}
+      - {id: TCC-E7-FBM, pkg: pacote-b, versao: "2.0.0", severity: MEDIUM}
+    esperado: {decisao: bloqueado, disparadores: [TCC-E7-FBH], fallback: 2}
+
+  - id: E7-07
+    nome: Deduplicacao (D6)
+    descricao: Mesmo (VulnerabilityID, PkgName, InstalledVersion) em dois Results; conta uma vez.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-DUP, pkg: pacote-a, versao: "1.0.0", severity: HIGH, cvss: {nvd: 7.5}}
+      - {id: TCC-E7-DUP, pkg: pacote-a, versao: "1.0.0", severity: HIGH, cvss: {nvd: 7.5}}
+      - {id: TCC-E7-DUP, pkg: pacote-a, versao: "1.0.1", severity: HIGH, cvss: {nvd: 7.5}}
+    esperado: {decisao: bloqueado, disparadores: [TCC-E7-DUP, TCC-E7-DUP], total_trivy: 2}
+
+  - id: E7-08
+    nome: Escopo sca_only ignora SAST
+    descricao: SCA limpo e SAST com ERROR/HIGH; no escopo sca_only o gate aprova.
+    escopo: sca_only
+    trivy_image:
+      - {id: TCC-E7-OK, pkg: pacote-a, versao: "1.0.0", severity: LOW, cvss: {nvd: 2.0}}
+    semgrep:
+      - {check_id: tcc.e7.sast-alto, path: src/a.js, line: 10, severity: ERROR, confidence: HIGH}
+    esperado: {decisao: aprovado, disparadores: []}
+
+  - id: E7-09
+    nome: Equivalencia SAST (D3)
+    descricao: >
+      Mesmas entradas de E7-08 no escopo all_tools, mais dois achados de controle:
+      ERROR/LOW nao dispara; ERROR sem confianca e tratado como MEDIUM e dispara;
+      WARNING/HIGH nao dispara.
+    escopo: all_tools
+    trivy_image:
+      - {id: TCC-E7-OK, pkg: pacote-a, versao: "1.0.0", severity: LOW, cvss: {nvd: 2.0}}
+    semgrep:
+      - {check_id: tcc.e7.sast-alto, path: src/a.js, line: 10, severity: ERROR, confidence: HIGH}
+      - {check_id: tcc.e7.sast-baixa-conf, path: src/b.js, line: 20, severity: ERROR, confidence: LOW}
+      - {check_id: tcc.e7.sast-sem-conf, path: src/c.js, line: 30, severity: ERROR}
+      - {check_id: tcc.e7.sast-warning, path: src/d.js, line: 40, severity: WARNING, confidence: HIGH}
+    esperado: {decisao: bloqueado, disparadores: [tcc.e7.sast-alto, tcc.e7.sast-sem-conf]}
+
+  - id: E7-10
+    nome: Equivalencia DAST (D3)
+    descricao: >
+      High/Media dispara; High/Baixa nao; Medium/Alta nao. Duas instancias da
+      mesma URI com query string diferente contam uma vez (URI normalizada, D6).
+    escopo: all_tools
+    trivy_image:
+      - {id: TCC-E7-OK, pkg: pacote-a, versao: "1.0.0", severity: LOW, cvss: {nvd: 2.0}}
+    zap:
+      - {pluginid: "90001", riskcode: 3, confidence: 2, instances: [{uri: "http://localhost/a?x=1", param: q}, {uri: "http://localhost/a?x=2", param: q}]}
+      - {pluginid: "90002", riskcode: 3, confidence: 1, instances: [{uri: "http://localhost/b", param: ""}]}
+      - {pluginid: "90003", riskcode: 2, confidence: 3, instances: [{uri: "http://localhost/c", param: ""}]}
+    esperado: {decisao: bloqueado, disparadores: ["90001"], total_zap: 3}
