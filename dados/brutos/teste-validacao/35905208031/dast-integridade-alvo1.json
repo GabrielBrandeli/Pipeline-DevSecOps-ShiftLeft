@@ -1,0 +1,1 @@
+{"alvo": "alvo1", "estado_pos_dast": "running", "exit_code": "0", "zap_ajax": "true", "zap_opcoes": "-m 5 -T 10 -a -j -z -config scanner.maxScanDurationInMins=30"}
