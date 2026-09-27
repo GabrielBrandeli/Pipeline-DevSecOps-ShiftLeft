@@ -136,9 +136,7 @@ Pipeline-DevSecOps-ShiftLeft/
 │       ├── alvo1-juiceshop.env
 │       └── alvo2-uptimekuma.env
 ├── zap/
-│   ├── rules.tsv
-│   ├── plan-alvo1.yaml
-│   └── plan-alvo2.yaml
+│   └── README.md                      # configuracao do ZAP vive no workflow (ver README)
 ├── analise/
 │   ├── requirements.txt
 │   ├── scripts/

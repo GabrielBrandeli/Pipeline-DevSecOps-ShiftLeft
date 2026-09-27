@@ -4,7 +4,7 @@ Registro das decisoes que definem o desenho experimental. Cada uma foi fechada
 com o orientador e tem contrapartida no Capitulo 3 do TCC.
 
 Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026.
-Revisao de D11: 23/09/2026.
+Revisao de D11: 23/09/2026. D12 a D16: 27/09/2026.
 
 ---
 
@@ -23,6 +23,11 @@ Revisao de D11: 23/09/2026.
 | D9 | Fonte de dados do SCA | `trivy image` como fonte unica; `trivy fs` restrito a `--scanners secret` |
 | D10 | Versionamento de dados brutos | CSV para dados processados; JSON bruto comprimido em gzip para evidencia |
 | D11 | Estado inicial do Alvo 2 para o DAST | Fixture com admin pre-provisionado e status page publica; ZAP sem autenticacao nos dois alvos (revisado em 23/09/2026) |
+| D12 | Spider AJAX do ZAP | Ligado em todas as rodadas; teto da varredura ativa elevado de 30 para 60 min |
+| D13 | Imagens base dos alvos | Fixadas por digest via `--build-context`, sem alterar os submodulos |
+| D14 | Dependencias npm do Juice Shop | Mantidas como o projeto constroi (sem lockfile); variacao medida por rodada |
+| D15 | Regras do Semgrep | Pacotes copiados para `ci/regras/semgrep/`, em vez de baixados do registro |
+| D16 | Escopo do relatorio do ZAP | Apenas o site do alvo entra na contagem e no gate |
 
 ---
 
@@ -347,3 +352,144 @@ versionada e identica em todas as execucoes (baseline e DevSecOps).
 **Resultado para o Capitulo 5.** Um DAST baseado em HTTP nao alcanca a
 logica de aplicacoes construidas sobre WebSocket: limite estrutural da tecnica,
 medido pela superficie alcancada em cada alvo.
+
+---
+
+## D12. Spider AJAX do ZAP nas rodadas experimentais
+
+**Adotado:** spider AJAX (`-j`) ligado em todas as rodadas (`zap_ajax` passa a
+ter padrao `true`) e teto da varredura ativa (`scanner.maxScanDurationInMins`)
+elevado de 30 para 60 minutos.
+
+**Evidencia (execucoes 35902561486, sem AJAX, e 35905208031, com AJAX, ambas
+audit/all_tools, 23/09/2026):**
+
+| Juice Shop | Sem AJAX | Com AJAX |
+|---|---|---|
+| Tipos de alerta (so o alvo, ver D16) | 20 | 23 |
+| Alertas High | 0 | 3 (SQL Injection, External Redirect, Off-site Redirect) |
+| Disparadores do gate (DAST) | 0 | 2 (a SQLi veio com confidence 1) |
+| Desafios resolvidos pelo scan | 2 | 3 |
+| Duracao do job staging+DAST | 583 s | 2273 s |
+
+No Uptime Kuma o efeito foi minimo: uma rota a mais
+(`/api/status-page/heartbeat/servicos`), um alerta Info a mais, 323 s para 346 s.
+
+**Justificativa.** O Juice Shop e uma SPA Angular; sem navegador o spider
+tradicional enxerga pouco da aplicacao e o DAST fica restrito a cabecalhos e
+configuracao (A05). A analise de complementaridade e a contribuicao do DAST ao
+gate no escopo `all_tools` seriam artefato da configuracao, e nao da tecnica.
+
+**Motivo do teto de 60 min.** Com AJAX, o DAST durou ~37 min, coerente com a
+varredura ativa atingindo o teto de 30 min: quatro tipos de alerta presentes
+sem AJAX desapareceram (Backup File Disclosure, Bypassing 403, CORS
+Misconfiguration, User Agent Fuzzer) e as URIs com alerta cairam de 63 para 42.
+Com o corte, o resultado passaria a depender de ate onde a varredura chegou.
+**Pendente:** execucao de teste com o novo teto, para confirmar que a
+varredura termina antes dele e que os alertas perdidos voltam.
+
+**Custo.** Estimado em 45 a 60 min de DAST por rodada no Juice Shop; dentro do
+limite de 6 h por job e sem custo em repositorio publico. A sobrecarga medida
+passa a ser dominada pelo DAST no alvo 1, o que deve ser declarado no Cap. 4.
+
+---
+
+## D13. Fixacao das imagens base dos alvos
+
+**Problema.** Os Dockerfiles dos alvos (submodulos) usam tags mutaveis:
+`node:24` e `gcr.io/distroless/nodejs24-debian13` no alvo 1;
+`louislam/uptime-kuma:base2` (tambem via `ARG BASE_IMAGE`) e
+`louislam/uptime-kuma:builder-go` no alvo 2. Contradiz a regra de nao usar
+referencias moveis (Cap. 3) e permitiria que o volume de achados de SO mudasse
+entre rodadas por troca silenciosa da imagem base.
+
+**Adotado:** variavel `ALVO_BASES` em `ci/perfis/*.env`, convertida no passo de
+build em `--build-context <nome>=docker-image://<nome>@sha256:...`. O BuildKit
+substitui o `FROM` correspondente pela imagem fixada, sem editar o submodulo.
+O passo de build tem texto identico em `00-baseline.yml` e `01-devsecops.yml`.
+
+**Verificacao (27/09/2026).** As camadas das imagens de runtime nos digests
+fixados (13 camadas do `base2`, 22 do distroless) coincidem com o prefixo de
+`Metadata.DiffIDs` do `trivy image` nas tres execucoes de validacao (14 e
+23/09). A fixacao nao altera nada do que ja foi medido. A substituicao por
+`--build-context` foi testada localmente para `FROM node:24` e para
+`FROM $BASE_IMAGE`.
+
+**Limitacao remanescente (tratada em D14).** O Juice Shop declara
+`package-lock=false` no `.npmrc`: o `npm install` do build resolve as faixas de
+versao do `package.json` no momento da execucao. Dependencias podem mudar entre
+rodadas (os `lang-pkgs` do `trivy image` passaram de 80 em 05/09 para 81 em
+23/09). Decisao em aberto: aceitar e medir (o `trivy image` registra as versoes
+instaladas de cada rodada) ou injetar lockfile, o que altera o alvo.
+
+---
+
+## D14. Dependencias npm do Juice Shop sem lockfile
+
+**Problema.** O `.npmrc` do Juice Shop declara `package-lock=false`: o
+`npm install` do build resolve as faixas de versao do `package.json` no momento
+da execucao. Uma versao nova publicada no meio das rodadas muda o conjunto de
+dependencias da imagem, e com ele os achados de SCA, sem mudanca no alvo.
+
+**Adotado (decisao do pesquisador, 27/09/2026):** manter o build como o
+projeto o define, sem injetar lockfile. As rodadas ocorrem em janela curta
+(outubro de 2026) e a variacao esperada e pequena (de 80 para 81 pacotes de
+linguagem entre 05/09 e 23/09).
+
+**Mitigacao.** A variacao nao e escondida, e medida: o `trivy image` de cada
+rodada lista pacote e versao instalados (`PkgName`, `InstalledVersion`), e a
+analise reporta quantas rodadas tiveram conjunto de dependencias diferente da
+primeira rodada valida. Rodadas com conjunto diferente continuam validas para
+tempo; na eficacia de SCA, a diferenca e reportada.
+
+**Por que nao injetar lockfile.** Altera o alvo (o artefato avaliado deixaria
+de ser o que o projeto distribui) e exigiria escolher um instante de
+resolucao, o que tambem e arbitrario.
+
+---
+
+## D15. Fixacao dos pacotes de regras do Semgrep
+
+**Problema.** `--config p/<pacote>` baixa a versao corrente do registro a cada
+execucao. O conteudo dos pacotes muda sem aviso (nao ha versao nem digest), o
+que contradiz a regra de nao usar referencias moveis e poderia alterar o
+numero de achados de SAST durante as rodadas sem mudanca no alvo.
+
+**Adotado:** copia dos quatro pacotes em `ci/regras/semgrep/`, com origem e
+SHA-256 registrados em `ci/regras/semgrep/README.md`. O workflow passa os
+arquivos locais ao `--config`. Efeito colateral: sem download de regras, sai
+tambem uma fonte de variacao de rede do tempo medido do SAST.
+
+**Verificacao (27/09/2026).** Com Semgrep 1.176.1, a copia local produz os
+mesmos achados que o registro nos dois alvos (48 e 17), identicos em regra,
+arquivo, linha, severidade e confianca, e iguais aos do CI de 23/09.
+
+**Consequencia.** Regras locais recebem o prefixo `ci.regras.semgrep.` no
+`check_id`; o `quality_gate.py` remove o prefixo para manter as chaves de D6
+(cenario E7-12).
+
+---
+
+## D16. Escopo do relatorio do ZAP
+
+**Problema (identificado em 27/09/2026).** Com o spider AJAX, o navegador segue
+links externos da aplicacao e o relatorio do ZAP passa a trazer alertas
+passivos de outros dominios. Na execucao 35905208031 (Juice Shop, com AJAX),
+14 alertas eram de dominios do GitHub (github.com, githubassets.com). O
+`quality_gate.py` somava todos os sites: o total de DAST do alvo 1 aparecia
+como 110 quando o do alvo era 79, e um alerta High em site de terceiro
+bloquearia o gate no escopo `all_tools`.
+
+**Adotado:** o gate recebe `--zap-alvo http://localhost:<porta>` e considera
+apenas esse site; a quantidade descartada fica em `zap_alertas_fora_do_alvo`
+no `gate-decision`. A normalizacao aplica o mesmo filtro. Cenario E7-11.
+
+**Numeros corrigidos da comparacao de D12 (apenas o site do alvo).** Juice
+Shop sem AJAX / com AJAX: tipos de alerta 20 / 23 (e nao 37); instancias
+deduplicadas 115 / 79; URIs com alerta 63 / 28. Os tres alertas High sao do
+proprio alvo. A queda de URIs com alerta reforca a hipotese de corte da
+varredura ativa que motivou o teto de 60 min.
+
+**Nota.** O filtro atua na analise. O ZAP ainda visita os dominios externos
+com o navegador (apenas trafego de navegacao, analisado passivamente); a
+varredura ativa da acao ja fica restrita ao alvo.

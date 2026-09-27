@@ -1,6 +1,6 @@
 # Ambiente Experimental
 
-Ultima atualizacao: 2026-09-23
+Ultima atualizacao: 2026-09-27
 
 Este documento registra todos os parametros fixados do experimento. Ele e a
 fonte de dados para o quadro da secao 3.1.3 do TCC e para a checklist de
@@ -144,12 +144,27 @@ Digest resolvido localmente via `docker pull` + `docker inspect` em 14/09/2026,
 mesma versao ja registrada na secao 2 (ambiente local), preservando a versao do
 Semgrep como variavel de controle entre execucao local e CI.
 
+Imagens base dos alvos (D13), aplicadas via `--build-context` a partir de
+`ALVO_BASES` nos perfis. Digests de indice multiarquitetura, resolvidos com
+`docker buildx imagetools inspect` em 27/09/2026:
+
+| Alvo | Referencia no Dockerfile | Digest |
+|---|---|---|
+| 1 | `node:24` (estagio de build) | `sha256:64af3819f9275802414d7cdc38c27e9d82bd564dec4d4da87d008255d36c63b4` |
+| 1 | `gcr.io/distroless/nodejs24-debian13` (runtime) | `sha256:b1fc33242cc74151f50c62b4a03d48afd759dccf81279b5f8e401db4546479c1` |
+| 2 | `louislam/uptime-kuma:base2` (build e runtime) | `sha256:f83db3d20fd5b8c0a875d70c96c6e160b2f61b8d439a97c3c8486a8e2aa54e87` |
+| 2 | `louislam/uptime-kuma:builder-go` (estagio de build) | `sha256:50e49d7f27f124a5a086c076387d5419aa3767d88bc2c16354ca52790f709865` |
+
+
 ## 6. Configuracao das ferramentas de seguranca   [preencher em S3/S4]
 
 ### Semgrep (SAST)
 - Versao no CI: 1.176.1, imagem `semgrep/semgrep@sha256:34ab619bf1391a24bfda3f05debd0d8a6ce3093c2d5f9d39cfc00f83c1397823`, mesma versao do teste de fumaca local
-- Conjuntos de regras: `p/owasp-top-ten`, `p/javascript`, `p/security-audit`, `p/secrets`
-- Comando: `semgrep scan \
+- Conjuntos de regras: `p/owasp-top-ten`, `p/javascript`, `p/security-audit`, `p/secrets`,
+  lidos de copia local fixada em `ci/regras/semgrep/` desde 27/09/2026 (D15);
+  origem e SHA-256 em `ci/regras/semgrep/README.md`
+- Comando (teste de fumaca de 05/09; no CI os `--config` apontam para
+  `ci/regras/semgrep/*.yml`, D15): `semgrep scan \
   --config p/owasp-top-ten --config p/javascript \
   --config p/security-audit --config p/secrets \
   --json --output /tmp/smoke/sg-uptime-kuma.json \
@@ -182,17 +197,22 @@ Semgrep como variavel de controle entre execucao local e CI.
 - Modo: full scan
 - Acionamento: `zaproxy/action-full-scan@3c58388149901b9a03b7718852c5ba889646c27c` (v0.13.0),
   com `docker_name` apontando para o digest acima (a imagem tambem fica fixada)
-- Limites: `-m 5 -T 10 -a -z "-config scanner.maxScanDurationInMins=30"`.
+- Limites: `-m 5 -T 10 -a -j -z "-config scanner.maxScanDurationInMins=60"`
+  (teto elevado de 30 para 60 min e AJAX ligado em 27/09/2026, D12).
   `-m` limita o spider tradicional (min); `-T` limita apenas a espera pelo
   scan passivo, e nao a varredura ativa, ao contrario do que o plano de acao
   supunha. O teto da varredura ativa e `scanner.maxScanDurationInMins`, sem o
   qual o full scan do Juice Shop nao tem limite de tempo (risco R1). `-a`
   inclui regras alfa. Spider AJAX (`-j`): parametro `zap_ajax` do workflow,
-  padrao desligado; o valor usado em cada rodada fica em
+  padrao ligado desde 27/09/2026 (D12); o valor usado em cada rodada fica em
   `dast-integridade-<alvo>.json`.
 - Arquivo de regras (`rules_file_name`): nao usado; configuracao padrao do ZAP.
+  Ver `zap/README.md`.
 - Autenticado: nao, nos dois alvos (D11 revisado em 23/09/2026; ver
   `docs/DECISOES.md`).
+- Escopo do relatorio: apenas o site do alvo (`--zap-alvo` no gate, D16); o
+  spider AJAX visita dominios externos e seus alertas sao descartados e contados
+  em `zap_alertas_fora_do_alvo`.
 - Escrita de issues: desabilitada (`allow_issue_writing: false`)
 - Estado inicial do alvo 2 (D11): fixture do SQLite (`kuma.db`) com usuario
   administrador pre-provisionado, versionada em `ci/fixtures/uptime-kuma/` e
