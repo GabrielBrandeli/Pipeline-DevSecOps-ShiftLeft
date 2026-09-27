@@ -139,35 +139,51 @@ def executar(plano, intervalo):
     commit = conferir_repositorio()
     log(f"Lote {plano['lote']}, {len(plano['execucoes'])} execucoes, commit {commit[:7]}, "
         f"concorrencia maxima {plano['concorrencia_max']}")
+    falhas_seguidas = 0
     while True:
-        lote_dir, linhas = estado(plano)
-        for l in linhas:
-            if l["situacao"] == "concluida":
-                log(f"Arquivando {l['item']['rodada']} ({l['run']['databaseId']})")
-                subprocess.run([str(BAIXAR), str(l["run"]["databaseId"]), plano["lote"]],
-                               cwd=RAIZ, check=True)
-                if l["alerta"]:
-                    log(f"ATENCAO: {l['item']['rodada']} terminou com {l['run']['conclusion']}")
-        ativos = sum(1 for l in linhas if l["situacao"] == "em andamento")
-        for l in linhas:
-            if l["situacao"] != "pendente":
-                continue
-            if ativos >= plano["concorrencia_max"]:
+        try:
+            if passo(plano):
                 break
-            disparar(l["item"])
-            log(f"Disparada {l['item']['rodada']}")
-            ativos += 1
-            time.sleep(8)   # o GitHub leva alguns segundos para listar a execucao
-        lote_dir, linhas = estado(plano)
-        gravar_registro(lote_dir, linhas)
-        if all(l["situacao"] == "arquivada" for l in linhas):
-            break
+            falhas_seguidas = 0
+        except (RuntimeError, subprocess.CalledProcessError) as erro:
+            # Falha transitoria (rede, API do GitHub): as execucoes seguem no
+            # GitHub; o acompanhamento tenta de novo no proximo ciclo.
+            falhas_seguidas += 1
+            log(f"Falha ao consultar o GitHub ({falhas_seguidas}a seguida): {str(erro).splitlines()[0]}")
+            if falhas_seguidas >= 30:
+                raise
         time.sleep(intervalo)
+    lote_dir, linhas = estado(plano)
     shas = {l["run"]["headSha"] for l in linhas}
     log("Todas as execucoes arquivadas.")
     if len(shas) > 1:
         log(f"ATENCAO: execucoes em commits diferentes: {sorted(s[:7] for s in shas)}")
     imprimir(linhas)
+
+
+def passo(plano):
+    """Um ciclo: arquiva o que terminou, dispara o que couber. True se acabou."""
+    lote_dir, linhas = estado(plano)
+    for l in linhas:
+        if l["situacao"] == "concluida":
+            log(f"Arquivando {l['item']['rodada']} ({l['run']['databaseId']})")
+            subprocess.run([str(BAIXAR), str(l["run"]["databaseId"]), plano["lote"]],
+                           cwd=RAIZ, check=True)
+            if l["alerta"]:
+                log(f"ATENCAO: {l['item']['rodada']} terminou com {l['run']['conclusion']}")
+    ativos = sum(1 for l in linhas if l["situacao"] == "em andamento")
+    for l in linhas:
+        if l["situacao"] != "pendente":
+            continue
+        if ativos >= plano["concorrencia_max"]:
+            break
+        disparar(l["item"])
+        log(f"Disparada {l['item']['rodada']}")
+        ativos += 1
+        time.sleep(8)   # o GitHub leva alguns segundos para listar a execucao
+    lote_dir, linhas = estado(plano)
+    gravar_registro(lote_dir, linhas)
+    return all(l["situacao"] == "arquivada" for l in linhas)
 
 
 def main():
