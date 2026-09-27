@@ -18,6 +18,9 @@ from pathlib import Path
 import yaml
 
 FONTES_SCORE = ["nvd", "ghsa", "redhat"]
+# O Semgrep prefixa o check_id de regras lidas de arquivo local com o caminho
+# do diretorio. Removido, o id fica igual ao do registro (ci/regras/semgrep/).
+PREFIXO_REGRAS_LOCAIS = "ci.regras.semgrep."
 
 
 def carregar_json(caminho):
@@ -68,7 +71,10 @@ def achados_sast(semgrep):
         return todos
     for r in semgrep.get("results") or []:
         linha = (r.get("start") or {}).get("line")
-        chave = (r.get("check_id"), r.get("path"), linha)
+        check_id = r.get("check_id") or ""
+        if check_id.startswith(PREFIXO_REGRAS_LOCAIS):
+            check_id = check_id[len(PREFIXO_REGRAS_LOCAIS):]
+        chave = (check_id, r.get("path"), linha)
         if chave in vistos:
             continue
         vistos.add(chave)
@@ -77,7 +83,7 @@ def achados_sast(semgrep):
         confidence = (extra.get("metadata") or {}).get("confidence", "MEDIUM")
         todos.append({
             "ferramenta": "semgrep",
-            "id": r.get("check_id"),
+            "id": check_id,
             "local": f"{r.get('path')}:{linha}",
             "severidade_nativa": severidade,
             "confidence": confidence,
@@ -86,13 +92,29 @@ def achados_sast(semgrep):
     return todos
 
 
-def achados_dast(zap):
+def sites_do_alvo(zap, alvo):
+    """Separa os sites do relatorio do ZAP entre o alvo e os demais.
+
+    Com o spider AJAX, o navegador segue links externos (ex.: github.com) e o
+    relatorio passa a trazer alertas passivos desses dominios. Eles nao sao
+    achados da aplicacao avaliada e ficam fora da contagem e do gate.
+    Sem alvo informado, todos os sites sao considerados."""
+    sites = zap.get("site") or []
+    if not alvo:
+        return sites, []
+    alvo = alvo.rstrip("/")
+    dentro = [s for s in sites if (s.get("@name") or "").rstrip("/") == alvo]
+    fora = [s for s in sites if (s.get("@name") or "").rstrip("/") != alvo]
+    return dentro, fora
+
+
+def achados_dast(zap, alvo=None):
     """DAST (D3): riskcode == 3 (High) e confidence >= 2 (Media ou superior).
-    Dedup por D6: (pluginid, uri normalizada, param)."""
+    Dedup por D6: (pluginid, uri normalizada, param). Apenas o site do alvo."""
     todos, vistos = [], set()
     if zap is None:
         return todos
-    for site in zap.get("site") or []:
+    for site in sites_do_alvo(zap, alvo)[0]:
         for alerta in site.get("alerts") or []:
             riskcode = int(alerta.get("riskcode", 0))
             confidence = int(alerta.get("confidence", 0))
@@ -157,6 +179,7 @@ def main():
     ap.add_argument("--trivy-fs-secret")
     ap.add_argument("--semgrep")
     ap.add_argument("--zap")
+    ap.add_argument("--zap-alvo", help="URL base do alvo (ex.: http://localhost:3000); alertas de outros sites sao descartados")
     ap.add_argument("--saida", default="gate-decision.json")
     args = ap.parse_args()
 
@@ -178,11 +201,16 @@ def main():
         semgrep = carregar_json(args.semgrep)
         zap = carregar_json(args.zap)
         achados_por_ferramenta["semgrep"] = achados_sast(semgrep)
-        achados_por_ferramenta["zap"] = achados_dast(zap)
+        achados_por_ferramenta["zap"] = achados_dast(zap, args.zap_alvo)
         if semgrep is None:
             avisos.append("sast: semgrep.json nao encontrado, estagio nao considerado nesta execucao")
         if zap is None:
             avisos.append("dast: zap.json ausente; no gate pre-deploy o DAST ainda nao executou (avaliado no gate pos-DAST)")
+
+    zap_fora_do_alvo = 0
+    if args.escopo == "all_tools" and zap is not None:
+        zap_fora_do_alvo = sum(len(site.get("alerts") or [])
+                               for site in sites_do_alvo(zap, args.zap_alvo)[1])
 
     disparadores = [
         a for achados in achados_por_ferramenta.values() for a in achados if a["dispara_gate"]
@@ -208,6 +236,7 @@ def main():
             }
             for ferramenta, achados in achados_por_ferramenta.items()
         },
+        "zap_alertas_fora_do_alvo": zap_fora_do_alvo,
         "trivy_config_misconfiguracoes": sum(
             len(r.get("Misconfigurations") or []) for r in (trivy_config or {}).get("Results") or []
         ),

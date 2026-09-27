@@ -1,4 +1,5 @@
 name: 02-gate-validation
+run-name: "02-gate-validation ${{ inputs.rodada }}"
 
 # E7: validacao funcional do Quality Gate (cenarios em ci/validacao-gate/).
 on:

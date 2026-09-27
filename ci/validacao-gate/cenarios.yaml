@@ -8,7 +8,7 @@
 #
 # Todo cenario e executado nos dois modos (D4). Espera-se a mesma decisao nos
 # dois; codigo de saida 1 apenas em enforce + bloqueado.
-versao: "1.0"
+versao: "1.2"
 
 cenarios:
   - id: E7-01
@@ -111,3 +111,32 @@ cenarios:
       - {pluginid: "90002", riskcode: 3, confidence: 1, instances: [{uri: "http://localhost/b", param: ""}]}
       - {pluginid: "90003", riskcode: 2, confidence: 3, instances: [{uri: "http://localhost/c", param: ""}]}
     esperado: {decisao: bloqueado, disparadores: ["90001"], total_zap: 3}
+
+  - id: E7-11
+    nome: DAST restrito ao site do alvo
+    descricao: >
+      Com o spider AJAX, o relatorio do ZAP inclui sites externos visitados pelo
+      navegador. Um alerta High/Alta em site externo nao pode disparar o gate nem
+      entrar na contagem; so o alerta Medium do alvo e contado.
+    escopo: all_tools
+    zap_alvo: http://localhost
+    trivy_image:
+      - {id: TCC-E7-OK, pkg: pacote-a, versao: "1.0.0", severity: LOW, cvss: {nvd: 2.0}}
+    zap:
+      - {pluginid: "90004", riskcode: 3, confidence: 3, site: "https://externo.example", instances: [{uri: "https://externo.example/x", param: ""}]}
+      - {pluginid: "90005", riskcode: 2, confidence: 2, instances: [{uri: "http://localhost/y", param: ""}]}
+    esperado: {decisao: aprovado, disparadores: [], total_zap: 1}
+
+  - id: E7-12
+    nome: Regras locais do Semgrep (D15)
+    descricao: >
+      Com os pacotes fixados em ci/regras/semgrep/, o Semgrep prefixa o check_id
+      com o caminho do diretorio. O gate remove o prefixo: o mesmo achado com e sem
+      prefixo e contado uma vez e reportado com o id do registro.
+    escopo: all_tools
+    trivy_image:
+      - {id: TCC-E7-OK, pkg: pacote-a, versao: "1.0.0", severity: LOW, cvss: {nvd: 2.0}}
+    semgrep:
+      - {check_id: ci.regras.semgrep.tcc.e7.sast-local, path: src/a.js, line: 10, severity: ERROR, confidence: HIGH}
+      - {check_id: tcc.e7.sast-local, path: src/a.js, line: 10, severity: ERROR, confidence: HIGH}
+    esperado: {decisao: bloqueado, disparadores: [tcc.e7.sast-local]}

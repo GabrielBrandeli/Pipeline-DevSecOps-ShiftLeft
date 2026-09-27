@@ -57,13 +57,16 @@ def semgrep_json(itens):
 
 
 def zap_json(itens):
-    alerts = [{
-        "pluginid": it["pluginid"],
-        "riskcode": str(it["riskcode"]),
-        "confidence": str(it["confidence"]),
-        "instances": it["instances"],
-    } for it in itens]
-    return {"site": [{"@name": "http://localhost", "alerts": alerts}]}
+    # Cada item pode declarar "site"; o padrao e o proprio alvo.
+    sites = {}
+    for it in itens:
+        sites.setdefault(it.get("site", "http://localhost"), []).append({
+            "pluginid": it["pluginid"],
+            "riskcode": str(it["riskcode"]),
+            "confidence": str(it["confidence"]),
+            "instances": it["instances"],
+        })
+    return {"site": [{"@name": nome, "alerts": alerts} for nome, alerts in sites.items()]}
 
 
 def executar(cenario, modo, pasta):
@@ -72,6 +75,8 @@ def executar(cenario, modo, pasta):
     entradas = {"trivy_image": ("--trivy-image", trivy_json),
                 "semgrep": ("--semgrep", semgrep_json),
                 "zap": ("--zap", zap_json)}
+    if "zap_alvo" in cenario:
+        args += ["--zap-alvo", cenario["zap_alvo"]]
     for chave, (flag, gerar) in entradas.items():
         if chave in cenario:
             arq = pasta / f"{chave}.json"

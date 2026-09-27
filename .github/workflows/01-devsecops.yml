@@ -1,4 +1,5 @@
 name: 01-devsecops
+run-name: "01-devsecops ${{ inputs.rodada }} [${{ inputs.gate_mode }}, ${{ inputs.gate_scope }}, ajax=${{ inputs.zap_ajax }}]"
 
 on:
   workflow_dispatch:
@@ -19,7 +20,7 @@ on:
       zap_ajax:
         description: 'Spider AJAX do ZAP (-j) no DAST'
         type: boolean
-        default: false
+        default: true
 
 env:
   GATE_MODE: ${{ inputs.gate_mode }}
@@ -54,11 +55,12 @@ jobs:
 
       - name: Semgrep scan
         run: |
+          # Pacotes fixados no repositorio (D15), e nao baixados do registro.
           semgrep scan \
-            --config p/owasp-top-ten \
-            --config p/javascript \
-            --config p/security-audit \
-            --config p/secrets \
+            --config ci/regras/semgrep/owasp-top-ten.yml \
+            --config ci/regras/semgrep/javascript.yml \
+            --config ci/regras/semgrep/security-audit.yml \
+            --config ci/regras/semgrep/secrets.yml \
             --json --output "semgrep-${ALVO_ID}.json" \
             --metrics=off \
             --timeout 300 \
@@ -97,6 +99,7 @@ jobs:
             echo "ALVO_DOCKERFILE=$ALVO_DOCKERFILE"
             echo "ALVO_CONTEXTO=$ALVO_CONTEXTO"
             echo "ALVO_BUILD_TARGET=$ALVO_BUILD_TARGET"
+            echo "ALVO_BASES=$ALVO_BASES"
             echo "ALVO_PREBUILD=$ALVO_PREBUILD"
           } >> "$GITHUB_ENV"
 
@@ -118,6 +121,9 @@ jobs:
           if [ -n "$ALVO_BUILD_TARGET" ]; then
             args+=(--target "$ALVO_BUILD_TARGET")
           fi
+          for base in $ALVO_BASES; do
+            args+=(--build-context "${base%%=*}=docker-image://${base#*=}")
+          done
           args+=("$ALVO_CONTEXTO")
           docker build "${args[@]}"
           docker save "$ALVO_IMAGEM:${{ github.sha }}" -o imagem.tar
@@ -320,7 +326,7 @@ jobs:
           if [ "$ZAP_AJAX" = "true" ]; then
             opcoes="$opcoes -j"
           fi
-          echo "ZAP_OPCOES=$opcoes -z \"-config scanner.maxScanDurationInMins=30\"" >> "$GITHUB_ENV"
+          echo "ZAP_OPCOES=$opcoes -z \"-config scanner.maxScanDurationInMins=60\"" >> "$GITHUB_ENV"
 
       - name: 'OWASP ZAP: full scan'
         uses: zaproxy/action-full-scan@3c58388149901b9a03b7718852c5ba889646c27c # v0.13.0
@@ -394,6 +400,7 @@ jobs:
             --trivy-fs-secret "achados/trivy-fs-secret-${ALVO_ID}.json" \
             --semgrep "achados/semgrep-${ALVO_ID}.json" \
             --zap "zap-${ALVO_ID}.json" \
+            --zap-alvo "http://localhost:${ALVO_PORTA}" \
             --saida "gate-decision-final-${ALVO_ID}.json"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
