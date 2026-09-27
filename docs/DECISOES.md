@@ -396,8 +396,22 @@ varredura ativa atingindo o teto de 30 min: quatro tipos de alerta presentes
 sem AJAX desapareceram (Backup File Disclosure, Bypassing 403, CORS
 Misconfiguration, User Agent Fuzzer) e as URIs com alerta cairam de 63 para 42.
 Com o corte, o resultado passaria a depender de ate onde a varredura chegou.
-**Pendente:** execucao de teste com o novo teto, para confirmar que a
-varredura termina antes dele e que os alertas perdidos voltam.
+**Confirmado (execucao de teste 36338644737, 27/09/2026, teto de 60 min):** o
+passo do ZAP no Juice Shop durou 52,7 min, abaixo do limite (5 min de cada
+spider + ate 60 de varredura ativa), e os quatro tipos de alerta perdidos com o
+teto de 30 min voltaram. Apenas o site do alvo (D16):
+
+| Juice Shop | Sem AJAX (23/09) | AJAX, teto 30 (23/09) | AJAX, teto 60 (27/09) |
+|---|---|---|---|
+| Tipos de alerta | 20 | 23 | 34 |
+| URIs com alerta | 63 | 28 | 74 |
+| Instancias deduplicadas | 115 | 79 | 127 |
+| Alertas High | 0 | 3 | 4 (+ Source Code Disclosure - File Inclusion) |
+| Disparadores do gate (DAST) | 0 | 2 | 3 |
+| Desafios resolvidos pelo scan | 2 | 3 | 6 |
+| Job staging+DAST | 583 s | 2273 s | ~3170 s |
+
+Tempo de parede da esteira no alvo 1: 3606 s (baseline do mesmo lote: 153 s).
 
 **Custo.** Estimado em 45 a 60 min de DAST por rodada no Juice Shop; dentro do
 limite de 6 h por job e sem custo em repositorio publico. A sobrecarga medida

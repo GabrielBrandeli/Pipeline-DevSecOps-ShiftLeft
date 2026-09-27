@@ -3,3 +3,6 @@ TESTE-GV-01,02-gate-validation.yml,,,,36337843239,bff4b55aaa655931ba482d95f408be
 TESTE-BASE-01,00-baseline.yml,,,,36337852503,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:05Z,arquivada,failure,sim
 TESTE-AUD-01,01-devsecops.yml,audit,all_tools,True,36337862032,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:15Z,arquivada,failure,sim
 TESTE-ENF-01,01-devsecops.yml,enforce,sca_only,True,36337871583,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:25Z,arquivada,failure,
+TESTE-BASE-02,00-baseline.yml,,,,36338635355,e590af7e0ef3cb7347acc362ac8763a1186a8812,2026-09-27T17:53:54Z,arquivada,success,
+TESTE-AUD-02,01-devsecops.yml,audit,all_tools,True,36338644737,e590af7e0ef3cb7347acc362ac8763a1186a8812,2026-09-27T17:54:04Z,arquivada,success,
+TESTE-ENF-02,01-devsecops.yml,enforce,sca_only,True,36338655400,e590af7e0ef3cb7347acc362ac8763a1186a8812,2026-09-27T17:54:14Z,arquivada,failure,

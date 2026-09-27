@@ -71,7 +71,7 @@ Saidas em `dados/processados/`: `tempos.csv`, `tempos-execucao.csv`,
 - Criar a tag de congelamento `v1.0-tcc`.
 - Triagem conforme `docs/PROTOCOLO-TRIAGEM.MD`.
 
-## 5. Conferencia da execucao de teste
+## 5. Conferencia da execucao de teste (concluida em 27/09/2026)
 
 Plano `analise/rodadas/plano-teste.yaml`, lote `dados/brutos/teste-pre-rodadas/`.
 Conferir:
@@ -83,3 +83,18 @@ Conferir:
 - DAST do Juice Shop terminando antes do teto de 60 min da varredura ativa.
 - `gate-decision-final-alvo1.json` com `zap_alertas_fora_do_alvo` preenchido.
 - TESTE-ENF-01 com o job de Quality Gate em `failure` e DAST pulado.
+
+**Resultado (27/09/2026, commit e590af7).** Primeira tentativa: E7 12/12,
+build do alvo 1 quebrado pelo `@angular/build` 22.2.0 (motivou D14 revisado).
+Segunda tentativa, todos os itens conferidos:
+
+| Rodada | Execucao | Resultado |
+|---|---|---|
+| TESTE-GV-01 | 36337843239 | E7 com 12/12 cenarios ok |
+| TESTE-BASE-02 | 36338635355 | Sucesso nos dois alvos (153 s e 113 s) |
+| TESTE-AUD-02 | 36338644737 | Esteira completa nos dois alvos; alvos no ar apos o DAST; SAST 48 e 17 com regras locais; ZAP do alvo 1 em 52,7 min (abaixo do teto); 10 alertas externos descartados; gate bloqueado nos dois alvos |
+| TESTE-ENF-02 | 36338655400 | Gate em failure nos dois alvos e DAST pulado, como previsto |
+
+Durante o teste o orquestrador caiu por falha de rede (corrigido: tolera
+falhas transitorias) e o `coletar_tempos.py` lia o nome do workflow do campo
+errado com o run-name (corrigido: usa o `path`).
