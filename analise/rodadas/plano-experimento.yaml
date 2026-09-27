@@ -1,0 +1,40 @@
+# Plano das rodadas experimentais (D5). Ordem de disparo = ordem da lista.
+#
+# Cada execucao cobre os dois alvos (matriz dos workflows). Correspondencia com
+# a matriz do plano de acao (secao 5.2):
+#   BASE = E1 + E4 (baseline)             n = 10
+#   AUD  = E2 + E5 (devsecops, audit)     n = 10  escopo all_tools, AJAX ligado
+#   ENF  = E3 + E6 (devsecops, enforce)   n = 5   escopo sca_only,  AJAX ligado
+# O escopo sca_only nas rodadas audit e derivado dos mesmos dados: a decisao
+# sca_only e a parcela trivy do gate-decision (mesmo codigo, D4).
+# A primeira de cada bloco (BASE-01, AUD-01, ENF-01) e aquecimento e e
+# descartada da analise (D5), de forma documentada.
+# Intercalacao: BASE e AUD alternados; uma ENF a cada dois pares.
+lote: experimento
+concorrencia_max: 4
+execucoes:
+  - {rodada: BASE-01, workflow: 00-baseline.yml}
+  - {rodada: AUD-01, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: BASE-02, workflow: 00-baseline.yml}
+  - {rodada: AUD-02, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: ENF-01, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
+  - {rodada: BASE-03, workflow: 00-baseline.yml}
+  - {rodada: AUD-03, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: BASE-04, workflow: 00-baseline.yml}
+  - {rodada: AUD-04, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: ENF-02, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
+  - {rodada: BASE-05, workflow: 00-baseline.yml}
+  - {rodada: AUD-05, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: BASE-06, workflow: 00-baseline.yml}
+  - {rodada: AUD-06, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: ENF-03, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
+  - {rodada: BASE-07, workflow: 00-baseline.yml}
+  - {rodada: AUD-07, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: BASE-08, workflow: 00-baseline.yml}
+  - {rodada: AUD-08, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: ENF-04, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
+  - {rodada: BASE-09, workflow: 00-baseline.yml}
+  - {rodada: AUD-09, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: BASE-10, workflow: 00-baseline.yml}
+  - {rodada: AUD-10, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: ENF-05, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}

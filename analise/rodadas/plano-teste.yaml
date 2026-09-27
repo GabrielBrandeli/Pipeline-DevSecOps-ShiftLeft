@@ -1,0 +1,11 @@
+# Execucao de teste antes das rodadas (27/09/2026). Verifica, no CI:
+# imagens base por digest (D13), Semgrep local (D15), gate restrito ao alvo
+# (D16), AJAX com teto de 60 min (D12), modo enforce e o E7 com 12 cenarios.
+# Os dados vao para um lote separado e nao entram nas metricas.
+lote: teste-pre-rodadas
+concorrencia_max: 4
+execucoes:
+  - {rodada: TESTE-GV-01, workflow: 02-gate-validation.yml}
+  - {rodada: TESTE-BASE-01, workflow: 00-baseline.yml}
+  - {rodada: TESTE-AUD-01, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: TESTE-ENF-01, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
