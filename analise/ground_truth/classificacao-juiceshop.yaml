@@ -1,0 +1,139 @@
+# Classificacao de detectabilidade do ground truth do Juice Shop v20.2.0.
+# Criterios e regras de decisao: docs/GROUND-TRUTH.md (secoes 3 e 3.1).
+#
+# STATUS: REVISADO pelo pesquisador em 27/09/2026. Proposta elaborada com
+# auxilio de IA (Claude) em 27/09/2026,
+# a partir apenas de informacao a priori (catalogo, codigo-fonte do alvo,
+# regras dos pacotes do Semgrep, escopo de cada ferramenta). Os resultados das
+# execucoes de validacao NAO foram consultados para decidir nenhum item.
+# So vale como ground truth depois da revisao e da assinatura do pesquisador
+# (campos abaixo), antes da primeira rodada experimental.
+revisao:
+  proposta_em: "2026-09-27"
+  revisado_por: "Gabriel Brandeli Ramos"
+  revisado_em: "2026-09-27"
+  subamostra_orientador: "nao realizada; revisao integral pelo pesquisador (limitacao declarada)"
+
+# Controle de alteracoes. Depois da primeira rodada experimental, qualquer
+# mudanca de classificacao entra aqui, com data, motivo e a indicacao de ter
+# sido feita antes ou depois de observar resultados. Alteracoes posteriores
+# aos resultados sao reportadas no Cap. 4 com a revocacao nas duas versoes.
+alteracoes: []
+
+# Formato: <key do challenges.yml>: [SAST, SCA, DAST, local esperado, justificativa]
+#   S = Sim, P = Parcial, N = Nao.
+#   SCA = estagio do Trivy completo (image vuln + fs secret + config Dockerfile).
+#   "local esperado" e o criterio de correspondencia: um achado so conta como
+#   deteccao do desafio se apontar para esse arquivo ou rota.
+# Desafios excluidos (disabledEnv Docker e dependencia externa) nao constam
+# aqui: a exclusao e aplicada pelo script a partir do catalogo e do log.
+desafios:
+  # --- Injecao SQL (mesma falha em duas rotas) ---
+  loginAdminChallenge: [S, N, S, "routes/login.ts; POST /rest/user/login", "Consulta Sequelize montada por interpolacao com dados da requisicao (regra express-sequelize-injection); rota publica coberta pela regra de SQL Injection do ZAP."]
+  loginBenderChallenge: [S, N, S, "routes/login.ts; POST /rest/user/login", "Mesma injecao SQL do login (loginAdminChallenge)."]
+  loginJimChallenge: [S, N, S, "routes/login.ts; POST /rest/user/login", "Mesma injecao SQL do login (loginAdminChallenge)."]
+  ephemeralAccountantChallenge: [S, N, S, "routes/login.ts; POST /rest/user/login", "Mesma injecao SQL do login, explorada com UNION."]
+  ghostLoginChallenge: [S, N, S, "routes/login.ts; POST /rest/user/login", "Mesma injecao SQL do login, com o e-mail do usuario apagado."]
+  unionSqlInjectionChallenge: [S, N, S, "routes/search.ts; GET /rest/products/search", "Consulta Sequelize da busca montada por interpolacao (express-sequelize-injection); rota publica chamada na pagina inicial, coberta pela regra de SQL Injection do ZAP."]
+  dbSchemaChallenge: [S, N, S, "routes/search.ts; GET /rest/products/search", "Mesma injecao SQL da busca (unionSqlInjectionChallenge)."]
+  christmasSpecialChallenge: [S, N, S, "routes/search.ts; GET /rest/products/search", "Mesma injecao SQL da busca, usada para revelar produto excluido."]
+
+  # --- XSS e redirecionamento ---
+  localXssChallenge: [S, N, S, "frontend/src/app/search-result/search-result.component.ts; /#/search?q=", "bypassSecurityTrustHtml sobre parametro da URL (regra angular-bypasssecuritytrust); coberto pela regra de XSS baseado em DOM do ZAP, que depende do navegador (AJAX ligado)."]
+  xssBonusChallenge: [S, N, S, "frontend/src/app/search-result/search-result.component.ts; /#/search?q=", "Mesma falha de localXssChallenge, com outra carga."]
+  redirectChallenge: [S, N, S, "routes/redirect.ts, lib/insecurity.ts; GET /redirect?to=", "Redirecionamento com destino vindo da requisicao e allowlist por substring (regra express-open-redirect); rota referenciada pela interface, coberta pela regra External Redirect do ZAP."]
+  redirectCryptoCurrencyChallenge: [N, N, N, "", "Exige saber quais enderecos antigos continuam na allowlist; e conteudo de dados, nao padrao de codigo nem resposta anomala."]
+
+  # --- Listagem de diretorio e arquivos expostos ---
+  directoryListingChallenge: [S, N, S, "server.ts (serveIndex /ftp); /ftp", "serve-index exposto (regra express-check-directory-listing); /ftp e referenciado pela pagina About e coberto pela regra de Directory Browsing do ZAP."]
+  accessLogDisclosureChallenge: [S, N, P, "server.ts (serveIndex /support/logs); /support/logs", "Listagem de diretorio no codigo (express-check-directory-listing); no DAST a regra cobre a classe, mas o caminho nao e referenciado pela aplicacao."]
+  misplacedIacFiles: [S, N, P, "server.ts (serveIndex /infrastructure); /infrastructure", "Listagem de diretorio no codigo (express-check-directory-listing); no DAST o caminho nao e referenciado pela aplicacao."]
+  forgottenDevBackupChallenge: [P, N, P, "routes/fileServer.ts; /ftp/package.json.bak", "Arquivo em /ftp bloqueado por verificacao de extensao contornavel com byte nulo; as regras de envio de arquivo e de backup/path traversal cobrem a classe, nao o contorno."]
+  forgottenBackupChallenge: [P, N, P, "routes/fileServer.ts; /ftp/coupons_2013.md.bak", "Mesmo mecanismo de forgottenDevBackupChallenge."]
+  misplacedSignatureFileChallenge: [P, N, P, "routes/fileServer.ts; /ftp/suspicious_errors.yml", "Mesmo mecanismo de forgottenDevBackupChallenge."]
+  easterEggLevelOneChallenge: [P, N, P, "routes/fileServer.ts; /ftp/eastere.gg", "Mesmo mecanismo de forgottenDevBackupChallenge."]
+  nullByteChallenge: [P, N, P, "routes/fileServer.ts; /ftp", "O desafio e o proprio contorno por byte nulo; ferramentas sinalizam envio de arquivo com caminho da requisicao, nao o contorno."]
+  errorHandlingChallenge: [N, N, S, "qualquer rota com excecao nao tratada", "Resposta de erro com pilha, coberta pela regra passiva Application Error Disclosure do ZAP; no codigo nao ha padrao coberto pelos pacotes."]
+  exposedMetricsChallenge: [N, N, N, "", "Endpoint de metricas nao referenciado e sem regra que o trate como vulnerabilidade em nenhuma das ferramentas."]
+
+  # --- Segredos e componentes vulneraveis ---
+  iacLeakedKeyChallenge: [S, S, N, "infrastructure/terraform/networking.tf", "Chave privada RSA embutida em arquivo Terraform, reconhecida pelas regras de segredo do Semgrep (p/secrets) e do Trivy (private-key); nao e observavel por HTTP."]
+  jwtForgedChallenge: [P, S, N, "package.json (jsonwebtoken 0.4.0, express-jwt 0.1.3); lib/insecurity.ts", "Confusao de algoritmo em versoes de bibliotecas JWT com CVE publicada, instaladas na imagem; no codigo, as regras de segredo apontam a chave embutida, indicio relacionado."]
+  jwtUnsignedChallenge: [N, S, N, "package.json (jsonwebtoken 0.4.0, express-jwt 0.1.3)", "Aceitacao de token com alg none em versoes de bibliotecas JWT com CVE publicada, instaladas na imagem."]
+  knownVulnerableComponentChallenge: [N, S, N, "package.json (sanitize-html 1.4.2, express-jwt 0.1.3, jsonwebtoken 0.4.0)", "Dependencias diretas com vulnerabilidades de severidade alta publicadas, instaladas na imagem."]
+  csafChallenge: [N, P, N, "", "Biblioteca com advisory publicado pode ser apontada pelo Trivy, mas o desafio exige o checksum do documento CSAF, nao a identificacao da vulnerabilidade."]
+  vulnerableDockerImageChallenge: [N, P, N, "infrastructure/docker-compose.yml (mongo:4.4.29)", "Imagem vulneravel referenciada em docker-compose; o Trivy detectaria, mas a varredura de configuracao adotada cobre so o Dockerfile de producao e nao inspeciona imagens referenciadas."]
+  supplyChainAttackChallenge: [N, N, N, "", "Pacote comprometido historico que nao consta das dependencias instaladas na versao avaliada."]
+  typosquattingAngularChallenge: [N, N, N, "", "Typosquatting no frontend; nao e CVE, e as dependencias do frontend sao removidas da imagem final."]
+  typosquattingNpmChallenge: [N, N, N, "", "Typosquatting em versao historica (v6.2.0), ausente do codigo avaliado."]
+  exposedCredentialsChallenge: [N, N, N, "frontend/src/app/login/login.component.ts", "Senha em texto no codigo do frontend sem formato reconhecido pelas regras de segredo dos pacotes nem do Trivy."]
+  leakedApiKeyChallenge: [N, N, N, "", "A chave vazada nao esta no repositorio; exige busca externa."]
+  weirdCryptoChallenge: [N, N, N, "", "Uso inadequado de algoritmos (md5, z85, hashids) sem regra correspondente nos pacotes; bibliotecas sem CVE associada ao uso."]
+  forgedCouponChallenge: [N, N, N, "", "Criptoanalise do formato do cupom; nao ha padrao de codigo nem resposta anomala."]
+
+  # --- Exigem autenticacao ou configuracao nao adotada (DAST parcial) ---
+  passwordHashLeakChallenge: [N, N, P, "GET /rest/user/whoami", "Hash de senha em resposta de API; a regra passiva de divulgacao de hash do ZAP cobre a classe, mas a rota exige sessao."]
+  noSqlReviewsChallenge: [N, N, P, "routes/updateProductReviews.ts; PATCH /rest/products/reviews", "Injecao NoSQL no MarsDB, sem regra nos pacotes para essa API; o ZAP tem regra de injecao NoSQL (alfa), mas a rota exige autenticacao."]
+  ssrfChallenge: [P, N, P, "routes/profileImageUrlUpload.ts; POST /profile/image/url", "URL da requisicao usada em fetch; a regra express-ssrf cobre a classe para outras APIs de requisicao; no ZAP a rota exige sessao e a regra depende de servidor de callback nao configurado."]
+  csrfChallenge: [N, N, P, "POST /profile", "Formulario legado sem token anti-CSRF; a regra passiva do ZAP cobre a classe, mas a pagina exige sessao."]
+
+  # --- Logica de negocio e autorizacao ---
+  registerAdminChallenge: [N, N, N, "", "Atribuicao em massa do papel no cadastro; logica de autorizacao sem regra correspondente."]
+  adminSectionChallenge: [N, N, N, "", "Rota administrativa protegida apenas no cliente; controle de acesso nao verificavel genericamente."]
+  changeProductChallenge: [N, N, N, "", "API de produtos aceita alteracao sem autorizacao; falha de autorizacao sem regra correspondente."]
+  basketAccessChallenge: [N, N, N, "", "Acesso a cesta de outro usuario (IDOR); exige sessao e conhecimento de identificadores."]
+  basketManipulateChallenge: [N, N, N, "", "Poluicao de parametros para alterar cesta alheia; logica de negocio."]
+  feedbackChallenge: [N, N, N, "", "Exclusao de avaliacoes sem autorizacao; logica de autorizacao."]
+  forgedFeedbackChallenge: [N, N, N, "", "Envio de avaliacao em nome de outro usuario; logica de autorizacao."]
+  forgedReviewChallenge: [N, N, N, "", "Edicao de review alheia; logica de autorizacao."]
+  dataExportChallenge: [N, N, N, "", "Exportacao de dados de outro usuario; logica de negocio."]
+  changePasswordBenderChallenge: [N, N, N, "", "Troca de senha sem a senha atual; exige sessao e encadeamento de acoes."]
+  emailLeakChallenge: [N, N, N, "", "Vazamento via JSONP entre dominios; sem regra correspondente e exige sessao."]
+  twoFactorAuthUnsafeSecretStorageChallenge: [N, N, N, "", "Exige obter o segredo TOTP por outra falha e gerar o codigo; encadeamento de acoes."]
+  emptyUserRegistration: [N, N, N, "", "Validacao de entrada apenas no cliente; logica de negocio."]
+  passwordRepeatChallenge: [N, N, N, "", "Validacao de entrada apenas no cliente; logica de negocio."]
+  zeroStarsChallenge: [N, N, N, "", "Validacao de entrada apenas no cliente; logica de negocio."]
+  negativeOrderChallenge: [N, N, N, "", "Quantidade negativa em pedido; logica de negocio."]
+  manipulateClockChallenge: [N, N, N, "", "Cupom expirado aceito por manipulacao de data no cliente; logica de negocio."]
+  freeDeluxeChallenge: [N, N, N, "", "Assinatura sem pagamento; logica de negocio."]
+  uploadSizeChallenge: [N, N, N, "", "Limite de tamanho so no cliente; exige sessao e envio direcionado."]
+  uploadTypeChallenge: [N, N, N, "", "Tipo de arquivo validado so no cliente; exige sessao e envio direcionado."]
+  missingEncodingChallenge: [N, N, N, "", "Nome de arquivo com caractere nao codificado; exige conhecimento do recurso."]
+  svgInjectionChallenge: [N, N, N, "", "Encadeamento de redirecionamento e conteudo SVG; exige conhecimento de contexto."]
+  retrieveBlueprintChallenge: [N, N, N, "", "Arquivo nao referenciado descoberto por metadados de imagem; exige contexto."]
+
+  # --- Anti-automacao e forca bruta ---
+  captchaBypassChallenge: [N, N, N, "", "Reuso de CAPTCHA em automacao; sem regra correspondente."]
+  timingAttackChallenge: [N, N, N, "", "Condicao de corrida em curtidas; sem regra correspondente."]
+  extraLanguageChallenge: [N, N, N, "", "Descoberta de arquivo de idioma por forca bruta de nomes."]
+  weakPasswordChallenge: [N, N, N, "", "Senha fraca do administrador; exige forca bruta de credenciais."]
+  loginSupportChallenge: [N, N, N, "", "Senha em cofre KeePass exige quebra offline."]
+
+  # --- OSINT ---
+  resetPasswordBjoernOwaspChallenge: [N, N, N, "", "Resposta de seguranca obtida por OSINT."]
+  resetPasswordBenderChallenge: [N, N, N, "", "Resposta de seguranca obtida por OSINT."]
+  resetPasswordBjoernChallenge: [N, N, N, "", "Resposta de seguranca obtida por OSINT."]
+  resetPasswordJimChallenge: [N, N, N, "", "Resposta de seguranca obtida por OSINT."]
+  resetPasswordMortyChallenge: [N, N, N, "", "Resposta ofuscada obtida por OSINT e forca bruta."]
+  resetPasswordUvoginChallenge: [N, N, N, "", "Resposta de seguranca obtida por OSINT."]
+  geoStalkingMetaChallenge: [N, N, N, "", "Resposta obtida por metadados de foto (OSINT)."]
+  geoStalkingVisualChallenge: [N, N, N, "", "Resposta obtida por inspecao visual de foto (OSINT)."]
+  loginAmyChallenge: [N, N, N, "", "Senha deduzida por pista externa (OSINT)."]
+  loginRapperChallenge: [N, N, N, "", "Senha revelada em conteudo externo (OSINT)."]
+  dlpPasswordSprayingChallenge: [N, N, N, "", "Senha vazada em fonte externa (OSINT)."]
+  dlpPastebinDataLeakChallenge: [N, N, N, "", "Informacao vazada em fonte externa (OSINT)."]
+  oauthUserPasswordChallenge: [N, N, N, "", "Senha derivada do e-mail por analise do codigo do cliente; exige deducao."]
+
+  # --- Conteudo, obscuridade e desafios sem vulnerabilidade tecnica ---
+  scoreBoardChallenge: [N, N, N, "", "Descoberta de rota oculta; nao e vulnerabilidade tratada por regra."]
+  web3SandboxChallenge: [N, N, N, "", "Descoberta de rota oculta; nao e vulnerabilidade tratada por regra."]
+  tokenSaleChallenge: [N, N, N, "", "Rota ofuscada no codigo do cliente; exige analise manual."]
+  nftUnlockChallenge: [N, N, N, "", "Frase-semente publicada em conteudo da aplicacao, sem formato reconhecido por regras de segredo."]
+  privacyPolicyChallenge: [N, N, N, "", "Leitura da politica de privacidade; nao e vulnerabilidade."]
+  privacyPolicyProofChallenge: [N, N, N, "", "Mensagem escondida no texto; obscuridade."]
+  securityPolicyChallenge: [N, N, N, "", "Leitura do security.txt; nao e vulnerabilidade."]
+  closeNotificationsChallenge: [N, N, N, "", "Interacao de interface; nao e vulnerabilidade."]
+  hiddenImageChallenge: [N, N, N, "", "Esteganografia; exige inspecao manual."]
+  easterEggLevelTwoChallenge: [N, N, N, "", "Criptoanalise de texto; exige inspecao manual."]
+  continueCodeChallenge: [N, N, N, "", "Manipulacao do codigo de progresso; exige analise manual."]
+  premiumPaywallChallenge: [N, N, N, "", "Decifracao de conteudo; exige analise manual."]
