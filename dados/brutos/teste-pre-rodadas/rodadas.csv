@@ -1,0 +1,5 @@
+rodada,workflow,gate_mode,gate_scope,zap_ajax,run_id,head_sha,criada_em,situacao,conclusao,revisar
+TESTE-GV-01,02-gate-validation.yml,,,,36337843239,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:40:56Z,arquivada,success,
+TESTE-BASE-01,00-baseline.yml,,,,36337852503,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:05Z,arquivada,failure,sim
+TESTE-AUD-01,01-devsecops.yml,audit,all_tools,True,36337862032,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:15Z,arquivada,failure,sim
+TESTE-ENF-01,01-devsecops.yml,enforce,sca_only,True,36337871583,bff4b55aaa655931ba482d95f408be7c6ea3a46f,2026-09-27T17:41:25Z,arquivada,failure,

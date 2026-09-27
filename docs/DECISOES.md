@@ -4,7 +4,7 @@ Registro das decisoes que definem o desenho experimental. Cada uma foi fechada
 com o orientador e tem contrapartida no Capitulo 3 do TCC.
 
 Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026.
-Revisao de D11: 23/09/2026. D12 a D16: 27/09/2026.
+Revisao de D11: 23/09/2026. D12 a D16 e revisao de D7: 27/09/2026.
 
 ---
 
@@ -18,14 +18,14 @@ Revisao de D11: 23/09/2026. D12 a D16: 27/09/2026.
 | D4 | Modos de execucao | `enforce` (bloqueante) e `audit` (observatorio), mesmo codigo de decisao |
 | D5 | Repeticoes e tratamento estatistico | n = 10, descarte da primeira, intercalacao, mediana e IQR, Mann-Whitney U (alfa = 0,05), delta de Cliff, duas metricas de tempo |
 | D6 | Unidade de contagem de alertas | Tupla especifica por ferramenta, com reporte bruto e deduplicado |
-| D7 | Protocolo de triagem manual | Adotado, com amostragem estratificada e dupla triagem cega no tempo |
+| D7 | Protocolo de triagem manual | Adotado, com amostragem estratificada e dupla triagem cega no tempo; parametros fixados e revisao pelo orientador retirada (revisado em 27/09/2026) |
 | D8 | Arquitetura de repositorio | Monorepo com submodulos Git |
 | D9 | Fonte de dados do SCA | `trivy image` como fonte unica; `trivy fs` restrito a `--scanners secret` |
 | D10 | Versionamento de dados brutos | CSV para dados processados; JSON bruto comprimido em gzip para evidencia |
 | D11 | Estado inicial do Alvo 2 para o DAST | Fixture com admin pre-provisionado e status page publica; ZAP sem autenticacao nos dois alvos (revisado em 23/09/2026) |
 | D12 | Spider AJAX do ZAP | Ligado em todas as rodadas; teto da varredura ativa elevado de 30 para 60 min |
 | D13 | Imagens base dos alvos | Fixadas por digest via `--build-context`, sem alterar os submodulos |
-| D14 | Dependencias npm do Juice Shop | Mantidas como o projeto constroi (sem lockfile); variacao medida por rodada |
+| D14 | Dependencias npm do Juice Shop | Resolvidas com data de corte (`npm_config_before=2026-09-23T18:27:00Z`), revisado em 27/09/2026 apos o build quebrar |
 | D15 | Regras do Semgrep | Pacotes copiados para `ci/regras/semgrep/`, em vez de baixados do registro |
 | D16 | Escopo do relatorio do ZAP | Apenas o site do alvo entra na contagem e no gate |
 
@@ -188,6 +188,17 @@ desenvolvimento e e reportada como resultado.
 ## D7. Protocolo de triagem manual
 
 Adotado integralmente. Detalhamento em `docs/PROTOCOLO-TRIAGEM.md`.
+
+### D7, revisao de 27/09/2026
+
+- Parametros de amostragem fixados em `analise/scripts/amostrar_triagem.py`:
+  censo ate 150 achados distintos por (alvo, fonte); acima disso, 100 achados
+  estratificados por severidade, minimo de 10 por estrato; semente 20260927.
+- Populacao: uniao dos achados distintos das rodadas AUD validas (sem AUD-01).
+- Alertas informativos do ZAP (riskcode 0) fora da precisao.
+- Revisao por amostragem pelo orientador retirada: o orientador nao tem
+  familiaridade tecnica com as ferramentas. Fica a retriagem cega (30
+  achados, sorteados junto com a amostra) e a limitacao de avaliador unico.
 
 Elementos centrais: amostragem aleatoria estratificada por severidade e
 ferramenta com semente fixada; quatro categorias de classificacao (verdadeiro
@@ -426,6 +437,8 @@ instaladas de cada rodada) ou injetar lockfile, o que altera o alvo.
 
 ## D14. Dependencias npm do Juice Shop sem lockfile
 
+**REVISADA no mesmo dia; ver "D14, revisao" abaixo. O texto a seguir e a decisao original.**
+
 **Problema.** O `.npmrc` do Juice Shop declara `package-lock=false`: o
 `npm install` do build resolve as faixas de versao do `package.json` no momento
 da execucao. Uma versao nova publicada no meio das rodadas muda o conjunto de
@@ -493,3 +506,40 @@ varredura ativa que motivou o teto de 60 min.
 **Nota.** O filtro atua na analise. O ZAP ainda visita os dominios externos
 com o navegador (apenas trafego de navegacao, analisado passivamente); a
 varredura ativa da acao ja fica restrita ao alvo.
+
+### D14, revisao de 27/09/2026 (forcada pela quebra do build)
+
+**Fato.** Na execucao de teste 36337852503 (27/09/2026), o build do Juice
+Shop falhou dentro do `npm install --omit=dev`: `Missing metafile:
+dist/frontend/stats.json` na geracao de SBOM do frontend. Causa: o
+`@angular/build` 22.2.0 foi publicado em 23/09/2026 21:37 UTC, depois da
+ultima execucao bem-sucedida (35905208031, 18:50 UTC), e o `^22.0.1` do
+`frontend/package.json` passou a resolve-lo. O risco descrito acima se
+materializou em quatro dias: nao apenas mudar achados, mas impedir o build.
+
+**Adotado:** data de corte na resolucao das dependencias, com
+`ENV npm_config_before=2026-09-23T18:27:00Z` em uma copia do Dockerfile do alvo
+(`ci/alvos/juice-shop.Dockerfile`, uma linha a mais), apontada pelo perfil.
+A data e o inicio da execucao de validacao 35902561486.
+
+**Verificacao.** Build local com a copia: sucesso; as 81 vulnerabilidades de
+dependencia do `trivy image` sao identicas as da execucao 35902561486. O
+conjunto de dependencias fica congelado para todas as rodadas, o que tambem
+elimina a variacao que a decisao original apenas media.
+
+**Por que data de corte e nao lockfile.** O `package-lock=false` do projeto
+faz o npm ignorar lockfiles; injetar um exigiria alterar tambem o `.npmrc`.
+A data de corte e uma linha, nao altera arquivos do submodulo e e
+auditavel (a data explica o conjunto resolvido).
+
+**Consequencia para o texto.** O Cap. 3 declara que o Juice Shop e construido
+com as dependencias resolvidas na data de corte, como ajuste de
+reprodutibilidade, e nao mais com a resolucao corrente.
+
+**Achado lateral: falha de um alvo derruba a esteira dos dois.** Na mesma
+execucao de teste, a AUD (36337862032) parou nos dois alvos, embora so o build
+do alvo 1 tenha falhado: o `needs` do GitHub Actions espera todas as pernas da
+matriz do job anterior. Na linha de base, o job unico com matriz nao tem esse
+acoplamento. Consequencia: falha de build ou de SAST em um alvo invalida a
+rodada inteira (os dois alvos); a falha de DAST, no ultimo job, afeta so o
+proprio alvo. Registrado no roteiro de rodadas.

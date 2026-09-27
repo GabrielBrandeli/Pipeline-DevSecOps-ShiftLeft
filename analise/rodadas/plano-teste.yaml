@@ -9,3 +9,7 @@ execucoes:
   - {rodada: TESTE-BASE-01, workflow: 00-baseline.yml}
   - {rodada: TESTE-AUD-01, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
   - {rodada: TESTE-ENF-01, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}
+  # Segunda tentativa, apos D14 revisado (build do Juice Shop com data de corte).
+  - {rodada: TESTE-BASE-02, workflow: 00-baseline.yml}
+  - {rodada: TESTE-AUD-02, workflow: 01-devsecops.yml, gate_mode: audit, gate_scope: all_tools, zap_ajax: true}
+  - {rodada: TESTE-ENF-02, workflow: 01-devsecops.yml, gate_mode: enforce, gate_scope: sca_only, zap_ajax: true}

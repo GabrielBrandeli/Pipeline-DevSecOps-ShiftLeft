@@ -338,8 +338,10 @@ Observacoes registradas na parte 2:
 | Item | Valor |
 |---|---|
 | Periodo das rodadas | |
+| Plano de execucao | `analise/rodadas/plano-experimento.yaml` (BASE x10, AUD x10, ENF x5), conduzido por `analise/scripts/rodadas.py` |
+| Lote de dados brutos | `dados/brutos/experimento/` |
 | Repeticoes por configuracao (n) | 10 |
 | Execucoes descartadas (aquecimento) | 1 por configuracao |
 | Concorrencia maxima por lote | 4 |
-| Semente aleatoria da amostragem de triagem | |
+| Semente aleatoria da amostragem de triagem | 20260927 (fixada em `analise/scripts/amostrar_triagem.py`, 27/09/2026) |
 | Tag de congelamento do repositorio | v1.0-tcc |
