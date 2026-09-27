@@ -29,8 +29,9 @@ nohup python analise/scripts/rodadas.py executar analise/rodadas/plano-experimen
   pelo `baixar_run.sh`.
 - Pode ser interrompido (Ctrl+C, queda da maquina) e executado de novo: retoma
   de onde parou, sem disparar a mesma rodada duas vezes.
-- Duracao estimada: 6 a 9 horas (a AUD do Juice Shop leva cerca de 1 h com
-  AJAX e teto de 60 min).
+- Duracao estimada: cerca de 3 h 30 (simulacao do plano com os tempos da
+  execucao de teste: AUD ~61 min, dominada pelo DAST do Juice Shop; ENF ~7 min;
+  BASE ~3 min; 4 execucoes simultaneas). Com filas do GitHub, prever 4 a 5 h.
 
 Acompanhar: `python analise/scripts/rodadas.py status analise/rodadas/plano-experimento.yaml`.
 
