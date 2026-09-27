@@ -73,8 +73,10 @@ def conferir_repositorio():
                            text=True).stdout.strip()
     remoto = subprocess.run(["git", "rev-parse", "origin/main"], cwd=RAIZ, capture_output=True,
                             text=True).stdout.strip()
-    sujo = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=RAIZ,
-                          capture_output=True, text=True).stdout.strip()
+    # dados/ muda durante as rodadas (arquivos arquivados, rodadas.csv) e nao
+    # afeta o que roda no GitHub; o resto do repositorio precisa estar limpo.
+    sujo = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no", "--", ".",
+                           ":(exclude)dados"], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
     if local != remoto or sujo:
         sys.exit(f"Repositorio local difere de origin/main (local {local[:7]}, remoto {remoto[:7]}, "
                  f"alteracoes: {'sim' if sujo else 'nao'}). Faca commit e push antes das rodadas.")
