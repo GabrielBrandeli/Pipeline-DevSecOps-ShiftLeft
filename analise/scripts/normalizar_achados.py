@@ -92,7 +92,7 @@ def meta_execucao(dir_run):
         partes = run.get("display_title", "").split()
         rodada = partes[1] if len(partes) > 1 else ""
         m = re.search(r"\[(\w+),", run.get("display_title", ""))
-        wf = run.get("name", "")
+        wf = Path(run.get("path", "")).stem or run.get("name", "")
         config = ("baseline" if wf.startswith("00") else
                   f"devsecops-{m.group(1)}" if m else wf)
     return rodada, config

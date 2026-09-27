@@ -68,7 +68,9 @@ def metadados(dir_run, jobs):
     run_json = dir_run / "run.json"
     if run_json.exists():
         run = json.loads(run_json.read_text(encoding="utf-8"))
-        meta.update(workflow=run.get("name", ""), run_attempt=run.get("run_attempt", ""),
+        # Com run-name, "name" traz o titulo da execucao; o workflow vem do path.
+        meta.update(workflow=Path(run.get("path", "")).stem or run.get("name", ""),
+                    run_attempt=run.get("run_attempt", ""),
                     head_sha=run.get("head_sha", ""), conclusao=run.get("conclusion", ""))
         m = RE_TITULO.match(run.get("display_title", ""))
         if m and m.group("wf") == meta["workflow"]:
