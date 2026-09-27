@@ -1,0 +1,4 @@
+cwe,categoria_owasp_2021,justificativa
+CWE-693,A05,"Falha de mecanismo de protecao; nos alertas do ZAP e ausencia de cabecalho de seguranca, citada no texto da A05 (security headers not sent)"
+CWE-530,A05,"Arquivo de backup exposto; a A05 cita recursos e arquivos desnecessarios instalados ou expostos"
+CWE-348,A01,"Contorno de resposta 403 por cabecalho/caminho; e contorno de controle de acesso (A01)"
