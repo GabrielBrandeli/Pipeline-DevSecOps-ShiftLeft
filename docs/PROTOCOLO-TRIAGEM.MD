@@ -157,6 +157,9 @@ entre as ameacas a validade interna.
 1. `normalizar_achados.py` sobre o lote `experimento` (gera `achados.csv`)
 2. `amostrar_triagem.py` (gera `triagem.csv` e `triagem-amostra.csv`)
 3. Commitar `triagem.csv` ainda vazio, como registro da amostra sorteada
+3a. `contexto_triagem.py`: acrescenta a coluna `link` e gera
+    `triagem-contexto.md` com o que cada ferramenta registrou e o trecho de
+    codigo, sem sugerir classificacao (29/09/2026)
 4. Triar (rodada 1), registrando evidencia por achado
 5. Calcular precisao com intervalo de confianca
 7. Aguardar duas semanas
