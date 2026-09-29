@@ -1,17 +1,24 @@
 # Classificacao de detectabilidade do ground truth do Juice Shop v20.2.0.
 # Criterios e regras de decisao: docs/GROUND-TRUTH.md (secoes 3 e 3.1).
 #
-# STATUS: PROPOSTA. Elaborada com auxilio de IA (Claude) em 27/09/2026,
-# a partir apenas de informacao a priori (catalogo, codigo-fonte do alvo,
-# regras dos pacotes do Semgrep, escopo de cada ferramenta). Os resultados das
-# execucoes de validacao NAO foram consultados para decidir nenhum item.
-# So vale como ground truth depois da revisao e da assinatura do pesquisador
-# (campos abaixo), antes da primeira rodada experimental.
+# STATUS: REVISADO pelo pesquisador em 27/09/2026. Proposta elaborada com
+# auxilio de IA (Claude) em 27/09/2026, a partir apenas de informacao a
+# priori (catalogo, codigo-fonte do alvo, regras dos pacotes do Semgrep,
+# escopo de cada ferramenta). Os resultados das execucoes de validacao NAO
+# foram consultados para decidir nenhum item.
 revisao:
   proposta_em: "2026-09-27"
-  revisado_por: "Gabriel Brandeli Ramos"        # preencher: nome
-  revisado_em: "2026-09-27"         # preencher: AAAA-MM-DD (anterior a primeira rodada)
-  subamostra_orientador: "5/10, 80%"   # preencher: n itens, concordancia %
+  revisado_por: "Gabriel Brandeli Ramos"
+  revisado_em: "2026-09-27"
+  subamostra_orientador: "nao realizada; revisao integral pelo pesquisador (limitacao declarada)"
+
+# Controle de alteracoes. Depois da primeira rodada experimental, qualquer
+# mudanca de classificacao entra aqui, com data, motivo e a indicacao de ter
+# sido feita antes ou depois de observar resultados. Alteracoes posteriores
+# aos resultados sao reportadas no Cap. 4 com a revocacao nas duas versoes.
+# Registro: o commit 7ad02b7 (28/09/2026) alterou apenas este cabecalho, por
+# engano (texto residual); nenhuma classificacao mudou. Corrigido em 29/09/2026.
+alteracoes: []
 
 # Formato: <key do challenges.yml>: [SAST, SCA, DAST, local esperado, justificativa]
 #   S = Sim, P = Parcial, N = Nao.
