@@ -1,0 +1,26 @@
+alvo,fonte,estrato,populacao,amostra,fracao,modo
+alvo1,semgrep,ERROR,13,13,1.0,censo
+alvo1,semgrep,MEDIUM,2,2,1.0,censo
+alvo1,semgrep,WARNING,33,33,1.0,censo
+alvo1,trivy-config,LOW,1,1,1.0,censo
+alvo1,trivy-config,MEDIUM,1,1,1.0,censo
+alvo1,trivy-image,CRITICAL,8,8,1.0,censo
+alvo1,trivy-image,HIGH,40,40,1.0,censo
+alvo1,trivy-image,LOW,12,12,1.0,censo
+alvo1,trivy-image,MEDIUM,43,43,1.0,censo
+alvo1,trivy-secret,HIGH,3,3,1.0,censo
+alvo1,trivy-secret,MEDIUM,2,2,1.0,censo
+alvo1,zap,1,38,38,1.0,censo
+alvo1,zap,2,70,70,1.0,censo
+alvo1,zap,3,8,8,1.0,censo
+alvo2,semgrep,ERROR,7,7,1.0,censo
+alvo2,semgrep,WARNING,10,10,1.0,censo
+alvo2,trivy-config,CRITICAL,1,1,1.0,censo
+alvo2,trivy-config,MEDIUM,1,1,1.0,censo
+alvo2,trivy-image,CRITICAL,199,10,0.0503,amostra estratificada
+alvo2,trivy-image,HIGH,1725,28,0.0162,amostra estratificada
+alvo2,trivy-image,LOW,1020,16,0.0157,amostra estratificada
+alvo2,trivy-image,MEDIUM,1918,31,0.0162,amostra estratificada
+alvo2,trivy-image,UNKNOWN,1282,20,0.0156,amostra estratificada
+alvo2,zap,1,23,23,1.0,censo
+alvo2,zap,2,3,3,1.0,censo

@@ -1,0 +1,21 @@
+alvo,config,estagio,mediana,minimo,maximo,n
+alvo1,baseline,Baseline,149.0,134,160,9
+alvo1,devsecops-audit,Build,151.0,145,172,9
+alvo1,devsecops-audit,Quality Gate,12.0,9,15,9
+alvo1,devsecops-audit,SAST - Semgrep,94.0,82,99,9
+alvo1,devsecops-audit,SCA - Trivy,47.0,35,54,9
+alvo1,devsecops-audit,Staging + DAST - OWASP ZAP,3182.0,2857,3367,9
+alvo1,devsecops-enforce,Build,158.0,134,185,4
+alvo1,devsecops-enforce,Quality Gate,11.0,10,11,4
+alvo1,devsecops-enforce,SAST - Semgrep,89.5,80,98,4
+alvo1,devsecops-enforce,SCA - Trivy,46.5,38,52,4
+alvo2,baseline,Baseline,164.0,140,185,9
+alvo2,devsecops-audit,Build,216.0,210,228,9
+alvo2,devsecops-audit,Quality Gate,9.0,8,15,9
+alvo2,devsecops-audit,SAST - Semgrep,59.0,50,64,9
+alvo2,devsecops-audit,SCA - Trivy,78.0,73,104,9
+alvo2,devsecops-audit,Staging + DAST - OWASP ZAP,322.0,276,371,9
+alvo2,devsecops-enforce,Build,214.0,213,217,4
+alvo2,devsecops-enforce,Quality Gate,11.5,9,14,4
+alvo2,devsecops-enforce,SAST - Semgrep,57.0,50,62,4
+alvo2,devsecops-enforce,SCA - Trivy,103.0,77,149,4

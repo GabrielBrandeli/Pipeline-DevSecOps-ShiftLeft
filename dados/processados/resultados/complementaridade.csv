@@ -1,0 +1,14 @@
+alvo,owasp,DAST,SAST,SCA,exclusiva_de
+alvo1,A01,True,True,False,
+alvo1,A02,False,True,False,SAST
+alvo1,A03,True,True,False,
+alvo1,A04,True,True,False,
+alvo1,A05,True,False,True,
+alvo1,A06,False,False,True,SCA
+alvo1,A07,False,True,True,
+alvo1,A08,False,True,False,SAST
+alvo2,A01,True,False,False,DAST
+alvo2,A02,False,True,False,SAST
+alvo2,A03,False,True,False,SAST
+alvo2,A05,True,False,True,
+alvo2,A06,False,False,True,SCA

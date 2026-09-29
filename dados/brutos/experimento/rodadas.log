@@ -1,0 +1,453 @@
+nohup: ignoring input
+[2026-09-28T19:56:48Z] Lote experimento, 25 execucoes, commit 7ad02b7, concorrencia maxima 4
+[2026-09-28T19:56:53Z] Disparada BASE-01
+[2026-09-28T19:57:03Z] Disparada AUD-01
+[2026-09-28T19:57:14Z] Disparada BASE-02
+[2026-09-28T19:57:24Z] Disparada AUD-02
+[2026-09-28T20:01:43Z] Arquivando BASE-01 (36475739379)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36475739379
+  00-baseline BASE-01
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T20:01:47Z] Arquivando BASE-02 (36475777193)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36475777193
+  00-baseline BASE-02
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T20:01:52Z] Disparada ENF-01
+[2026-09-28T20:02:03Z] Disparada BASE-03
+[2026-09-28T20:06:22Z] Arquivando BASE-03 (36476335407)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36476335407
+  00-baseline BASE-03
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T20:06:28Z] Disparada AUD-03
+[2026-09-28T20:10:47Z] Arquivando ENF-01 (36476314826)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36476314826
+  01-devsecops ENF-01 [enforce, sca_only, ajax=true]
+  tamanho: 2.3M
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+[2026-09-28T20:11:00Z] Disparada BASE-04
+[2026-09-28T20:15:19Z] Arquivando BASE-04 (36477374570)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36477374570
+  00-baseline BASE-04
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T20:15:25Z] Disparada AUD-04
+[2026-09-28T20:53:15Z] Arquivando AUD-01 (36475757554)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36475757554
+  01-devsecops AUD-01 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T20:53:28Z] Disparada ENF-02
+[2026-09-28T20:59:53Z] Arquivando AUD-02 (36475797081)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36475797081
+  01-devsecops AUD-02 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T21:00:08Z] Disparada BASE-05
+[2026-09-28T21:02:22Z] Arquivando ENF-02 (36482367301)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36482367301
+  01-devsecops ENF-02 [enforce, sca_only, ajax=true]
+  tamanho: 2.3M
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+[2026-09-28T21:02:43Z] Disparada AUD-05
+[2026-09-28T21:04:56Z] Arquivando BASE-05 (36483122303)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36483122303
+  00-baseline BASE-05
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T21:05:03Z] Disparada BASE-06
+[2026-09-28T21:09:22Z] Arquivando AUD-03 (36476846793)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36476846793
+  01-devsecops AUD-03 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T21:09:33Z] Arquivando BASE-06 (36483686211)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36483686211
+  00-baseline BASE-06
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T21:09:38Z] Disparada AUD-06
+[2026-09-28T21:09:48Z] Disparada ENF-03
+[2026-09-28T21:18:19Z] Arquivando AUD-04 (36477900429)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36477900429
+  01-devsecops AUD-04 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T21:18:30Z] Arquivando ENF-03 (36484225698)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36484225698
+  01-devsecops ENF-03 [enforce, sca_only, ajax=true]
+  tamanho: 2.3M
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+[2026-09-28T21:18:41Z] Disparada BASE-07
+[2026-09-28T21:18:51Z] Disparada AUD-07
+[2026-09-28T21:23:10Z] Arquivando BASE-07 (36485235928)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36485235928
+  00-baseline BASE-07
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T21:23:16Z] Disparada BASE-08
+[2026-09-28T21:27:36Z] Arquivando BASE-08 (36485747162)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36485747162
+  00-baseline BASE-08
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T21:27:42Z] Disparada AUD-08
+[2026-09-28T22:05:44Z] Arquivando AUD-05 (36483419446)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36483419446
+  01-devsecops AUD-05 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T22:05:57Z] Disparada ENF-04
+[2026-09-28T22:10:17Z] Arquivando AUD-06 (36484207483)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36484207483
+  01-devsecops AUD-06 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T22:10:30Z] Disparada BASE-09
+[2026-09-28T22:14:50Z] Arquivando ENF-04 (36490328884)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36490328884
+  01-devsecops ENF-04 [enforce, sca_only, ajax=true]
+  tamanho: 2.3M
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+[2026-09-28T22:14:59Z] Arquivando BASE-09 (36490789073)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36490789073
+  00-baseline BASE-09
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T22:15:07Z] Disparada AUD-09
+[2026-09-28T22:15:17Z] Disparada BASE-10
+[2026-09-28T22:17:31Z] Arquivando AUD-07 (36485254489)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36485254489
+  01-devsecops AUD-07 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T22:17:44Z] Disparada AUD-10
+[2026-09-28T22:19:58Z] Arquivando BASE-10 (36491275569)
+no valid artifacts found to download
+Aviso: nenhum artefato correspondente (execucao falhou cedo ou expirou).
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36491275569
+  00-baseline BASE-10
+  tamanho: 28K
+  jobs.json
+  run.json
+[2026-09-28T22:20:04Z] Disparada ENF-05
+[2026-09-28T22:28:36Z] Arquivando AUD-08 (36486242752)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36486242752
+  01-devsecops AUD-08 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T22:28:47Z] Arquivando ENF-05 (36491751752)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36491751752
+  01-devsecops ENF-05 [enforce, sca_only, ajax=true]
+  tamanho: 2.3M
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+[2026-09-28T23:13:00Z] Arquivando AUD-10 (36491525012)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36491525012
+  01-devsecops AUD-10 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T23:15:16Z] Arquivando AUD-09 (36491255296)
+Arquivado: /home/user/tcc/Pipeline-DevSecOps-ShiftLeft/dados/brutos/experimento/36491255296
+  01-devsecops AUD-09 [audit, all_tools, ajax=true]
+  tamanho: 3.0M
+  app-log-alvo1.txt.gz
+  app-log-alvo2.txt.gz
+  dast-integridade-alvo1.json
+  dast-integridade-alvo2.json
+  gate-decision-alvo1.json
+  gate-decision-alvo2.json
+  gate-decision-final-alvo1.json
+  gate-decision-final-alvo2.json
+  jobs.json
+  run.json
+  semgrep-alvo1.json.gz
+  semgrep-alvo2.json.gz
+  trivy-config-alvo1.json.gz
+  trivy-config-alvo2.json.gz
+  trivy-fs-secret-alvo1.json.gz
+  trivy-fs-secret-alvo2.json.gz
+  trivy-image-alvo1.json.gz
+  trivy-image-alvo2.json.gz
+  zap-alvo1.json.gz
+  zap-alvo2.json.gz
+[2026-09-28T23:15:32Z] Todas as execucoes arquivadas.
+  BASE-01        arquivada     36475739379  success   7ad02b7  
+  AUD-01         arquivada     36475757554  success   7ad02b7  
+  BASE-02        arquivada     36475777193  success   7ad02b7  
+  AUD-02         arquivada     36475797081  success   7ad02b7  
+  ENF-01         arquivada     36476314826  failure   7ad02b7  
+  BASE-03        arquivada     36476335407  success   7ad02b7  
+  AUD-03         arquivada     36476846793  success   7ad02b7  
+  BASE-04        arquivada     36477374570  success   7ad02b7  
+  AUD-04         arquivada     36477900429  success   7ad02b7  
+  ENF-02         arquivada     36482367301  failure   7ad02b7  
+  BASE-05        arquivada     36483122303  success   7ad02b7  
+  AUD-05         arquivada     36483419446  success   7ad02b7  
+  BASE-06        arquivada     36483686211  success   7ad02b7  
+  AUD-06         arquivada     36484207483  success   7ad02b7  
+  ENF-03         arquivada     36484225698  failure   7ad02b7  
+  BASE-07        arquivada     36485235928  success   7ad02b7  
+  AUD-07         arquivada     36485254489  success   7ad02b7  
+  BASE-08        arquivada     36485747162  success   7ad02b7  
+  AUD-08         arquivada     36486242752  success   7ad02b7  
+  ENF-04         arquivada     36490328884  failure   7ad02b7  
+  BASE-09        arquivada     36490789073  success   7ad02b7  
+  AUD-09         arquivada     36491255296  success   7ad02b7  
+  BASE-10        arquivada     36491275569  success   7ad02b7  
+  AUD-10         arquivada     36491525012  success   7ad02b7  
+  ENF-05         arquivada     36491751752  failure   7ad02b7  

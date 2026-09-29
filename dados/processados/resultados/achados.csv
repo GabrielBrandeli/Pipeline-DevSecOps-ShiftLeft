@@ -1,0 +1,11 @@
+alvo,fonte,bruto_mediana,dedup_mediana,dedup_min,dedup_max,dedup_cv,razao_bruto_dedup,disparadores_mediana,disparadores_min,disparadores_max,fora_do_alvo_mediana
+alvo1,semgrep,48.0,48.0,48,48,0.0,1.0,13.0,13.0,13.0,0.0
+alvo1,trivy-config,2.0,2.0,2,2,0.0,1.0,,,,0.0
+alvo1,trivy-image,103.0,103.0,103,103,0.0,1.0,55.0,55.0,55.0,0.0
+alvo1,trivy-secret,5.0,5.0,5,5,0.0,1.0,,,,0.0
+alvo1,zap,149.0,130.0,126,141,0.0352,1.167,2.0,2.0,5.0,11.0
+alvo2,semgrep,17.0,17.0,17,17,0.0,1.0,3.0,3.0,3.0,0.0
+alvo2,trivy-config,2.0,2.0,2,2,0.0,1.0,,,,0.0
+alvo2,trivy-image,6146.0,6144.0,6144,6144,0.0,1.0,2483.0,2483.0,2483.0,0.0
+alvo2,trivy-secret,0.0,0.0,0,0,0.0,,,,,0.0
+alvo2,zap,57.0,55.0,51,59,0.0596,1.036,0.0,0.0,0.0,0.0

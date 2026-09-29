@@ -1,0 +1,13 @@
+alvo,config,metrica,n_base,n_trat,base_mediana,base_q1,base_q3,trat_mediana,trat_q1,trat_q3,trat_min,trat_max,sobrecarga_abs,sobrecarga_rel_pct,mann_whitney_u,p_valor,delta_cliff
+alvo1,devsecops-audit,tempo_parede_s,9,9,149.0,140.0,150.0,3613.0,3431.0,3723.0,3256,3775,3464.0,2324.8,81.0,0.0004094601088531576,1.0
+alvo1,devsecops-audit,soma_jobs_s,9,9,149.0,140.0,150.0,3494.0,3329.0,3627.0,3164,3672,3345.0,2245.0,81.0,0.0004094601088531576,1.0
+alvo1,devsecops-audit,minutos_faturaveis,9,9,3.0,3.0,3.0,61.0,58.0,63.0,55,64,58.0,1933.3,81.0,0.00015815066933858127,1.0
+alvo1,devsecops-enforce,tempo_parede_s,9,4,149.0,140.0,150.0,431.5,422.5,440.5,400,463,282.5,189.6,36.0,0.006850503187371088,1.0
+alvo1,devsecops-enforce,soma_jobs_s,9,4,149.0,140.0,150.0,312.0,301.75,314.75,271,323,163.0,109.4,36.0,0.0067739444378776305,1.0
+alvo1,devsecops-enforce,minutos_faturaveis,9,4,3.0,3.0,3.0,7.0,7.0,7.25,7,8,4.0,133.3,36.0,0.0008825640975269021,1.0
+alvo2,devsecops-audit,tempo_parede_s,9,9,164.0,159.0,165.0,745.0,721.0,763.0,678,841,581.0,354.3,81.0,0.0004094601088531576,1.0
+alvo2,devsecops-audit,soma_jobs_s,9,9,164.0,159.0,165.0,693.0,669.0,698.0,637,722,529.0,322.6,81.0,0.0004094601088531576,1.0
+alvo2,devsecops-audit,minutos_faturaveis,9,9,3.0,3.0,3.0,14.0,14.0,14.0,13,15,11.0,366.7,81.0,0.00016100130228057156,1.0
+alvo2,devsecops-enforce,tempo_parede_s,9,4,164.0,159.0,165.0,431.5,423.75,440.0,405,461,267.5,163.1,36.0,0.006850503187371088,1.0
+alvo2,devsecops-enforce,soma_jobs_s,9,4,164.0,159.0,165.0,385.5,375.75,400.25,366,425,221.5,135.1,36.0,0.006850503187371088,1.0
+alvo2,devsecops-enforce,minutos_faturaveis,9,4,3.0,3.0,3.0,8.5,8.0,9.0,8,9,5.5,183.3,36.0,0.0020023697532241605,1.0

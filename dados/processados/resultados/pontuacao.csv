@@ -1,0 +1,9 @@
+alvo,fonte_score,achados_por_rodada,disparadores_por_rodada,proporcao
+alvo1,fallback_rotulo,9.0,4.0,0.0874
+alvo1,ghsa,27.0,19.0,0.2621
+alvo1,nvd,51.0,29.0,0.4951
+alvo1,redhat,16.0,3.0,0.1553
+alvo2,fallback_rotulo,1442.4444,6.0,0.2348
+alvo2,ghsa,57.0,26.0,0.0093
+alvo2,nvd,665.0,312.0,0.1082
+alvo2,redhat,3979.5556,2139.0,0.6477

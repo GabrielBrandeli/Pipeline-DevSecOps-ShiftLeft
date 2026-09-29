@@ -1,0 +1,811 @@
+rodada,id_desafio,falha,eixo,classificacao,detectado
+AUD-02,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-02,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-02,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-02,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-02,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-02,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-02,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-02,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-02,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-02,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-02,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-02,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-02,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-02,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-02,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-02,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-02,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-02,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-02,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-02,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-02,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-02,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-02,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-02,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-02,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-02,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-02,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-02,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-02,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-02,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-02,redirectChallenge,Open redirect,sast,Sim,True
+AUD-02,redirectChallenge,Open redirect,sca,Nao,False
+AUD-02,redirectChallenge,Open redirect,dast,Sim,True
+AUD-02,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-02,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-02,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-02,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-02,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-02,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-02,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-02,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-02,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-02,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-02,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-02,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-02,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-02,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-02,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-02,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-02,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-02,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-02,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-02,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-02,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-02,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-02,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-02,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-02,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-02,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-02,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-02,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-02,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-02,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-02,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-02,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-02,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-02,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-02,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-02,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-02,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-02,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-02,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-02,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-02,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-02,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-02,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-02,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-02,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-02,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-02,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-02,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-02,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-02,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-02,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-02,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-02,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-02,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-02,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-02,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-02,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-03,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-03,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-03,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-03,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-03,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-03,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-03,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-03,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-03,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-03,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-03,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-03,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-03,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-03,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-03,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-03,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-03,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-03,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-03,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-03,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-03,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-03,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-03,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-03,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-03,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-03,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-03,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-03,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-03,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-03,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-03,redirectChallenge,Open redirect,sast,Sim,True
+AUD-03,redirectChallenge,Open redirect,sca,Nao,False
+AUD-03,redirectChallenge,Open redirect,dast,Sim,True
+AUD-03,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-03,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-03,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-03,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-03,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-03,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-03,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-03,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-03,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-03,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-03,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-03,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-03,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-03,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-03,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-03,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-03,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-03,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-03,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-03,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-03,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-03,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-03,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-03,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-03,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-03,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-03,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-03,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-03,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-03,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-03,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-03,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-03,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-03,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-03,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-03,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-03,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-03,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-03,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-03,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-03,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-03,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-03,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-03,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-03,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-03,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-03,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-03,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-03,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-03,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-03,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-03,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-03,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-03,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-03,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-03,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-03,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-04,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-04,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-04,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-04,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-04,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-04,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-04,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-04,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-04,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-04,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-04,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-04,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-04,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-04,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-04,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-04,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-04,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-04,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-04,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-04,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-04,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-04,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-04,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-04,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-04,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-04,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-04,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-04,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-04,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-04,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-04,redirectChallenge,Open redirect,sast,Sim,True
+AUD-04,redirectChallenge,Open redirect,sca,Nao,False
+AUD-04,redirectChallenge,Open redirect,dast,Sim,True
+AUD-04,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-04,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-04,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-04,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-04,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-04,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-04,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-04,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-04,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-04,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-04,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-04,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-04,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-04,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-04,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-04,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-04,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-04,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-04,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-04,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-04,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-04,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-04,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-04,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-04,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-04,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-04,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-04,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-04,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-04,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-04,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-04,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-04,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-04,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-04,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-04,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-04,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-04,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-04,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-04,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-04,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-04,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-04,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-04,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-04,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-04,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-04,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-04,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-04,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-04,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-04,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-04,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-04,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-04,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-04,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-04,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-04,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-05,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-05,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-05,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-05,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-05,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-05,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-05,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-05,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-05,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-05,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-05,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-05,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-05,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-05,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-05,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-05,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-05,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-05,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-05,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-05,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-05,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-05,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-05,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-05,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-05,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-05,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-05,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-05,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-05,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-05,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-05,redirectChallenge,Open redirect,sast,Sim,True
+AUD-05,redirectChallenge,Open redirect,sca,Nao,False
+AUD-05,redirectChallenge,Open redirect,dast,Sim,True
+AUD-05,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-05,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-05,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-05,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-05,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-05,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-05,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-05,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-05,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-05,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-05,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-05,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-05,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-05,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-05,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-05,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-05,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-05,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-05,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-05,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-05,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-05,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-05,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-05,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-05,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-05,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-05,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-05,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-05,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-05,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-05,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-05,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-05,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-05,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-05,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-05,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-05,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-05,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-05,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-05,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-05,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-05,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-05,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-05,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-05,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-05,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-05,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-05,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-05,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-05,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-05,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-05,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-05,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-05,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-05,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-05,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-05,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-06,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-06,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-06,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-06,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-06,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-06,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-06,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-06,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-06,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-06,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-06,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-06,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-06,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-06,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-06,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-06,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-06,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-06,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-06,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-06,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-06,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-06,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-06,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-06,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-06,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-06,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-06,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-06,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-06,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-06,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-06,redirectChallenge,Open redirect,sast,Sim,True
+AUD-06,redirectChallenge,Open redirect,sca,Nao,False
+AUD-06,redirectChallenge,Open redirect,dast,Sim,True
+AUD-06,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-06,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-06,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-06,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-06,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-06,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-06,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-06,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-06,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-06,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-06,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-06,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-06,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-06,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-06,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-06,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-06,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-06,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-06,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-06,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-06,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-06,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-06,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-06,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-06,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-06,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-06,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-06,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-06,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-06,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-06,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-06,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-06,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-06,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-06,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-06,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-06,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-06,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-06,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-06,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-06,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-06,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-06,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-06,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-06,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-06,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-06,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-06,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-06,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-06,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-06,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-06,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-06,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-06,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-06,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-06,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-06,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-07,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-07,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-07,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-07,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-07,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-07,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-07,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-07,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-07,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-07,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-07,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-07,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-07,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-07,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-07,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-07,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-07,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-07,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-07,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-07,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-07,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-07,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-07,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-07,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-07,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-07,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-07,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-07,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-07,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-07,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-07,redirectChallenge,Open redirect,sast,Sim,True
+AUD-07,redirectChallenge,Open redirect,sca,Nao,False
+AUD-07,redirectChallenge,Open redirect,dast,Sim,True
+AUD-07,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-07,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-07,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-07,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-07,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-07,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-07,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-07,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-07,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-07,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-07,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-07,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-07,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-07,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-07,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-07,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-07,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-07,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-07,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-07,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-07,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-07,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-07,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-07,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-07,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-07,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-07,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-07,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-07,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-07,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-07,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-07,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-07,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-07,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-07,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-07,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-07,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-07,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-07,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-07,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-07,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-07,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-07,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-07,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-07,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-07,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-07,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-07,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-07,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-07,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-07,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-07,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-07,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-07,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-07,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-07,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-07,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-08,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-08,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-08,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-08,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-08,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-08,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-08,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-08,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-08,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-08,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-08,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-08,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-08,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-08,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-08,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-08,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-08,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-08,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-08,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-08,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-08,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-08,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-08,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-08,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-08,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-08,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-08,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-08,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-08,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-08,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-08,redirectChallenge,Open redirect,sast,Sim,True
+AUD-08,redirectChallenge,Open redirect,sca,Nao,False
+AUD-08,redirectChallenge,Open redirect,dast,Sim,True
+AUD-08,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-08,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-08,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-08,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-08,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-08,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-08,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-08,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-08,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-08,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-08,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-08,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-08,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-08,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-08,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-08,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-08,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-08,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-08,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-08,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-08,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-08,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-08,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-08,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-08,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-08,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-08,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-08,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-08,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-08,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-08,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-08,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-08,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-08,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-08,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-08,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-08,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-08,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-08,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-08,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-08,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-08,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-08,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-08,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-08,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-08,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-08,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-08,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-08,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-08,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-08,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-08,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-08,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-08,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-08,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-08,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-08,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-09,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-09,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-09,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-09,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-09,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-09,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-09,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-09,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-09,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-09,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-09,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-09,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-09,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-09,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-09,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-09,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-09,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-09,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-09,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-09,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-09,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-09,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-09,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-09,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-09,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-09,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-09,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-09,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-09,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-09,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-09,redirectChallenge,Open redirect,sast,Sim,True
+AUD-09,redirectChallenge,Open redirect,sca,Nao,False
+AUD-09,redirectChallenge,Open redirect,dast,Sim,True
+AUD-09,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-09,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-09,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-09,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-09,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-09,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-09,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-09,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-09,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-09,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-09,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-09,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-09,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-09,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-09,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-09,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-09,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-09,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-09,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-09,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-09,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-09,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-09,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-09,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-09,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-09,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-09,errorHandlingChallenge,Erro com pilha,dast,Sim,False
+AUD-09,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-09,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-09,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-09,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-09,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-09,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-09,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-09,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-09,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-09,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-09,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-09,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-09,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-09,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-09,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-09,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-09,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-09,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-09,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-09,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-09,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-09,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-09,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-09,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-09,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-09,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-09,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-09,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-09,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-09,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False
+AUD-10,loginAdminChallenge,SQLi login,sast,Sim,True
+AUD-10,loginAdminChallenge,SQLi login,sca,Nao,False
+AUD-10,loginAdminChallenge,SQLi login,dast,Sim,True
+AUD-10,loginBenderChallenge,SQLi login,sast,Sim,True
+AUD-10,loginBenderChallenge,SQLi login,sca,Nao,False
+AUD-10,loginBenderChallenge,SQLi login,dast,Sim,True
+AUD-10,loginJimChallenge,SQLi login,sast,Sim,True
+AUD-10,loginJimChallenge,SQLi login,sca,Nao,False
+AUD-10,loginJimChallenge,SQLi login,dast,Sim,True
+AUD-10,ephemeralAccountantChallenge,SQLi login,sast,Sim,True
+AUD-10,ephemeralAccountantChallenge,SQLi login,sca,Nao,False
+AUD-10,ephemeralAccountantChallenge,SQLi login,dast,Sim,True
+AUD-10,ghostLoginChallenge,SQLi login,sast,Sim,True
+AUD-10,ghostLoginChallenge,SQLi login,sca,Nao,False
+AUD-10,ghostLoginChallenge,SQLi login,dast,Sim,True
+AUD-10,unionSqlInjectionChallenge,SQLi busca,sast,Sim,True
+AUD-10,unionSqlInjectionChallenge,SQLi busca,sca,Nao,False
+AUD-10,unionSqlInjectionChallenge,SQLi busca,dast,Sim,True
+AUD-10,dbSchemaChallenge,SQLi busca,sast,Sim,True
+AUD-10,dbSchemaChallenge,SQLi busca,sca,Nao,False
+AUD-10,dbSchemaChallenge,SQLi busca,dast,Sim,True
+AUD-10,christmasSpecialChallenge,SQLi busca,sast,Sim,True
+AUD-10,christmasSpecialChallenge,SQLi busca,sca,Nao,False
+AUD-10,christmasSpecialChallenge,SQLi busca,dast,Sim,True
+AUD-10,localXssChallenge,XSS DOM busca,sast,Sim,False
+AUD-10,localXssChallenge,XSS DOM busca,sca,Nao,False
+AUD-10,localXssChallenge,XSS DOM busca,dast,Sim,False
+AUD-10,xssBonusChallenge,XSS DOM busca,sast,Sim,False
+AUD-10,xssBonusChallenge,XSS DOM busca,sca,Nao,False
+AUD-10,xssBonusChallenge,XSS DOM busca,dast,Sim,False
+AUD-10,redirectChallenge,Open redirect,sast,Sim,True
+AUD-10,redirectChallenge,Open redirect,sca,Nao,False
+AUD-10,redirectChallenge,Open redirect,dast,Sim,True
+AUD-10,directoryListingChallenge,Listagem /ftp,sast,Sim,True
+AUD-10,directoryListingChallenge,Listagem /ftp,sca,Nao,False
+AUD-10,directoryListingChallenge,Listagem /ftp,dast,Sim,False
+AUD-10,accessLogDisclosureChallenge,Listagem /support/logs,sast,Sim,True
+AUD-10,accessLogDisclosureChallenge,Listagem /support/logs,sca,Nao,False
+AUD-10,accessLogDisclosureChallenge,Listagem /support/logs,dast,Parcial,False
+AUD-10,misplacedIacFiles,Listagem /infrastructure,sast,Sim,True
+AUD-10,misplacedIacFiles,Listagem /infrastructure,sca,Nao,False
+AUD-10,misplacedIacFiles,Listagem /infrastructure,dast,Parcial,False
+AUD-10,forgottenDevBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-10,forgottenDevBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-10,forgottenDevBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-10,forgottenBackupChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-10,forgottenBackupChallenge,Arquivos /ftp,sca,Nao,False
+AUD-10,forgottenBackupChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-10,misplacedSignatureFileChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-10,misplacedSignatureFileChallenge,Arquivos /ftp,sca,Nao,False
+AUD-10,misplacedSignatureFileChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-10,easterEggLevelOneChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-10,easterEggLevelOneChallenge,Arquivos /ftp,sca,Nao,False
+AUD-10,easterEggLevelOneChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-10,nullByteChallenge,Arquivos /ftp,sast,Parcial,True
+AUD-10,nullByteChallenge,Arquivos /ftp,sca,Nao,False
+AUD-10,nullByteChallenge,Arquivos /ftp,dast,Parcial,True
+AUD-10,errorHandlingChallenge,Erro com pilha,sast,Nao,False
+AUD-10,errorHandlingChallenge,Erro com pilha,sca,Nao,False
+AUD-10,errorHandlingChallenge,Erro com pilha,dast,Sim,True
+AUD-10,iacLeakedKeyChallenge,Chave privada IaC,sast,Sim,False
+AUD-10,iacLeakedKeyChallenge,Chave privada IaC,sca,Sim,True
+AUD-10,iacLeakedKeyChallenge,Chave privada IaC,dast,Nao,False
+AUD-10,jwtForgedChallenge,Bibliotecas JWT,sast,Parcial,True
+AUD-10,jwtForgedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-10,jwtForgedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-10,jwtUnsignedChallenge,Bibliotecas JWT,sast,Nao,False
+AUD-10,jwtUnsignedChallenge,Bibliotecas JWT,sca,Sim,True
+AUD-10,jwtUnsignedChallenge,Bibliotecas JWT,dast,Nao,False
+AUD-10,knownVulnerableComponentChallenge,Dependencias vulneraveis,sast,Nao,False
+AUD-10,knownVulnerableComponentChallenge,Dependencias vulneraveis,sca,Sim,True
+AUD-10,knownVulnerableComponentChallenge,Dependencias vulneraveis,dast,Nao,False
+AUD-10,passwordHashLeakChallenge,Hash em whoami,sast,Nao,False
+AUD-10,passwordHashLeakChallenge,Hash em whoami,sca,Nao,False
+AUD-10,passwordHashLeakChallenge,Hash em whoami,dast,Parcial,False
+AUD-10,noSqlReviewsChallenge,NoSQL reviews,sast,Nao,False
+AUD-10,noSqlReviewsChallenge,NoSQL reviews,sca,Nao,False
+AUD-10,noSqlReviewsChallenge,NoSQL reviews,dast,Parcial,False
+AUD-10,ssrfChallenge,SSRF imagem,sast,Parcial,False
+AUD-10,ssrfChallenge,SSRF imagem,sca,Nao,False
+AUD-10,ssrfChallenge,SSRF imagem,dast,Parcial,False
+AUD-10,csrfChallenge,CSRF perfil,sast,Nao,False
+AUD-10,csrfChallenge,CSRF perfil,sca,Nao,False
+AUD-10,csrfChallenge,CSRF perfil,dast,Parcial,False
+AUD-10,csafChallenge,Advisory CSAF,sast,Nao,False
+AUD-10,csafChallenge,Advisory CSAF,sca,Parcial,False
+AUD-10,csafChallenge,Advisory CSAF,dast,Nao,False
+AUD-10,vulnerableDockerImageChallenge,Imagem em docker-compose,sast,Nao,False
+AUD-10,vulnerableDockerImageChallenge,Imagem em docker-compose,sca,Parcial,False
+AUD-10,vulnerableDockerImageChallenge,Imagem em docker-compose,dast,Nao,False

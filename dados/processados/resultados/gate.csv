@@ -1,0 +1,13 @@
+modo,escopo,etapa,alvo,execucoes,bloqueadas
+audit,all_tools,pos-DAST,alvo1,9,9
+audit,all_tools,pos-DAST,alvo2,9,9
+audit,all_tools,pre-deploy,alvo1,9,9
+audit,all_tools,pre-deploy,alvo2,9,9
+enforce,sca_only,pre-deploy,alvo1,4,4
+enforce,sca_only,pre-deploy,alvo2,4,4
+audit (derivado),so trivy,pos-DAST,alvo1,9,9
+audit (derivado),so semgrep,pos-DAST,alvo1,9,9
+audit (derivado),so zap,pos-DAST,alvo1,9,9
+audit (derivado),so trivy,pos-DAST,alvo2,9,9
+audit (derivado),so semgrep,pos-DAST,alvo2,9,9
+audit (derivado),so zap,pos-DAST,alvo2,9,0
