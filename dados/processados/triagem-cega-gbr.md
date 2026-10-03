@@ -33,9 +33,9 @@ Mensagem: Detected a sequelize statement that is tainted by user-input. This cou
     26 |         if (challengeUtils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
 ```
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: A entrada controlada pelo usuário (req.query.q) é concatenada diretamente à consulta SQL, permitindo potencialmente a injeção de SQL sem parametrização adequada.** 
+**Evidencia: models.sequelize.query() interpola ${criteria} diretamente no comando SQL** 
 
 ---
 
@@ -56,9 +56,9 @@ Mensagem: Detected an AWS load balancer with an insecure TLS version. TLS versio
    162 |     type             = "forward"
 ```
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: FP** 
+**Justificativa: Fala do uso de TLS mas está sendo feito uso do HTTP na porta 80, não tem listener TLS configurado** 
+**Evidencia: protocol = "HTTP" e port = 80;** 
 
 ---
 
@@ -73,9 +73,9 @@ Onde esta na imagem: juice-shop/node_modules/express-jwt/node_modules/jsonwebtok
 Titulo: nodejs-jsonwebtoken: verification step bypass with an altered token
 Advisory: https://avd.aquasec.com/nvd/cve-2015-9235
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: pacote 0.1.0, com fix apenas na 4.2.2** 
+**Evidencia: Pacote: jsonwebtoken 0.1.0, Versao corrigida: 4.2.2** 
 
 ---
 
@@ -90,9 +90,9 @@ Onde esta na imagem: juice-shop/node_modules/jws/package.json
 Titulo: Forgeable Public/Private Tokens
 Advisory: https://avd.aquasec.com/nvd/cve-2016-1000223
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:VP** 
+**Justificativa: Pacote em uso 0.2.6, fix na 3.0.0 ou maior** 
+**Evidencia:Pacote: jws 0.2.6, Versao corrigida: >=3.0.0** 
 
 ---
 
@@ -107,9 +107,9 @@ Onde esta na imagem: juice-shop/node_modules/express-jwt/node_modules/jsonwebtok
 Titulo: Verification Bypass
 Advisory:
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: pacote de uso abaixo da versão de fix** 
+**Evidencia: Pacote: jsonwebtoken 0.1.0, Versao corrigida: >=4.2.2** 
 
 ---
 
@@ -124,9 +124,9 @@ Onde esta na imagem: juice-shop/node_modules/express-jwt/node_modules/jsonwebtok
 Titulo: jsonwebtoken: Insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC
 Advisory: https://avd.aquasec.com/nvd/cve-2022-23541
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: pacote de uso abaixo da versão de fix**  
+**Evidencia: Pacote: jsonwebtoken 0.1.0, Versao corrigida: 9.0.0** 
 
 ---
 
@@ -141,9 +141,9 @@ Ataque: -
 Evidencia: Feature-Policy
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: uso do cabecalho feature policy** 
+**Evidencia: feature-policy : payment 'self'** 
 
 ---
 
@@ -158,9 +158,9 @@ Ataque: -
 Evidencia: Feature-Policy
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: uso do cabecalho feature policy** 
+**Evidencia: feature-policy : payment 'self'** 
 
 ---
 
@@ -175,9 +175,9 @@ Ataque: -
 Evidencia: -
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: não foi encontrado o header cross-origin** 
+**Evidencia: verificação feita dentro do localhost da aplicação** 
 
 ---
 
@@ -192,9 +192,9 @@ Ataque: -
 Evidencia: -
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: ausencia do CSP header** 
+**Evidencia: verificação feita dentro do localhost da aplicação**
 
 ---
 
@@ -209,9 +209,9 @@ Ataque: http://localhost:3000/ftp/quarantine%20-%20Copy%20(2)/juicy_malware_wind
 Evidencia: -
 Informacao adicional: A backup of [http://localhost:3000/ftp/quarantine/juicy_malware_windows_64.exe.url] is available at [http://localhost:3000/ftp/quarantine%20-%20Copy%20(2)/juicy_malware_windows_64.exe.url]
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:IND** 
+**Justificativa:Não há evidências suficientes para confirmar que o arquivo identificado é um backup acessível e que seu conteúdo corresponde ao arquivo original.** 
+**Evidencia:ZAP, alerta 10095 — a informação adicional indica uma possível cópia em /ftp/quarantine%20-%20Copy%20(2)/juicy_malware_windows_64.exe.url, mas o alerta não apresenta resposta HTTP nem conteúdo que comprovem o acesso e a correspondência com /ftp/quarantine/juicy_malware_windows_64.exe.url.** 
 
 ---
 
@@ -226,9 +226,9 @@ Ataque: http://localhost:3000/ftp/quarantine%20-%20Copy/juicy_malware_linux_arm_
 Evidencia: -
 Informacao adicional: A backup of [http://localhost:3000/ftp/quarantine/juicy_malware_linux_arm_64.url] is available at [http://localhost:3000/ftp/quarantine%20-%20Copy/juicy_malware_linux_arm_64.url]
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:IND** 
+**Justificativa:Não há evidências suficientes para confirmar que o arquivo identificado está acessível e corresponde a uma cópia de backup do arquivo original.** 
+**Evidencia:a informação adicional indica uma possível cópia em /ftp/quarantine%20-%20Copy/juicy_malware_linux_arm_64.url, mas não apresenta o status HTTP nem o conteúdo da resposta que comprovem o acesso e a correspondência com /ftp/quarantine/juicy_malware_linux_arm_64.url.** 
 
 ---
 
@@ -243,9 +243,9 @@ Ataque: http://localhost:3000/ftp/quarantine%20-%20Copy/juicy_malware_windows_64
 Evidencia: -
 Informacao adicional: A backup of [http://localhost:3000/ftp/quarantine/juicy_malware_windows_64.exe.url] is available at [http://localhost:3000/ftp/quarantine%20-%20Copy/juicy_malware_windows_64.exe.url]
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:IND** 
+**Justificativa:Não há evidências suficientes para confirmar que o arquivo identificado está acessível e corresponde a uma cópia de backup do arquivo original.** 
+**Evidencia:ZAP, alerta 10095 — a informação adicional indica uma possível cópia em /ftp/quarantine%20-%20Copy/juicy_malware_windows_64.exe.url, mas não apresenta o status HTTP nem o conteúdo da resposta que comprovem o acesso e a correspondência com /ftp/quarantine/juicy_malware_windows_64.exe.url.** 
 
 ---
 
@@ -260,9 +260,9 @@ Ataque: http://localhost:3000/ftp/quarantinebackup/juicy_malware_macos_64.url
 Evidencia: -
 Informacao adicional: A backup of [http://localhost:3000/ftp/quarantine/juicy_malware_macos_64.url] is available at [http://localhost:3000/ftp/quarantinebackup/juicy_malware_macos_64.url]
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:IND** 
+**Justificativa:Não há evidências suficientes para confirmar que o arquivo identificado está acessível e corresponde a uma cópia de backup do arquivo original.** 
+**Evidencia:ZAP, alerta 10095 — a informação adicional indica uma possível cópia em /ftp/quarantinebackup/juicy_malware_macos_64.url, mas não apresenta o status HTTP nem o conteúdo da resposta que comprovem o acesso e a correspondência com /ftp/quarantine/juicy_malware_macos_64.url.** 
 
 ---
 
@@ -277,9 +277,9 @@ Ataque: -
 Evidencia: Access-Control-Allow-Origin: *
 Informacao adicional: The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listin
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:VP** 
+**Justificativa: O servidor permite requisições de qualquer origem por meio do cabeçalho Access-Control-Allow-Origin: *.** 
+**Evidencia: GET /assets/public/favicon_js.ico — cabeçalho da resposta HTTP: Access-Control-Allow-Origin: *, permitindo acesso cross-origin a recursos públicos.** 
 
 ---
 
@@ -294,9 +294,14 @@ Ataque: /%2e/ftp/encrypt.pyc
 Evidencia: -
 Informacao adicional: http://localhost:3000/ftp/encrypt.pyc
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:FP** 
+**Justificativa: a requisição está retornando 403** 
+**Evidencia:Request URL
+http://localhost:3000/ftp/encrypt.pyc
+Request method
+GET
+Status code
+403 Forbidden** 
 
 ---
 
@@ -311,9 +316,14 @@ Ataque: /%2e/ftp/suspicious_errors.yml
 Evidencia: -
 Informacao adicional: http://localhost:3000/ftp/suspicious_errors.yml
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:FP** 
+**Justificativa: a requisição está retornando 403** 
+**Evidencia:Request URL
+http://localhost:3000/ftp/suspicious_errors.yml
+Request method
+GET
+Status code
+403 Forbidden** 
 
 ---
 
@@ -334,9 +344,9 @@ Mensagem: Detected calls to child_process from a function argument `previousVers
    281 | 
 ```
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao:IND** 
+**Justificativa:O parâmetro previousVersion é interpolado diretamente em um comando executado pelo shell, mas não há evidências suficientes de que possa ser controlado por uma entrada não confiável ou explorado para injetar comandos.** 
+**Evidencia:alvos/uptime-kuma/extra/release/generate-changelog.mjs:278 — .execSync(\git log -1 --format=%cd --date=iso8601-strict $`)`; o valor é inserido diretamente no comando, porém sua origem, validação e possibilidade de controle externo não foram confirmadas.** 
 
 ---
 
@@ -357,9 +367,9 @@ Mensagem: A `run:` step pipes the output of `curl` or `wget` directly into a she
    138 |         run: node extra/release/install-deps.mjs
 ```
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: O workflow executa diretamente um script remoto com curl | bash, sem verificar previamente sua integridade.** 
+**Evidencia:alvos/uptime-kuma/.github/workflows/release.yml:135 — run: curl -fsSL https://opencode.ai/install | bash; o conteúdo obtido da URL é encaminhado diretamente ao interpretador Bash, podendo executar comandos no runner do GitHub Actions** 
 
 ---
 
@@ -374,9 +384,9 @@ Onde esta na imagem: usr/local/lib/node_modules/npm/node_modules/tar/package.jso
 Titulo: tar: node-tar: Denial of Service via crafted gzip bomb
 Advisory: https://avd.aquasec.com/nvd/cve-2026-59873
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada diferente da do fix** 
+**Evidencia: Pacote: tar 7.5.11, Versao corrigida: 7.5.19** 
 
 ---
 
@@ -391,9 +401,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: chromium-browser: chromium-browser: Side-channel information leakage in Safe Browsing
 Advisory: https://avd.aquasec.com/nvd/cve-2026-13809
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**  
+**Evidencia: Pacote: chromium-common 148.0.7778.178-1~deb12u1
+Versao corrigida: 150.0.7871.46-1~deb12u1** 
 
 ---
 
@@ -408,9 +419,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: chromium-browser: angle: Insufficient validation of untrusted input in ANGLE
 Advisory: https://avd.aquasec.com/nvd/cve-2026-9914
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**  
+**Evidencia:Pacote: chromium 148.0.7778.178-1~deb12u1
+Versao corrigida: 148.0.7778.215-1~deb12u1** 
 
 ---
 
@@ -425,9 +437,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: chromium-browser: Incorrect security UI in Payments
 Advisory: https://avd.aquasec.com/nvd/cve-2026-11001
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**  
+**Evidencia: Pacote: chromium 148.0.7778.178-1~deb12u1
+Versao corrigida: 149.0.7827.53-1~deb12u1** 
 
 ---
 
@@ -442,9 +455,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: chromium-browser: angle: Inappropriate implementation in ANGLE
 Advisory: https://avd.aquasec.com/nvd/cve-2026-13859
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**  
+**Evidencia:Pacote: chromium-common 148.0.7778.178-1~deb12u1
+Versao corrigida: 150.0.7871.46-1~deb12u1** 
 
 ---
 
@@ -459,9 +473,11 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: chromium-browser: chromium-browser: Out of bounds read in V8
 Advisory: https://avd.aquasec.com/nvd/cve-2026-14406
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**
+**Evidencia: Pacote: chromium-common 148.0.7778.178-1~deb12u1
+Versao corrigida: 150.0.7871.46-1~deb12u1** 
 
 ---
 
@@ -476,9 +492,11 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: Inappropriate implementation in Chrome for iOS in Google Chrome on iOS ...
 Advisory: https://avd.aquasec.com/nvd/cve-2026-17669
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**
+**Evidencia: Pacote: chromium 148.0.7778.178-1~deb12u1
+Versao corrigida: 151.0.7922.71-1~deb12u1** 
 
 ---
 
@@ -493,9 +511,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: Out of bounds write in WebGL in Google Chrome on on Android prior to 1 ...
 Advisory: https://avd.aquasec.com/nvd/cve-2026-87438
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**
+**Evidencia: Pacote: chromium 148.0.7778.178-1~deb12u1
+Versao corrigida: 153.0.8010.52-1~deb12u1** 
 
 ---
 
@@ -510,9 +529,10 @@ Onde esta na imagem: tcc-uptimekuma:7ad02b7add541c8a54400cf27ec1b09de3aedb4f (de
 Titulo: Improper input validation in Passwords in Google Chrome prior to 153.0 ...
 Advisory: https://avd.aquasec.com/nvd/cve-2026-87590
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: versão utilizada anterior da do fix**
+**Evidencia: Pacote: chromium-common 148.0.7778.178-1~deb12u1
+Versao corrigida: 153.0.8010.52-1~deb12u1** 
 
 ---
 
@@ -527,9 +547,14 @@ Ataque: -
 Evidencia: -
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: foi feita a verificacao da request no URL e a response n contem o header** 
+**Evidencia:host
+localhost:3001
+pragma
+no-cache
+sec-ch-ua
+"Brave";v="153", "Not_A Brand";v="8", "Chromium";v="153"**  
 
 ---
 
@@ -544,8 +569,17 @@ Ataque: -
 Evidencia: -
 Informacao adicional: -
 
-**Classificacao:** 
-**Justificativa:** 
-**Evidencia:** 
+**Classificacao: VP** 
+**Justificativa: foi feita a verificacao da request no URL e a response n contem o header**
+**Evidencia:accept-language
+en-US,en;q=0.9
+cache-control
+no-cache
+connection
+keep-alive
+cookie
+language=en
+host
+localhost:3001** 
 
 ---

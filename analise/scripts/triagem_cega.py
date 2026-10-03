@@ -83,7 +83,9 @@ def gerar():
 def ler():
     resp = {}
     for i, bloco in blocos(SAIDA_MD.read_text(encoding="utf-8")).items():
-        resp[i] = {c: (re.search(rf"(?m)^\*\*{c}:\*\*[ \t]*(.*)$", bloco) or [None, ""])[1].strip()
+        # aceita a resposta depois do negrito (**Campo:** x) ou dentro dele (**Campo: x**)
+        resp[i] = {c: (re.search(rf"(?m)^\*\*{c}:(.*)$", bloco) or [None, ""])[1]
+                   .strip().removeprefix("**").removesuffix("**").strip()
                    for c in CAMPOS}
     linhas, pendentes = [], []
     for i in ids_subamostra():
