@@ -4,7 +4,7 @@ Registro das decisoes que definem o desenho experimental. Cada uma foi fechada
 com o orientador e tem contrapartida no Capitulo 3 do TCC.
 
 Data de fechamento de D1 a D8: 04/09/2026. D9: 05/09/2026. D10 e D11: 14/09/2026.
-Revisao de D11: 23/09/2026. D12 a D16 e revisao de D7: 27/09/2026.
+Revisao de D11: 23/09/2026. D12 a D16 e revisao de D7: 27/09/2026. D17: 03/10/2026.
 
 ---
 
@@ -28,6 +28,7 @@ Revisao de D11: 23/09/2026. D12 a D16 e revisao de D7: 27/09/2026.
 | D14 | Dependencias npm do Juice Shop | Resolvidas com data de corte (`npm_config_before=2026-09-23T18:27:00Z`), revisado em 27/09/2026 apos o build quebrar |
 | D15 | Regras do Semgrep | Pacotes copiados para `ci/regras/semgrep/`, em vez de baixados do registro |
 | D16 | Escopo do relatorio do ZAP | Apenas o site do alvo entra na contagem e no gate |
+| D17 | Triagem assistida por IA | IA classifica os achados com evidencia; autor faz triagem cega de 30 (Kappa IA x autor) e revisa os demais |
 
 ---
 
@@ -557,3 +558,52 @@ matriz do job anterior. Na linha de base, o job unico com matriz nao tem esse
 acoplamento. Consequencia: falha de build ou de SAST em um alvo invalida a
 rodada inteira (os dois alvos); a falha de DAST, no ultimo job, afeta so o
 proprio alvo. Registrado no roteiro de rodadas.
+
+## D17. Triagem assistida por IA
+
+**Problema (03/10/2026).** O protocolo de triagem (D7) preve avaliador unico e
+declara inviavel o Kappa de Cohen. Sao 424 achados a triar ate cerca de 16/10,
+com limite de 10 minutos por achado, e a dupla triagem cega no tempo mede so a
+estabilidade do criterio do proprio avaliador, nao o criterio em si.
+
+**Adotado:** a classificacao passa a ser assistida por IA (Claude, modelo
+claude-opus-5-5, via Claude Code), em tres etapas, nesta ordem:
+
+1. **Triagem cega do autor.** O autor classifica sozinho os 30 achados da
+   subamostra ja sorteada para retriagem (coluna `retriagem` de `triagem.csv`,
+   semente 20260927), sem acesso a classificacao da IA. Arquivo
+   `triagem-cega-gbr.md`, exportado para `triagem-cega-gbr.csv` por
+   `analise/scripts/triagem_cega.py`.
+2. **Classificacao pela IA.** A IA classifica os 424 achados segundo as
+   categorias e a evidencia obrigatoria do protocolo, acrescentando para cada
+   um como verificar a classificacao. A IA nao le as respostas do autor; o
+   arquivo `triagem-ia.csv` e commitado antes da comparacao.
+3. **Revisao pelo autor.** O autor revisa as classificacoes da IA, verifica as
+   que julgar necessario e registra se manteve ou alterou cada uma. A
+   classificacao final, usada no calculo da precisao, e a do autor.
+
+**Concordancia.** Kappa de Cohen entre IA e autor na subamostra de 30, com
+intervalo de confianca, e taxa de alteracao na revisao dos demais. Os dois
+numeros sao reportados no Capitulo 4.
+
+**Exposicao previa.** Em 03/10/2026, antes desta decisao, uma conversa com a
+IA sobre como fazer a triagem trouxe exemplos com classificacao. Tres achados da
+subamostra foram afetados: T0007 e T0051 (classificacao dada como exemplo) e
+T0038 (arquivo em `data/static/codefixes/`, cujo criterio foi discutido no
+exemplo T0002). Eles sao triados normalmente, mas marcados `exposto = sim`. O
+Kappa principal usa os 27 restantes; o Kappa sobre os 30 e reportado como
+sensibilidade.
+
+**Retriagem cega no tempo (D7, secao 6.2).** Mantida como opcional: se o
+cronograma permitir, o autor reclassifica os mesmos 30 a partir de 30/10 sem
+consultar a primeira classificacao.
+
+**Por que nao triagem so pela IA.** A precisao e a regua do trabalho; com
+revisao do autor, a responsabilidade pela classificacao final continua sendo
+humana e auditavel, e a triagem cega antes de ver a IA evita que a revisao vire
+apenas confirmacao (vies de ancoragem).
+
+**Consequencia para o texto.** O Capitulo 3 descreve a triagem como assistida
+por IA com revisao do autor e a etapa cega; o Capitulo 5 mantem a limitacao de
+avaliador humano unico e acrescenta a dependencia da IA como ameaca a validade,
+mitigada pelo Kappa e pela taxa de alteracao.

@@ -5,9 +5,9 @@ achados das tres ferramentas, nos dois alvos. Sem protocolo escrito e
 anterior a inspecao dos dados, a triagem e opiniao e nao sustenta o calculo
 de precisao.
 
-Versao: 1.1
+Versao: 1.2 (03/10/2026: triagem assistida por IA, ver D17 e secao 6.4)
 Data de definicao: 27/09/2026 (anterior as rodadas experimentais e a qualquer triagem)
-Avaliador: Gabriel Brandeli Ramos
+Avaliador: Gabriel Brandeli Ramos, com classificacao assistida por IA (D17)
 
 ---
 
@@ -152,6 +152,15 @@ entre as ameacas a validade interna.
 
 ---
 
+**6.4 Triagem assistida por IA e Kappa (03/10/2026, D17).** A IA classifica
+os achados com justificativa, evidencia e forma de verificacao; o autor revisa
+e a classificacao final e dele. Antes de ver a IA, o autor classifica sozinho
+os 30 achados da subamostra de retriagem (`triagem-cega-gbr.md`). O Kappa de
+Cohen entre IA e autor nessa subamostra substitui a retriagem no tempo como
+verificacao principal de confiabilidade; a retriagem (6.2) passa a opcional.
+Os achados T0007, T0038 e T0051 foram expostos a classificacao da IA antes da
+etapa cega e ficam fora do Kappa principal.
+
 ## 7. Ordem de execucao
 
 1. `normalizar_achados.py` sobre o lote `experimento` (gera `achados.csv`)
@@ -160,11 +169,13 @@ entre as ameacas a validade interna.
 3a. `contexto_triagem.py`: acrescenta a coluna `link` e gera
     `triagem-contexto.md` com o que cada ferramenta registrou e o trecho de
     codigo, sem sugerir classificacao (29/09/2026)
-4. Triar (rodada 1), registrando evidencia por achado
-5. Calcular precisao com intervalo de confianca
-7. Aguardar duas semanas
-8. Retriar subamostra as cegas (rodada 2) e registrar concordancia
-9. Commitar `triagem.csv`
+4. Triagem cega do autor nos 30 da subamostra (`triagem_cega.py gerar` e `ler`)
+5. Classificacao pela IA dos 424 achados, commitada em `triagem-ia.csv`
+6. Kappa de Cohen IA x autor na subamostra
+7. Revisao pelo autor das classificacoes da IA, registrando mantidas e alteradas
+8. Calcular precisao com intervalo de confianca
+9. Opcional: aguardar duas semanas e retriar a subamostra as cegas (rodada 2)
+10. Commitar `triagem.csv`
 
 ---
 
@@ -176,5 +187,7 @@ entre as ameacas a validade interna.
 - [ ] NE e IND reportados separadamente e fora do denominador
 - [ ] Intervalo de confianca calculado quando houve amostragem
 - [ ] ~~Concordancia com o orientador registrada~~: nao adotada (secao 6.1)
-- [ ] Concordancia intra-avaliador registrada
+- [ ] Kappa IA x autor registrado (27 nao expostos e 30 como sensibilidade)
+- [ ] Taxa de alteracao na revisao registrada
+- [ ] Concordancia intra-avaliador registrada (opcional, secao 6.2)
 - [ ] Limitacao de avaliador unico declarada no Capitulo 5
