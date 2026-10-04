@@ -70,3 +70,17 @@ Quando o alerta ocorreu em poucas rodadas e nao se reproduz, mas a condicao e
 verificada em outra rota da mesma aplicacao (paginas de erro com stack trace),
 a classificacao segue a condicao verificada e a justificativa registra a nao
 reproducao (T0160, T0266).
+
+## Regra acrescentada na revisao (04/10/2026)
+
+**Codigo do Juice Shop condicionado a desafio desativado em container.** Os 18
+desafios com `disabledEnv: Docker` (`data/static/challenges.yml`) ficam
+desligados nas rodadas, e o codigo protegido por
+`utils.isChallengeEnabled(...)` segue o caminho seguro. Achado cuja exploracao
+depende desse codigo: **NE** (a condicao existe no codigo, mas o contexto de
+execucao a desativa). Mesmo criterio da exclusao desses desafios no ground
+truth. A IA nao aplicou a regra na classificacao inicial; o autor identificou o
+problema ao verificar o T0001 (o username `#{7*7}` aparece literal no perfil),
+e os casos afetados foram corrigidos na revisao: T0001 (usernameXssChallenge),
+T0031 (videoXss, depende de fileWriteChallenge) e T0171 (feedback sanitizado com
+`sanitizeSecure` quando persistedXssFeedbackChallenge esta desligado).
