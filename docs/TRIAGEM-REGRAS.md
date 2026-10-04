@@ -57,6 +57,13 @@ Ordem de perguntas usada em todos os achados:
 | CSP ou anti-clickjacking ausente em resposta que nao e HTML | NE |
 | COOP, COEP, CORP, Permissions-Policy ausentes, ou Feature-Policy obsoleto | NE (defesa em profundidade, sem ataque direto no contexto) |
 
+**Criterio confirmado pelo autor (04/10/2026).** Na triagem cega o autor havia
+classificado como VP casos deste tipo (cabecalhos de isolamento, CORS `*` em
+recurso publico, `curl | bash` no CI do upstream), o que explica 7 das 12
+divergencias com a IA. Apos a comparacao, o autor adotou NE para esses casos.
+A triagem cega permanece como registrada; o Kappa reflete a divergencia de
+criterio, e nenhuma divergencia foi entre VP e FP.
+
 ## Alerta nao reproduzido
 
 Quando o alerta ocorreu em poucas rodadas e nao se reproduz, mas a condicao e
