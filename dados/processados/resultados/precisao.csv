@@ -1,0 +1,10 @@
+alvo,fonte,modo,triados,VP,FP,NE,IND,precisao,ic95_inf,ic95_sup,n_ic,prop_NE,prop_IND
+alvo1,semgrep,censo,48,10,17,21,0,0.3704,0.2153,0.5577,27,0.4375,0.0
+alvo1,trivy-config,censo,2,0,0,2,0,nan,nan,nan,0,1.0,0.0
+alvo1,trivy-image,censo,103,95,0,7,1,1.0,0.9611,1.0,95,0.068,0.0097
+alvo1,trivy-secret,censo,5,3,2,0,0,0.6,0.2307,0.8824,5,0.0,0.0
+alvo1,zap,censo,116,22,51,41,2,0.3014,0.2082,0.4144,73,0.3534,0.0172
+alvo2,semgrep,censo,17,2,13,2,0,0.1333,0.0374,0.3788,15,0.1176,0.0
+alvo2,trivy-config,censo,2,0,0,2,0,nan,nan,nan,0,1.0,0.0
+alvo2,trivy-image,amostra estratificada,105,98,0,7,0,1.0,0.9605,1.0,93.4,0.0667,0.0
+alvo2,zap,censo,26,10,2,14,0,0.8333,0.552,0.953,12,0.5385,0.0

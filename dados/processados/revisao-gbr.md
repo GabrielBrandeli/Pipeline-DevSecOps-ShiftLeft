@@ -17,7 +17,7 @@ Para ver o que falta: `python3 analise/scripts/revisao_triagem.py ler`.
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0001 · proposta IA: VP
 
@@ -46,8 +46,9 @@ Mensagem: Found data from an Express or Next web request flowing to `eval`. If t
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao:** NE
+**Motivo:** desafio desativado em container (disabledEnv: Docker); codigo segue o caminho seguro nas rodadas
+
 
 ---
 
@@ -55,7 +56,7 @@ Mensagem: Found data from an Express or Next web request flowing to `eval`. If t
 
 6 achado(s); proposta da IA: 2 VP, 4 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0002 · proposta IA: FP
 
@@ -243,7 +244,7 @@ Mensagem: Detected a sequelize statement that is tainted by user-input. This cou
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0008 · proposta IA: NE
 
@@ -281,7 +282,7 @@ Mensagem: A `run:` step pipes the output of `curl` or `wget` directly into a she
 
 5 achado(s); proposta da IA: 5 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0009 · proposta IA: FP
 
@@ -439,7 +440,7 @@ Mensagem: Using variable interpolation `${{...}}` with `github` context data in 
 
 2 achado(s); proposta da IA: 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0014 · proposta IA: NE
 
@@ -495,7 +496,7 @@ Mensagem: This .npmrc does not set a minimum release age or sets it too low. New
 
 3 achado(s); proposta da IA: 2 FP, 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0016 · proposta IA: FP
 
@@ -593,7 +594,7 @@ Mensagem: Detected a unquoted template variable as an attribute. If unquoted, a 
 
 5 achado(s); proposta da IA: 4 VP, 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0019 · proposta IA: VP
 
@@ -751,7 +752,7 @@ Mensagem: Directory listing/indexing is enabled, which may lead to disclosure of
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0024 · proposta IA: VP
 
@@ -789,7 +790,7 @@ Mensagem: The application redirects to a URL specified by user-supplied input `q
 
 4 achado(s); proposta da IA: 1 VP, 3 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0025 · proposta IA: VP
 
@@ -917,7 +918,7 @@ Mensagem: The application processes user-input, this is passed to res.sendFile w
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0029 · proposta IA: VP
 
@@ -955,7 +956,7 @@ Mensagem: It looks like 'toUrl' is read from user input and it is used to as a r
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0030 · proposta IA: VP
 
@@ -993,7 +994,7 @@ Mensagem: A hard-coded credential was detected. It is not recommended to store c
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0031 · proposta IA: VP
 
@@ -1022,8 +1023,9 @@ Mensagem: Cannot determine what 'subs' is and it is used with a '<script>' tag. 
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao:** NE
+**Motivo:** desafio desativado em container (disabledEnv: Docker); codigo segue o caminho seguro nas rodadas
+
 
 ---
 
@@ -1031,7 +1033,7 @@ Mensagem: Cannot determine what 'subs' is and it is used with a '<script>' tag. 
 
 5 achado(s); proposta da IA: 3 FP, 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0032 · proposta IA: FP
 
@@ -1189,7 +1191,7 @@ Mensagem: Resources in the AWS subnet are assigned a public IP address. Resource
 
 5 achado(s); proposta da IA: 3 FP, 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0037 · proposta IA: FP
 
@@ -1347,7 +1349,7 @@ Mensagem: Detected an AWS load balancer with an insecure TLS version. TLS versio
 
 7 achado(s); proposta da IA: 7 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0042 · proposta IA: NE
 
@@ -1561,7 +1563,7 @@ Mensagem: GitHub Actions step uses a mutable tag or branch reference. Tags and b
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0049 · proposta IA: NE
 
@@ -1591,7 +1593,7 @@ Resolucao sugerida pela ferramenta: Add HEALTHCHECK instruction in Dockerfile
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0050 · proposta IA: NE
 
@@ -1625,7 +1627,7 @@ Resolucao sugerida pela ferramenta: Add a tag to the image in the 'FROM' stateme
 
 10 achado(s); proposta da IA: 10 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0051 · proposta IA: VP
 
@@ -1803,7 +1805,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/jsonwebtoken/p
 
 5 achado(s); proposta da IA: 5 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0053 · proposta IA: VP
 
@@ -1896,7 +1898,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/sanitize-html/
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0054 · proposta IA: VP
 
@@ -1938,7 +1940,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/crypto-js/pack
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0055 · proposta IA: VP
 
@@ -1997,7 +1999,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/decompress/pac
 
 12 achado(s); proposta da IA: 12 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0056 · proposta IA: VP
 
@@ -2225,8 +2227,8 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/marsdb/package
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao: IND** 
+**Motivo: todas as versoes serem afetadas me deixa desconfiado** 
 
 ---
 
@@ -2234,7 +2236,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/marsdb/package
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0059 · proposta IA: VP
 
@@ -2276,7 +2278,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/jws/package.js
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0060 · proposta IA: VP
 
@@ -2335,7 +2337,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/express-jwt/no
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0062 · proposta IA: VP
 
@@ -2360,7 +2362,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/express-jwt/pa
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0067 · proposta IA: VP
 
@@ -2385,7 +2387,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/http-cache-sem
 
 9 achado(s); proposta da IA: 9 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0068 · proposta IA: VP
 
@@ -2546,7 +2548,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/sanitize-html/
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0069 · proposta IA: VP
 
@@ -2588,7 +2590,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/ws/package.jso
 
 11 achado(s); proposta da IA: 11 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0070 · proposta IA: VP
 
@@ -2783,7 +2785,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/multer/package
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0080 · proposta IA: VP
 
@@ -2842,7 +2844,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/replace/node_m
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0086 · proposta IA: VP
 
@@ -2901,7 +2903,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/socket.io-pars
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0090 · proposta IA: VP
 
@@ -2943,7 +2945,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/engine.io/pack
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0098 · proposta IA: VP
 
@@ -2985,7 +2987,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/base64url/pack
 
 20 achado(s); proposta da IA: 13 VP, 7 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0099 · proposta IA: NE
 
@@ -3333,7 +3335,7 @@ Como verificar: `docker cp triagem-alvo1:/var/lib/dpkg/status.d/libc6 - | tar -x
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0107 · proposta IA: VP
 
@@ -3358,7 +3360,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/engine.io/node
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0108 · proposta IA: VP
 
@@ -3383,7 +3385,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/messageformat/
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:**  ok
 
 ## T0109 · proposta IA: VP
 
@@ -3408,7 +3410,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/@tootallnate/o
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0115 · proposta IA: VP
 
@@ -3433,7 +3435,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/notevil/packag
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0122 · proposta IA: VP
 
@@ -3458,7 +3460,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/got/package.js
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0126 · proposta IA: VP
 
@@ -3483,7 +3485,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/socket.io/pack
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0131 · proposta IA: VP
 
@@ -3525,7 +3527,7 @@ Como verificar: `docker cp triagem-alvo1:/var/lib/dpkg/status.d/zlib1g - | tar -
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0133 · proposta IA: VP
 
@@ -3550,7 +3552,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/file-type/pack
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0135 · proposta IA: VP
 
@@ -3575,7 +3577,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/uuid/package.j
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0136 · proposta IA: VP
 
@@ -3600,7 +3602,7 @@ Como verificar: `docker cp triagem-alvo1:/juice-shop/node_modules/decode-uri-com
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0154 · proposta IA: VP
 
@@ -3680,7 +3682,7 @@ Arquivo: terraform/networking.tf
 
 2 achado(s); proposta da IA: 2 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0157 · proposta IA: FP
 
@@ -3736,7 +3738,7 @@ Arquivo: frontend/src/app/last-login-ip/last-login-ip.component.spec.ts
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0159 · proposta IA: VP
 
@@ -3792,8 +3794,8 @@ Informacao adicional: -
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao:** IND 
+**Motivo:** so apareceu em 1 rodada, possivel FP, vale uma segunda verificacao
 
 ---
 
@@ -3801,7 +3803,7 @@ Informacao adicional: -
 
 6 achado(s); proposta da IA: 6 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0161 · proposta IA: NE
 
@@ -3953,7 +3955,7 @@ Informacao adicional: -
 
 4 achado(s); proposta da IA: 4 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0167 · proposta IA: FP
 
@@ -4057,7 +4059,7 @@ Informacao adicional: 1666666667, which evaluates to: 2022-10-25 02:57:47.
 
 3 achado(s); proposta da IA: 2 VP, 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0171 · proposta IA: VP
 
@@ -4080,8 +4082,9 @@ Informacao adicional: -
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao:** NE
+**Motivo:** desafio desativado em container (disabledEnv: Docker); codigo segue o caminho seguro nas rodadas
+
 
 ## T0172 · proposta IA: FP
 
@@ -4104,8 +4107,8 @@ Informacao adicional: -
 
 </details>
 
-**Revisao:** 
-**Motivo:** 
+**Revisao:** IND
+**Motivo:** não deu para confirmar se o bypassSecurityTrustHtml recebe entrada do usuário
 
 ## T0173 · proposta IA: VP
 
@@ -4137,7 +4140,7 @@ Informacao adicional: -
 
 6 achado(s); proposta da IA: 6 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0174 · proposta IA: VP
 
@@ -4289,7 +4292,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0180 · proposta IA: NE
 
@@ -4322,7 +4325,7 @@ Note that alerts will only be raised once for each URL + key.
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0181 · proposta IA: FP
 
@@ -4355,7 +4358,7 @@ Informacao adicional: 192.168.99.100:3000
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0182 · proposta IA: FP
 
@@ -4387,7 +4390,7 @@ Informacao adicional: Raised with LOW confidence as the Content-Type is not HTML
 
 7 achado(s); proposta da IA: 7 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0183 · proposta IA: NE
 
@@ -4563,7 +4566,7 @@ Informacao adicional: -
 
 7 achado(s); proposta da IA: 7 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0184 · proposta IA: NE
 
@@ -4739,7 +4742,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0197 · proposta IA: NE
 
@@ -4771,7 +4774,7 @@ Informacao adicional: -
 
 8 achado(s); proposta da IA: 8 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0198 · proposta IA: VP
 
@@ -4971,7 +4974,7 @@ Informacao adicional: -
 
 31 achado(s); proposta da IA: 31 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0206 · proposta IA: FP
 
@@ -5723,7 +5726,7 @@ Informacao adicional: A backup of [http://localhost:3000/ftp/quarantine] is avai
 
 8 achado(s); proposta da IA: 8 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0237 · proposta IA: NE
 
@@ -5923,7 +5926,7 @@ Informacao adicional: The CORS misconfiguration on the web server permits cross-
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0245 · proposta IA: FP
 
@@ -5955,7 +5958,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0246 · proposta IA: VP
 
@@ -5991,7 +5994,7 @@ Signature: 2464d18798fd9691cb6823d3b768cabd23
 
 3 achado(s); proposta da IA: 3 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0247 · proposta IA: FP
 
@@ -6071,7 +6074,7 @@ Informacao adicional: Potential Integer Overflow. Status code changed on the inp
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0250 · proposta IA: NE
 
@@ -6103,7 +6106,7 @@ Informacao adicional: -
 
 6 achado(s); proposta da IA: 6 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0251 · proposta IA: FP
 
@@ -6255,7 +6258,7 @@ Informacao adicional: http://localhost:3000/ftp/suspicious_errors.yml
 
 9 achado(s); proposta da IA: 9 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0257 · proposta IA: NE
 
@@ -6479,7 +6482,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0266 · proposta IA: VP
 
@@ -6511,7 +6514,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0267 · proposta IA: VP
 
@@ -6553,7 +6556,7 @@ https://github.com/juice-shop/juice-shop
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0268 · proposta IA: VP
 
@@ -6585,7 +6588,7 @@ Informacao adicional: The response contains a redirect in its Location header wh
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0269 · proposta IA: VP
 
@@ -6641,7 +6644,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0271 · proposta IA: FP
 
@@ -6673,7 +6676,7 @@ Informacao adicional: The query time is controllable using parameter value [case
 
 3 achado(s); proposta da IA: 3 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0272 · proposta IA: FP
 
@@ -6753,7 +6756,7 @@ Informacao adicional: The output for the source code filename [../] differs suff
 
 4 achado(s); proposta da IA: 4 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0275 · proposta IA: FP
 
@@ -6881,7 +6884,7 @@ Mensagem: Detected calls to child_process from a function argument `executablePa
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0279 · proposta IA: VP
 
@@ -6949,7 +6952,7 @@ Mensagem: Unencrypted request over HTTP detected.
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0281 · proposta IA: NE
 
@@ -6987,7 +6990,7 @@ Mensagem: A `run:` step pipes the output of `curl` or `wget` directly into a she
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0282 · proposta IA: FP
 
@@ -7025,7 +7028,7 @@ Mensagem: `MinVersion` is missing from this TLS configuration.  By default, as o
 
 7 achado(s); proposta da IA: 7 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0283 · proposta IA: FP
 
@@ -7243,7 +7246,7 @@ Mensagem: Detected directly writing to a Response object from user-defined input
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0290 · proposta IA: FP
 
@@ -7281,7 +7284,7 @@ Mensagem: Cannot determine what 'escapedJSONObject' is and it is used with a '<s
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok 
 
 ## T0291 · proposta IA: NE
 
@@ -7319,7 +7322,7 @@ Mensagem: Checks for setting the environment variable NODE_TLS_REJECT_UNAUTHORIZ
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0292 · proposta IA: NE
 
@@ -7353,7 +7356,7 @@ Resolucao sugerida pela ferramenta: Use secret mount if secrets are needed durin
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0293 · proposta IA: NE
 
@@ -7387,7 +7390,7 @@ Resolucao sugerida pela ferramenta: Use WORKDIR to change directory
 
 34 achado(s); proposta da IA: 34 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0294 · proposta IA: VP
 
@@ -7973,7 +7976,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W chromium  e conferir o 
 
 47 achado(s); proposta da IA: 47 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0295 · proposta IA: VP
 
@@ -8780,7 +8783,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W chromium-common  e conf
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0298 · proposta IA: VP
 
@@ -8805,7 +8808,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libglx-mesa0  e conferi
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0299 · proposta IA: VP
 
@@ -8830,7 +8833,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W mariadb-common  e confe
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0300 · proposta IA: VP
 
@@ -8855,7 +8858,7 @@ Como verificar: `docker cp triagem-alvo2:/usr/local/lib/node_modules/npm/node_mo
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0304 · proposta IA: VP
 
@@ -8880,7 +8883,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W mariadb-server-core  e 
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0305 · proposta IA: VP
 
@@ -8905,7 +8908,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libncurses6  e conferir
 
 2 achado(s); proposta da IA: 2 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0313 · proposta IA: VP
 
@@ -8947,7 +8950,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W python3.11  e conferir 
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0322 · proposta IA: VP
 
@@ -9006,7 +9009,7 @@ Como verificar: `docker cp triagem-alvo2:/app/extra/healthcheck - | tar -xO | gr
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0326 · proposta IA: VP
 
@@ -9031,7 +9034,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libmount1  e conferir o
 
 2 achado(s); proposta da IA: 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0332 · proposta IA: NE
 
@@ -9073,7 +9076,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libnss3  e conferir o s
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0334 · proposta IA: NE
 
@@ -9098,7 +9101,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libkrb5support0  e conf
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0335 · proposta IA: NE
 
@@ -9123,7 +9126,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libudev1  e conferir o 
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0336 · proposta IA: NE
 
@@ -9148,7 +9151,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libsystemd0  e conferir
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0337 · proposta IA: VP
 
@@ -9173,7 +9176,7 @@ Como verificar: `docker exec triagem-alvo2 sh -c 'python3 -c "import certifi;pri
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0341 · proposta IA: NE
 
@@ -9198,7 +9201,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libkrb5-3  e conferir o
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0346 · proposta IA: VP
 
@@ -9223,7 +9226,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W python3.11-minimal  e c
 
 1 achado(s); proposta da IA: 1 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0347 · proposta IA: NE
 
@@ -9248,7 +9251,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W sysvinit-utils  e confe
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0348 · proposta IA: VP
 
@@ -9273,7 +9276,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W perl-modules-5.36  e co
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0351 · proposta IA: VP
 
@@ -9298,7 +9301,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libavahi-client3  e con
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0352 · proposta IA: VP
 
@@ -9323,7 +9326,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W libavahi-common3  e con
 
 1 achado(s); proposta da IA: 1 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0376 · proposta IA: VP
 
@@ -9348,7 +9351,7 @@ Como verificar: `docker exec triagem-alvo2 dpkg-query -W rsync  e conferir o sta
 
 7 achado(s); proposta da IA: 7 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0399 · proposta IA: VP
 
@@ -9531,7 +9534,7 @@ At "High" threshold this scan rule will not alert on client or server error resp
 
 4 achado(s); proposta da IA: 4 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0406 · proposta IA: NE
 
@@ -9635,7 +9638,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0410 · proposta IA: FP
 
@@ -9667,7 +9670,7 @@ Informacao adicional: -
 
 1 achado(s); proposta da IA: 1 FP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0411 · proposta IA: FP
 
@@ -9701,7 +9704,7 @@ Informacao adicional: 192.168.100.1
 
 6 achado(s); proposta da IA: 6 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0412 · proposta IA: NE
 
@@ -9853,7 +9856,7 @@ Informacao adicional: -
 
 2 achado(s); proposta da IA: 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0416 · proposta IA: NE
 
@@ -9909,7 +9912,7 @@ Informacao adicional: -
 
 2 achado(s); proposta da IA: 2 NE
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0417 · proposta IA: NE
 
@@ -9965,7 +9968,7 @@ Informacao adicional: -
 
 3 achado(s); proposta da IA: 3 VP
 
-**Revisao do grupo:** 
+**Revisao do grupo:** ok
 
 ## T0422 · proposta IA: VP
 
